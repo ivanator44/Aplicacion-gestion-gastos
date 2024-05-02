@@ -15,7 +15,7 @@
          <children>
             <ImageView fitHeight="262.0" fitWidth="254.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../CashControl.jpg" />
+                  <Image url="@../imagenes/logoIPC.png" />
                </image>
             </ImageView>
             <TextField fx:id="usuario" text="Nombre de usuario" />
