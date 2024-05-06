@@ -10,34 +10,29 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
-public class FXMLDocumentController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author ivana
+ */
+public class AutenticacionController implements Initializable {
 
     @FXML
-    private TextField usuario;
+    private TextField nombreTextField;
     @FXML
-    private TextField contraseña;
+    private PasswordField passwordField;
     @FXML
-    private Button loginOk;
-    @FXML
-    private Button salirApp;
-    @FXML
-    private Text dadaAlta;
-    
+    private Button autenticarButton;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        // TODO
     }    
-
-    @FXML
-    private void salir(MouseEvent event) {
-    }
-
-    @FXML
-    private void alta(MouseEvent event) {
-    }
     
 }
