@@ -7,12 +7,16 @@ package javafxmlapplication;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -37,6 +41,10 @@ public class RegistroController implements Initializable {
     private Button guardarButton;
     @FXML
     private Button cancelarButton;
+    @FXML
+    private ImageView avatar;
+    @FXML
+    private ComboBox<?> avatarComboBox;
 
     /**
      * Initializes the controller class.
@@ -45,5 +53,17 @@ public class RegistroController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void preguntaAutenticarFuncion(MouseEvent event) {
+    }
+
+    @FXML
+    private void guardar(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelar(ActionEvent event) {
+    }
     
 }

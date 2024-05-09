@@ -1,25 +1,3 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-    /*
-    .TextField{
-        position: relative;
-        width: 250px;
-    }
-    .TextField input{
-        width: 100%;
-        padding: 10px;
-        border: 1px solid rgba(255,255,255,0.25);
-        background: #1d2b3a;
-        border-radius: 5px;
-        outline: none;
-        color: blue;
-        font-size: 1em;
-    }
-    */
-    .TextField{
-        
-    }
+.backgroundcolor{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #589FF9);
 }

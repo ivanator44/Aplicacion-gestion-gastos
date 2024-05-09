@@ -1,7 +1,6 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-
+#buttonGasto{
+    -fx-background-color: linear-gradient(#0cea00,#0dc900);
+    -fx-background-radius:30;
+    -fx-background-insets:0;
+    -fx-text-fill:white;
 }

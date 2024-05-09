@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.RegistroController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Registro.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.RegistroController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="600.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="600.0" styleClass="backgroundcolor" stylesheets="@../css/Registro.css">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
                <font>
@@ -31,7 +31,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="264.0" prefWidth="600.0" spacing="15.0">
          <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="232.0" prefWidth="343.0" spacing="15.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="232.0" prefWidth="343.0" spacing="10.0">
                <padding>
                   <Insets left="20.0" />
                </padding>
@@ -61,33 +61,33 @@
                         <Insets right="100.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Label fx:id="preguntaTextField" text="¿Ya tienes una cuenta? Autenticar" />
+                  <Label fx:id="preguntaTextField" onMouseClicked="#preguntaAutenticarFuncion" stylesheets="@../css/Registro.css" text="¿Ya tienes una cuenta? Autenticar" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ComboBox prefWidth="150.0" />
+                  <ImageView fx:id="avatar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ComboBox fx:id="avatarComboBox" prefWidth="150.0" />
                </children>
             </VBox>
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="63.0" prefWidth="600.0" spacing="20.0">
          <children>
-            <Button fx:id="guardarButton" mnemonicParsing="false" text="Guardar">
+            <Button fx:id="guardarButton" mnemonicParsing="false" onAction="#guardar" text="Guardar">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="cancelarButton" mnemonicParsing="false" text="Cancelar">
+            <Button fx:id="cancelarButton" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font size="14.0" />
                </font>
             </Button>
          </children>
