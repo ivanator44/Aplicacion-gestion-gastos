@@ -15,6 +15,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 
 public class AutenticacionController implements Initializable {
@@ -31,10 +32,13 @@ public class AutenticacionController implements Initializable {
     private Button entrarButton;
     @FXML
     private Hyperlink registrarseHL;
+    @FXML
+    private PasswordField passwordfield;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        nicknameErrText.setOpacity(0);
+        passwordErrText.setOpacity(0);
     }    
 
     @FXML
@@ -42,6 +46,6 @@ public class AutenticacionController implements Initializable {
     }
 
     @FXML
-    private void hyperlinkFuncion(ActionEvent event) {
+    private void hyperlinkFuncion(MouseEvent event) {
     } 
 }

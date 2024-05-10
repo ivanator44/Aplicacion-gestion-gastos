@@ -15,13 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import model.Acount;
 
 /**
  * FXML Controller class
@@ -33,6 +31,7 @@ public class RegistroController implements Initializable {
     private BooleanProperty validPassword;
     private BooleanProperty validEmail;
     private BooleanProperty equalPasswords;  
+    private Acount nueva;
 
     @FXML
     private TextField nombreTextField;
@@ -98,12 +97,14 @@ public class RegistroController implements Initializable {
 
     @FXML
     private void registrar(ActionEvent event) {
-        
+        if (validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
+            
+        }
     }
 
     @FXML
     private void hyperlinkFuncion(ActionEvent event) {
-        
+        JavaFXMLApplication.setRoot("Registro.fxml");
     }
     
     // Métodos para comprobar que los campos son correctos
