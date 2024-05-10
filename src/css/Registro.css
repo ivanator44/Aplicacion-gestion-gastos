@@ -1,3 +1,15 @@
-.backgroundcolor{
-    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #589FF9);
+.color_morado{
+    -fx-background-color: #7c00bf;
+}
+
+.linearGradient_blanco_azul{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #5b9ff6);
+}
+
+.linearGradient_blanco_verde{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #8ff39b);
+}
+
+.linearGradient_verde_azul{
+    -fx-background-color: linear-gradient(to right bottom, #8ff39b, #5b9ff6);
 }

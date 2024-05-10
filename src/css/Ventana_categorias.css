@@ -1,7 +1,18 @@
-/*
- * Empty Stylesheet file.
- */
+.linearGradient_blanco_azul{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #5b9ff6);
+}
 
-.mainFxmlClass {
+.linearGradient_blanco_verde{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #8ff39b);
+}
 
+.linearGradient_verde_azul{
+    -fx-background-color: linear-gradient(to right bottom, #8ff39b, #5b9ff6);
+}
+
+#button_verde{
+    -fx-background-color: linear-gradient(#0cea00,#0dc900);
+    -fx-background-radius:30;
+    -fx-background-insets:0;
+    -fx-text-fill:white;
 }

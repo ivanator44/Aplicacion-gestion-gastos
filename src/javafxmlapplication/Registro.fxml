@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -15,22 +14,22 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Registro.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="400.0">
          <children>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#8ff39b" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
+                  <Text fill="#7c00bf" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
                   </Text>
                </children>
             </HBox>
-            <HBox prefHeight="69.0" prefWidth="400.0">
+            <HBox alignment="CENTER" prefHeight="131.0" prefWidth="400.0" spacing="15.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="69.0" prefWidth="400.0">
+                  <VBox prefHeight="131.0" prefWidth="200.0">
                      <children>
                         <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
                            <children>
@@ -38,22 +37,39 @@
                               <TextField fx:id="nicknameTextField" promptText="Tu nombre" />
                            </children>
                         </VBox>
+                        <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                           <children>
+                              <Label text="Nickname" textFill="#4b7650" />
+                              <TextField fx:id="nicknameTextField1" promptText="Tu nuevo nickname" />
+                              <Label fx:id="nicknameErrText1" text="¡Este nickname ya está en uso!" textFill="RED" />
+                           </children>
+                        </VBox>
                      </children>
-                  </HBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="400.0">
-               <children>
-                  <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="200.0" spacing="2.0">
                      <children>
-                        <Label text="Nickname" textFill="#4b7650" />
-                        <TextField fx:id="nicknameTextField1" promptText="Tu nuevo nickname" />
-                        <Label fx:id="nicknameErrText1" text="¡Este nickname ya está en uso!" textFill="RED" />
+                        <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                           <children>
+                              <Label text="Contraseña" textFill="#4b7650" />
+                              <PasswordField promptText="NumerosLetrasSimbolos" />
+                              <Label fx:id="nicknameErrText3" prefHeight="24.0" prefWidth="173.0" text="¡La contraseña no es correcta!" textFill="RED" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                           <children>
+                              <Label text="Repetir contraseña" textFill="#4b7650" />
+                              <PasswordField promptText="NumerosLetrasSimbolos" />
+                              <Label fx:id="nicknameErrText31" prefHeight="31.0" prefWidth="250.0" text="¡Las contraseñas no coinciden!" textFill="RED" />
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="400.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="400.0">
                <children>
                   <VBox prefHeight="74.0" prefWidth="250.0" spacing="2.0">
                      <children>
@@ -63,19 +79,14 @@
                      </children>
                   </VBox>
                </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="400.0">
-               <children>
-                  <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
-                     <children>
-                        <Label text="Contraseña" textFill="#4b7650" />
-                        <PasswordField promptText="NumerosLetrasSimbolos" />
-                        <Label fx:id="nicknameErrText3" prefHeight="31.0" prefWidth="250.0" text="¡Incorrecto! Debe ser una combinacion de 8 a 15 números, letras y símbolos..." textFill="RED" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <VBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="400.0">
+            <VBox alignment="TOP_CENTER" prefHeight="82.0" prefWidth="400.0">
                <children>
                   <Button fx:id="entrarButton" mnemonicParsing="false" onAction="#entrar" prefHeight="41.0" prefWidth="258.0" style="-fx-background-color: #7c00bf;" text="Registrar" textFill="WHITE">
                      <font>
@@ -95,15 +106,12 @@
             </VBox>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" styleClass="linearGradient_blanco_verde" stylesheets="@../../../../Practicas/IPC_FXMLCore-master/src/javafxmlapplication/fxml.css">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" styleClass="color_morado" stylesheets="@../css/Registro.css">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../imagenes/usuario.png" />
                </image>
-               <effect>
-                  <DropShadow height="4.62" radius="2.395" width="6.96" />
-               </effect>
             </ImageView>
             <ComboBox prefHeight="26.0" prefWidth="39.0" />
          </children>

@@ -60,9 +60,9 @@
                             <TableColumn prefWidth="87.20001524686813" text="Fecha" />
                             <TableColumn prefWidth="80.79998779296875" text="Valor" />
                               <TableColumn prefWidth="115.99998474121094" text="Nombre del gasto" />
-                              <TableColumn prefWidth="86.4000244140625" text="Categoría" />
-                              <TableColumn prefWidth="24.800048828125" />
-                              <TableColumn prefWidth="61.5999755859375" text="Recibo" />
+                              <TableColumn prefWidth="69.60003662109375" text="Categoría" />
+                              <TableColumn prefWidth="47.20001220703125" text="Uds." />
+                              <TableColumn prefWidth="57.5999755859375" text="Recibo" />
                           </columns>
                         </TableView>
                      </children>

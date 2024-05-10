@@ -60,6 +60,7 @@ public class RegistroController implements Initializable {
 
     @FXML
     private void guardar(ActionEvent event) {
+        
     }
 
     @FXML
