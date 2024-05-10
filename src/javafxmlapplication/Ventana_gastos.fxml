@@ -45,7 +45,7 @@
                         <Label fx:id="numeroGastos" prefHeight="18.0" prefWidth="248.0" text="Número de gastos:" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="310.0">
                            <children>
-                              <Button id="buttonGasto" fx:id="añadirGastoButton" mnemonicParsing="false" onAction="#añadirGasto" stylesheets="@../css/Ventana_gastos.css" text="+ Añadir gasto">
+                              <Button id="button_verde" fx:id="añadirGastoButton" mnemonicParsing="false" onAction="#añadirGasto" stylesheets="@../css/Ventana_gastos.css" text="+ Añadir gasto">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>

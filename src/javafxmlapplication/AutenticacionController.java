@@ -11,38 +11,37 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-/**
- * FXML Controller class
- *
- * @author ivana
- */
+
 public class AutenticacionController implements Initializable {
 
     @FXML
-    private PasswordField passwordField;
-    @FXML
-    private Button autenticarButton;
-    @FXML
     private TextField nicknameTextField;
     @FXML
-    private Label nickErrText;
+    private Label nicknameErrText;
+    @FXML
+    private TextField passwordField;
     @FXML
     private Label passwordErrText;
+    @FXML
+    private Button entrarButton;
+    @FXML
+    private Hyperlink registrarseHL;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     @FXML
-    private void autenticar(ActionEvent event) {
+    private void entrar(ActionEvent event) {
     }
-    
+
+    @FXML
+    private void hyperlinkFuncion(ActionEvent event) {
+    } 
 }
