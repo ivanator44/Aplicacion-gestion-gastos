@@ -14,11 +14,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Registro.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Registro.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.RegistroController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="400.0">
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="500.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="400.0">
                <children>
                   <Text fill="#7c00bf" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
                      <font>
@@ -27,39 +27,54 @@
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="131.0" prefWidth="400.0" spacing="15.0">
+            <HBox alignment="CENTER" prefHeight="234.0" prefWidth="450.0" spacing="15.0">
                <children>
-                  <VBox prefHeight="131.0" prefWidth="200.0">
+                  <VBox prefHeight="131.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                        <VBox spacing="2.0">
                            <children>
-                              <Label text="Nombre" textFill="#4b7650" />
-                              <TextField fx:id="nicknameTextField" promptText="Tu nombre" />
+                              <Label text="Nombre*" textFill="#4b7650" />
+                              <TextField fx:id="nombreTextField" promptText="Tu nombre" />
+                              <Label fx:id="nombreErrText" text="¡Falta el nombre!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                        <VBox spacing="2.0">
                            <children>
-                              <Label text="Nickname" textFill="#4b7650" />
-                              <TextField fx:id="nicknameTextField1" promptText="Tu nuevo nickname" />
-                              <Label fx:id="nicknameErrText1" text="¡Este nickname ya está en uso!" textFill="RED" />
+                              <Label text="Nickname*" textFill="#4b7650" />
+                              <TextField fx:id="nicknameTextField" promptText="Tu nuevo nickname" />
+                              <Label fx:id="nicknameErrText" text="¡Este nickname ya está en uso!" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label text="Correo electrónico" textFill="#4b7650" />
+                              <TextField fx:id="emailTextField" promptText="tuCorreo@dominio.com" />
+                              <Label fx:id="emailErrText" text="¡Correo incorrecto!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="200.0" spacing="2.0">
+                  <VBox prefHeight="200.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                        <VBox spacing="2.0">
                            <children>
-                              <Label text="Contraseña" textFill="#4b7650" />
-                              <PasswordField promptText="NumerosLetrasSimbolos" />
-                              <Label fx:id="nicknameErrText3" prefHeight="24.0" prefWidth="173.0" text="¡La contraseña no es correcta!" textFill="RED" />
+                              <Label text="Apellido" textFill="#4b7650" />
+                              <TextField fx:id="apellidoTextField" promptText="Tu apellido" />
+                              <Label text="Label" visible="false" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="75.0" prefWidth="250.0" spacing="2.0">
+                        <VBox spacing="2.0">
                            <children>
-                              <Label text="Repetir contraseña" textFill="#4b7650" />
-                              <PasswordField promptText="NumerosLetrasSimbolos" />
-                              <Label fx:id="nicknameErrText31" prefHeight="31.0" prefWidth="250.0" text="¡Las contraseñas no coinciden!" textFill="RED" />
+                              <Label text="Contraseña*" textFill="#4b7650" />
+                              <PasswordField fx:id="passwordField" promptText="NumerosLetrasSimbolos" />
+                              <Label fx:id="passwordErrText" text="¡La contraseña no es correcta!" textFill="RED" visible="false" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label text="Repetir contraseña*" textFill="#4b7650" />
+                              <PasswordField fx:id="passwordRepField" promptText="NumerosLetrasSimbolos" />
+                              <Label fx:id="passwordRepErrText" text="¡Las contraseñas no coinciden!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                      </children>
@@ -69,26 +84,9 @@
                   <Insets left="20.0" right="20.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="400.0">
-               <children>
-                  <VBox prefHeight="74.0" prefWidth="250.0" spacing="2.0">
-                     <children>
-                        <Label text="Correo electrónico" textFill="#4b7650" />
-                        <TextField fx:id="nicknameTextField2" promptText="tuCorreo@dominio.com" />
-                        <Label fx:id="nicknameErrText2" text="¡Correo incorrecto!" textFill="RED" />
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
             <VBox alignment="TOP_CENTER" prefHeight="82.0" prefWidth="400.0">
                <children>
-                  <Button fx:id="entrarButton" mnemonicParsing="false" onAction="#entrar" prefHeight="41.0" prefWidth="258.0" style="-fx-background-color: #7c00bf;" text="Registrar" textFill="WHITE">
+                  <Button fx:id="registrarButton" mnemonicParsing="false" onAction="#registrar" prefHeight="41.0" prefWidth="258.0" style="-fx-background-color: #7c00bf;" text="Registrar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -96,7 +94,7 @@
                   <HBox alignment="TOP_CENTER" prefHeight="53.0" prefWidth="400.0">
                      <children>
                         <Label prefHeight="23.0" prefWidth="126.0" text="¿Ya tienes una cuenta?" />
-                        <Hyperlink fx:id="registrarseHL" onAction="#hyperlinkFuncion" prefHeight="24.0" prefWidth="85.0" text="Iniciar sesión" />
+                        <Hyperlink fx:id="hyperlink" onAction="#hyperlinkFuncion" prefHeight="24.0" prefWidth="85.0" text="Iniciar sesión" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -106,15 +104,26 @@
             </VBox>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" styleClass="color_morado" stylesheets="@../css/Registro.css">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" styleClass="color_morado" stylesheets="@../css/Registro.css">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <Label text="Avatar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="131.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../imagenes/usuario.png" />
                </image>
             </ImageView>
-            <ComboBox prefHeight="26.0" prefWidth="39.0" />
+            <ComboBox prefHeight="26.0" prefWidth="37.0" promptText="..." />
          </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets top="90.0" />
+         </padding>
       </VBox>
    </children>
 </HBox>
