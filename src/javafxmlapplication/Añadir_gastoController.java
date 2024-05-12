@@ -7,7 +7,13 @@ package javafxmlapplication;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -16,6 +22,19 @@ import javafx.fxml.Initializable;
  */
 public class Añadir_gastoController implements Initializable {
 
+    @FXML
+    private TextField nombreGastoTextField;
+    @FXML
+    private DatePicker fechaGastoTextField;
+    @FXML
+    private ComboBox<?> categoriaCB;
+    @FXML
+    private TextField costeTextField;
+    @FXML
+    private TextField descripcionTextField;
+    @FXML
+    private ImageView imagenFactura;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +42,9 @@ public class Añadir_gastoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void subirFactura(MouseEvent event) {
+    }
     
 }

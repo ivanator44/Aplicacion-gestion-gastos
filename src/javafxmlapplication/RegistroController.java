@@ -5,6 +5,9 @@
  */
 package javafxmlapplication;
 
+import static extras.Utils.checkEmail;
+import static extras.Utils.checkPassword;
+import static extras.Utils.checkPasswordRep;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -31,6 +34,7 @@ public class RegistroController implements Initializable {
     private BooleanProperty validPassword;
     private BooleanProperty validEmail;
     private BooleanProperty equalPasswords;  
+    private BooleanProperty validName;  
     private Acount nueva;
 
     @FXML
@@ -64,11 +68,13 @@ public class RegistroController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        validName = new SimpleBooleanProperty();
         validNickname = new SimpleBooleanProperty();
         validEmail = new SimpleBooleanProperty();
         validPassword = new SimpleBooleanProperty();   
         equalPasswords = new SimpleBooleanProperty();
         
+        validName.setValue(Boolean.FALSE);
         validNickname.setValue(Boolean.FALSE);
         validPassword.setValue(Boolean.FALSE);
         validEmail.setValue(Boolean.FALSE);
@@ -95,11 +101,13 @@ public class RegistroController implements Initializable {
         });
     }    
 
+    // Función del botón de registrar
     @FXML
     private void registrar(ActionEvent event) {
-        if (validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
+        JavaFXMLApplication.setRoot("Autenticacion");
+        /*if (validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
             
-        }
+        }*/
     }
 
     @FXML
@@ -107,41 +115,32 @@ public class RegistroController implements Initializable {
         JavaFXMLApplication.setRoot("Registro.fxml");
     }
     
-    // Métodos para comprobar que los campos son correctos
-    public static  Boolean checkEmail (String email)
-    {   if(email == null){
-          return false; 
+    //-----------------------------------------------
+    
+    private void checkEditEmail(){
+        if (!checkEmail(emailTextField.textProperty().getValueSafe())){
+            manageError(emailErrText, emailTextField, validEmail);
+        }else{
+            manageCorrect(emailErrText, emailTextField, validEmail);
         }
-       // Regex to check valid email. 
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        // Compile the ReGex 
-        Pattern pattern = Pattern.compile(regex);
-        // Match ReGex with value to check
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
     
-    public static Boolean checkPassword(String password){     
-  
-        // If the password is empty , return false 
-        if (password == null) { return false; } 
-        // Caracterñiasticas de la contraseña 
-        String regex = "^[A-Za-z0-9]{8,15}$"; 
-        // Compilar reGex 
-        Pattern pattern = Pattern.compile(regex); 
-        // Match ReGex with value to check
-        Matcher matcher = pattern.matcher(password); 
-        return matcher.matches();
-    }   
+    private void checkEditPassword(){
+        if (!checkPassword(passwordField.textProperty().getValueSafe())){
+            manageError(passwordErrText, passwordField, validPassword);
+        }else{
+            manageCorrect(passwordErrText, passwordField, validPassword);
+        }
+    }
     
-    public static Boolean checkPasswordRep(String password, String passwordRep){     
-  
-        // If the password is empty , return false 
-        if (password == null) { 
-            return false; 
-        } 
-        return password.equals(passwordRep);
-    } 
+    private void checkEditPasswordRep(){
+        if (!checkPasswordRep(passwordRepField.textProperty().getValueSafe(), 
+                passwordField.textProperty().getValueSafe())){
+            manageError(passwordRepErrText, passwordRepField, equalPasswords);
+        }else{
+            manageCorrect(passwordRepErrText, passwordRepField, equalPasswords);
+        }
+    }
     
     //------------------------------------------
     
@@ -192,32 +191,5 @@ public class RegistroController implements Initializable {
     private void hideErrorMessage(Label errorLabel,TextField textField){
         errorLabel.visibleProperty().set(false);
         textField.styleProperty().setValue("");
-    }
-    
-    //-----------------------------------------------
-    
-    private void checkEditEmail(){
-        if (!checkEmail(emailTextField.textProperty().getValueSafe())){
-            manageError(emailErrText, emailTextField, validEmail);
-        }else{
-            manageCorrect(emailErrText, emailTextField, validEmail);
-        }
-    }
-    
-    private void checkEditPassword(){
-        if (!checkPassword(passwordField.textProperty().getValueSafe())){
-            manageError(passwordErrText, passwordField, validPassword);
-        }else{
-            manageCorrect(passwordErrText, passwordField, validPassword);
-        }
-    }
-    
-    private void checkEditPasswordRep(){
-        if (!checkPasswordRep(passwordRepField.textProperty().getValueSafe(), 
-                passwordField.textProperty().getValueSafe())){
-            manageError(passwordRepErrText, passwordRepField, equalPasswords);
-        }else{
-            manageCorrect(passwordRepErrText, passwordRepField, equalPasswords);
-        }
     }
 }

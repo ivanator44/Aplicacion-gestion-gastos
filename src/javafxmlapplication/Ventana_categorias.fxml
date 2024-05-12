@@ -47,7 +47,7 @@
                   </HBox>
                   <HBox prefHeight="259.0" prefWidth="487.0">
                      <children>
-                        <ListView fx:id="categoriasListView" prefHeight="259.0" prefWidth="459.0" />
+                        <ListView fx:id="categoriasListView" onMouseClicked="#seleccionarCategoria" prefHeight="259.0" prefWidth="459.0" />
                      </children>
                   </HBox>
                </children>
@@ -86,8 +86,11 @@
                   </HBox>
                   <VBox prefHeight="276.0" prefWidth="114.0" spacing="5.0">
                      <children>
-                        <Button fx:id="añadirGastoButton" mnemonicParsing="false" onAction="#añadirGasto" prefHeight="26.0" prefWidth="116.0" text="Nueva categoría" />
-                        <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#modificar" prefHeight="17.0" prefWidth="108.0" text="Modificar categoría" />
+                        <Button fx:id="añadirButton" mnemonicParsing="false" onAction="#añadir" prefHeight="26.0" prefWidth="116.0" text="Nueva categoría" />
+                        <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#modificar" prefHeight="26.0" prefWidth="108.0" text="Modificar categoría" wrapText="true">
+                           <font>
+                              <Font size="10.0" />
+                           </font></Button>
                         <Button fx:id="borrarButton" mnemonicParsing="false" onAction="#borrar" prefHeight="26.0" prefWidth="114.0" text="Borrar categoría" />
                      </children>
                      <padding>

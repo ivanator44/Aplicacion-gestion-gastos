@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -16,38 +17,49 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Registro.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.RegistroController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="500.0">
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="500.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="400.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="400.0">
                <children>
-                  <Text fill="#7c00bf" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
                   </Text>
+                  <ImageView fitHeight="63.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/logoIPC-icono.png" />
+                     </image>
+                  </ImageView>
                </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="234.0" prefWidth="450.0" spacing="15.0">
+            <HBox alignment="CENTER" prefHeight="198.0" prefWidth="450.0" spacing="15.0">
                <children>
                   <VBox prefHeight="131.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Nombre*" textFill="#4b7650" />
-                              <TextField fx:id="nombreTextField" promptText="Tu nombre" />
+                              <Label text="Nombre*" />
+                              <TextField fx:id="nombreTextField" promptText="Tu nombre">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin></TextField>
                               <Label fx:id="nombreErrText" text="¡Falta el nombre!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Nickname*" textFill="#4b7650" />
+                              <Label text="Nickname*" />
                               <TextField fx:id="nicknameTextField" promptText="Tu nuevo nickname" />
                               <Label fx:id="nicknameErrText" text="¡Este nickname ya está en uso!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Correo electrónico" textFill="#4b7650" />
+                              <Label text="Correo electrónico" />
                               <TextField fx:id="emailTextField" promptText="tuCorreo@dominio.com" />
                               <Label fx:id="emailErrText" text="¡Correo incorrecto!" textFill="RED" visible="false" />
                            </children>
@@ -58,21 +70,21 @@
                      <children>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Apellido" textFill="#4b7650" />
+                              <Label text="Apellido" />
                               <TextField fx:id="apellidoTextField" promptText="Tu apellido" />
                               <Label text="Label" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Contraseña*" textFill="#4b7650" />
+                              <Label text="Contraseña*" />
                               <PasswordField fx:id="passwordField" promptText="NumerosLetrasSimbolos" />
                               <Label fx:id="passwordErrText" text="¡La contraseña no es correcta!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Repetir contraseña*" textFill="#4b7650" />
+                              <Label text="Repetir contraseña*" />
                               <PasswordField fx:id="passwordRepField" promptText="NumerosLetrasSimbolos" />
                               <Label fx:id="passwordRepErrText" text="¡Las contraseñas no coinciden!" textFill="RED" visible="false" />
                            </children>
@@ -81,30 +93,39 @@
                   </VBox>
                </children>
                <padding>
-                  <Insets left="20.0" right="20.0" />
+                  <Insets left="20.0" right="20.0" top="10.0" />
                </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
-            <VBox alignment="TOP_CENTER" prefHeight="82.0" prefWidth="400.0">
+            <VBox alignment="TOP_RIGHT" prefHeight="82.0" prefWidth="400.0" spacing="2.0">
                <children>
-                  <Button fx:id="registrarButton" mnemonicParsing="false" onAction="#registrar" prefHeight="41.0" prefWidth="258.0" style="-fx-background-color: #7c00bf;" text="Registrar" textFill="WHITE">
+                  <Button fx:id="registrarButton" mnemonicParsing="false" onAction="#registrar" prefHeight="30.0" prefWidth="122.0" styleClass="linearGradient_verde_azul" stylesheets="@../css/Registro.css" text="Registrar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <HBox alignment="TOP_CENTER" prefHeight="53.0" prefWidth="400.0">
+                  <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="476.0">
                      <children>
-                        <Label prefHeight="23.0" prefWidth="126.0" text="¿Ya tienes una cuenta?" />
-                        <Hyperlink fx:id="hyperlink" onAction="#hyperlinkFuncion" prefHeight="24.0" prefWidth="85.0" text="Iniciar sesión" />
+                        <Label prefHeight="23.0" prefWidth="121.0" text="¿Ya tienes una cuenta?" />
+                        <Hyperlink fx:id="hyperlink" onAction="#hyperlinkFuncion" prefHeight="24.0" prefWidth="77.0" text="Iniciar sesión" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
                      </padding>
                   </HBox>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets right="20.0" top="10.0" />
+               </padding>
             </VBox>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" styleClass="color_morado" stylesheets="@../css/Registro.css">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" styleClass="linearGradient_verde_azul" stylesheets="@../css/Registro.css">
          <children>
             <Label text="Avatar" textFill="WHITE">
                <font>
@@ -115,6 +136,9 @@
                <image>
                   <Image url="@../imagenes/usuario.png" />
                </image>
+               <effect>
+                  <DropShadow height="2.28" radius="0.6399999999999999" width="2.28" />
+               </effect>
             </ImageView>
             <ComboBox prefHeight="26.0" prefWidth="37.0" promptText="..." />
          </children>

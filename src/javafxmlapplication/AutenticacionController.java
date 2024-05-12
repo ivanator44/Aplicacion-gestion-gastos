@@ -43,6 +43,7 @@ public class AutenticacionController implements Initializable {
 
     @FXML
     private void entrar(ActionEvent event) {
+        JavaFXMLApplication.setRoot("Ventana_categorias");
     }
 
     @FXML

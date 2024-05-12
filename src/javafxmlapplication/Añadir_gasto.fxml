@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.Añadir_gastoController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="73.0" prefWidth="350.0" spacing="10.0" styleClass="color_gris" stylesheets="@../css/Añadir_gasto.css">
+         <children>
+            <ImageView fitHeight="49.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imagenes/factura.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER_LEFT" prefHeight="87.0" prefWidth="298.0" spacing="2.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Añadir nuevo gasto">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Label text="Rellena el formulario con los detalles del gasto" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <VBox />
+      <HBox prefHeight="22.0" prefWidth="350.0" spacing="20.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="175.0">
+               <children>
+                  <Label text="Título:" />
+                  <TextField fx:id="nombreGastoTextField" promptText="Nombre del gasto" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="175.0">
+               <children>
+                  <Label text="Fecha del gasto:" />
+                  <DatePicker fx:id="fechaGastoTextField" promptText="Selcciona una fecha" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="443.0" prefWidth="350.0" spacing="20.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label text="Categoría:" />
+                        <ComboBox fx:id="categoriaCB" prefWidth="150.0" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="Coste:" />
+                        <TextField fx:id="costeTextField" promptText="Total gastado (€)" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="Descripción:" />
+                        <TextField fx:id="descripcionTextField" alignment="TOP_LEFT" prefHeight="58.0" prefWidth="175.0" promptText="Breve descripción" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="175.0">
+               <children>
+                  <ImageView fx:id="imagenFactura" fitHeight="110.0" fitWidth="109.0" onMouseClicked="#subirFactura" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/añadir_recibo.png" />
+                     </image>
+                  </ImageView>
+                  <Label onMouseClicked="#subirFactura" prefHeight="34.0" prefWidth="111.0" text="Pulse aquí para subir factura" textAlignment="CENTER" wrapText="true" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="10.0" right="20.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>
