@@ -5,17 +5,21 @@
  */
 package javafxmlapplication;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.Acount;
+import model.AcountDAOException;
 
 
 public class AutenticacionController implements Initializable {
@@ -32,8 +36,6 @@ public class AutenticacionController implements Initializable {
     private Button entrarButton;
     @FXML
     private Hyperlink registrarseHL;
-    @FXML
-    private PasswordField passwordfield;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,11 +44,24 @@ public class AutenticacionController implements Initializable {
     }    
 
     @FXML
-    private void entrar(ActionEvent event) {
-        JavaFXMLApplication.setRoot("Ventana_categorias");
+    private void entrar(ActionEvent event) throws AcountDAOException, IOException {
+        Acount cuenta = Acount.getInstance();
+        if (cuenta.logInUserByCredentials(nicknameTextField.getText(), passwordField.getText())){
+            JavaFXMLApplication.setRoot("Ventana_categorias");
+        }
+        else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setHeaderText("Datos incorrectos");
+            alert.setContentText("Por favor, revise que ha introducido la información correcta antes de proseguir");
+            nicknameTextField.setText("");
+            passwordField.setText("");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void hyperlinkFuncion(MouseEvent event) {
+        JavaFXMLApplication.setRoot("Registro");
     } 
+
 }
