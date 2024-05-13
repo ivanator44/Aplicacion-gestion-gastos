@@ -8,7 +8,9 @@ package javafxmlapplication;
 import static extras.Utils.checkEmail;
 import static extras.Utils.checkPassword;
 import static extras.Utils.checkPasswordRep;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,11 +20,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import model.Acount;
+import model.AcountDAOException;
 
 /**
  * FXML Controller class
@@ -63,6 +68,10 @@ public class RegistroController implements Initializable {
     private Label passwordRepErrText;
     @FXML
     private Hyperlink hyperlink;
+    @FXML
+    private ImageView avatarImageView;
+    @FXML
+    private ComboBox<String> imagenesComboBox;
     
     
     @Override
@@ -99,15 +108,24 @@ public class RegistroController implements Initializable {
                 checkEditPasswordRep();
             }
         });
+        
+        imagenesComboBox.getItems().addAll("/Libraries/avatars/default.png", "");
     }    
 
     // Función del botón de registrar
     @FXML
-    private void registrar(ActionEvent event) {
+    private void registrar(ActionEvent event) throws AcountDAOException, IOException {
         JavaFXMLApplication.setRoot("Autenticacion");
-        /*if (validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
-            
-        }*/
+        if (validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
+            Acount cuenta = Acount.getInstance();
+            String nombre = nombreTextField.getText();
+            String apellido = apellidoTextField.getText();
+            String email = emailTextField.getText();
+            String login = emailTextField.getText(); // Nickname
+            String contraseña = passwordField.getText(); // Nickname
+            //Image avatar = ima
+            //cuenta.registerUser(nombre, apellido, email, login, contraseña, image, LocalDate.MAX);
+        }
     }
 
     @FXML

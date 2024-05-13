@@ -132,7 +132,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <ImageView fitHeight="131.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="avatarImageView" fitHeight="131.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../imagenes/usuario.png" />
                </image>
@@ -140,7 +140,7 @@
                   <DropShadow height="2.28" radius="0.6399999999999999" width="2.28" />
                </effect>
             </ImageView>
-            <ComboBox prefHeight="26.0" prefWidth="37.0" promptText="..." />
+            <ComboBox fx:id="imagenesComboBox" prefHeight="26.0" prefWidth="37.0" promptText="..." />
          </children>
          <HBox.margin>
             <Insets />
