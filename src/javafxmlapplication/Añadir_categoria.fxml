@@ -49,7 +49,7 @@
                </children>
             </HBox>
             <VBox alignment="CENTER_LEFT" prefWidth="150.0" />
-            <Label layoutX="25.0" layoutY="30.0" text="Nombre de la categoría" />
+            <Label layoutX="44.0" layoutY="14.0" text="Nombre de la categoría" />
             <VBox alignment="CENTER_LEFT" />
             <TextField layoutX="25.0" layoutY="48.0" />
             <Label layoutX="33.0" layoutY="95.0" text="Descrpción" />
