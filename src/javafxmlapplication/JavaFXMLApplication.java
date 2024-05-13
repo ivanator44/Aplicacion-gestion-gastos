@@ -33,9 +33,7 @@ public class JavaFXMLApplication extends Application {
         FXMLLoader loader;
         Parent  root;
         
-        loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
-        root = loader.load();
-        roots.put("Autenticacion", root);
+        
         loader = new  FXMLLoader(getClass().getResource("Añadir_categoria.fxml"));
         root = loader.load();
         roots.put("Añadir_categoria", root);
@@ -53,7 +51,9 @@ public class JavaFXMLApplication extends Application {
         roots.put("Ventana_gastos", root);
         loader = new  FXMLLoader(getClass().getResource("Registro.fxml"));
         root = loader.load();
-        roots.put("Registro", root);
+        roots.put("Registro", root);loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
+        root = loader.load();
+        roots.put("Autenticacion", root);
         
         scene = new Scene(root);
 
