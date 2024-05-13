@@ -109,7 +109,7 @@ public class RegistroController implements Initializable {
             }
         });
         
-        imagenesComboBox.getItems().addAll("/Libraries/avatars/default.png", "");
+        imagenesComboBox.getItems().addAll("/avatares/hombre (1).png");
     }    
 
     // Función del botón de registrar

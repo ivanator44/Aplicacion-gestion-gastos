@@ -32,8 +32,7 @@ public class JavaFXMLApplication extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader;
         Parent  root;
-        
-        
+          
         loader = new  FXMLLoader(getClass().getResource("Añadir_categoria.fxml"));
         root = loader.load();
         roots.put("Añadir_categoria", root);
