@@ -140,7 +140,7 @@
                   <DropShadow height="2.28" radius="0.6399999999999999" width="2.28" />
                </effect>
             </ImageView>
-            <ComboBox fx:id="imagenesComboBox" prefHeight="26.0" prefWidth="37.0" promptText="..." />
+            <ComboBox fx:id="imagenesComboBox" prefHeight="26.0" prefWidth="37.0" />
          </children>
          <HBox.margin>
             <Insets />
