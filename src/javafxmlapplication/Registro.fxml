@@ -47,19 +47,19 @@
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin></TextField>
-                              <Label fx:id="nombreErrText" text="¡Falta el nombre!" textFill="RED" visible="false" />
+                              <Label fx:id="nombreErrText" text="¡Nombre incorrecto!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
                               <Label text="Nickname*" />
                               <TextField fx:id="nicknameTextField" promptText="Tu nuevo nickname" />
-                              <Label fx:id="nicknameErrText" text="¡Este nickname ya está en uso!" textFill="RED" visible="false" />
+                              <Label fx:id="nicknameErrText" text="¡Nickname incorrecto!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Correo electrónico" />
+                              <Label text="Correo electrónico*" />
                               <TextField fx:id="emailTextField" promptText="tuCorreo@dominio.com" />
                               <Label fx:id="emailErrText" text="¡Correo incorrecto!" textFill="RED" visible="false" />
                            </children>
@@ -72,7 +72,7 @@
                            <children>
                               <Label text="Apellido" />
                               <TextField fx:id="apellidoTextField" promptText="Tu apellido" />
-                              <Label text="Label" visible="false" />
+                              <Label fx:id="apellidoErrText" text="¡Apellido incorrecto!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">

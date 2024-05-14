@@ -6,8 +6,11 @@
 package javafxmlapplication;
 
 import static extras.Utils.checkEmail;
+import static extras.Utils.checkName;
+import static extras.Utils.checkNickname;
 import static extras.Utils.checkPassword;
 import static extras.Utils.checkPasswordRep;
+import static extras.Utils.checkSurname;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -38,6 +41,7 @@ import model.AcountDAOException;
  */
 public class RegistroController implements Initializable {
     private BooleanProperty validNickname;
+    private BooleanProperty validSurname;
     private BooleanProperty validPassword;
     private BooleanProperty validEmail;
     private BooleanProperty equalPasswords;  
@@ -47,6 +51,8 @@ public class RegistroController implements Initializable {
     @FXML
     private TextField nombreTextField;
     @FXML
+    private TextField apellidoTextField;
+    @FXML
     private TextField nicknameTextField;
     @FXML
     private PasswordField passwordField;
@@ -54,12 +60,11 @@ public class RegistroController implements Initializable {
     private PasswordField passwordRepField;
     @FXML
     private TextField emailTextField;
-    @FXML
-    private TextField apellidoTextField;
-    @FXML
-    private Button registrarButton;
+    
     @FXML
     private Label nombreErrText;
+    @FXML
+    private Label apellidoErrText;
     @FXML
     private Label nicknameErrText;
     @FXML
@@ -68,24 +73,29 @@ public class RegistroController implements Initializable {
     private Label passwordErrText;
     @FXML
     private Label passwordRepErrText;
+    
     @FXML
     private Hyperlink hyperlink;
     @FXML
     private ImageView avatarImageView;
     @FXML
     private ComboBox<String> imagenesComboBox;
+    @FXML
+    private Button registrarButton;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         validName = new SimpleBooleanProperty();
+        validSurname = new SimpleBooleanProperty();
         validNickname = new SimpleBooleanProperty();
         validEmail = new SimpleBooleanProperty();
         validPassword = new SimpleBooleanProperty();   
         equalPasswords = new SimpleBooleanProperty();
         
         validName.setValue(Boolean.FALSE);
+        validSurname.setValue(Boolean.FALSE);
         validNickname.setValue(Boolean.FALSE);
         validPassword.setValue(Boolean.FALSE);
         validEmail.setValue(Boolean.FALSE);
@@ -93,9 +103,20 @@ public class RegistroController implements Initializable {
                         
         /*BooleanBinding validFields = Bindings.and(validEmail, validPassword)
                  .and(equalPasswords);*/
+        nombreTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
+            if(!newValue){ //focus lost
+                checkEditName();
+            }
+        });
+        
+        apellidoTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
+            if(!newValue){ //focus lost
+                checkEditSurname();
+            }
+        });
         
         nicknameTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){
+            if(!newValue){ //focus lost
                 checkEditNickname();
             }
         });
@@ -138,7 +159,7 @@ public class RegistroController implements Initializable {
     // Función del botón de registrar
     @FXML
     private void registrar(ActionEvent event) throws AcountDAOException, IOException {
-        if (validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
+        if (validName.get() && validSurname.get() && validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
             Acount cuenta = Acount.getInstance();
             String nombre = nombreTextField.getText();
             String apellido = apellidoTextField.getText();
@@ -149,11 +170,11 @@ public class RegistroController implements Initializable {
             Image avatar;
             if (avatarImageView.getImage() != null){
                 avatar = avatarImageView.getImage();
-            }else{ // S no se ha seleccionado ninguna imagen...
+            }else{ // Si no se ha seleccionado ninguna imagen...
                 avatar = new Image(getClass().getResourceAsStream("/avatares/default.png"));
             }
             
-            cuenta.registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
+            //cuenta.registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
             JavaFXMLApplication.setRoot("Autenticacion");
         }
     }
@@ -165,9 +186,24 @@ public class RegistroController implements Initializable {
     
     //-----------------------------------------------
     // Métodos para comprobar que los campos son correctos
+    private void checkEditName(){
+        if (!checkName(nombreTextField.textProperty().getValueSafe())){
+            manageError(nombreErrText, nombreTextField, validName);
+        }else{
+            manageCorrect(nombreErrText, nombreTextField, validName);
+        }
+    }
+    
+    private void checkEditSurname(){
+        if (!checkSurname(apellidoTextField.textProperty().getValueSafe())){
+            manageError(apellidoErrText, apellidoTextField, validSurname);
+        }else{
+            manageCorrect(apellidoErrText, apellidoTextField, validSurname);
+        }
+    }
     
     private void checkEditNickname(){
-        if (nicknameTextField.getText().equals("")){
+        if (!checkNickname(nicknameTextField.textProperty().getValueSafe())){
             manageError(nicknameErrText, nicknameTextField, validNickname);
         }else{
             manageCorrect(nicknameErrText, nicknameTextField, validNickname);
