@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javafxmlapplication;
 
 import java.io.File;
@@ -19,8 +14,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,86 +27,84 @@ import model.Acount;
 import model.AcountDAOException;
 import model.Category;
 
-/**
- * FXML Controller class
- *
- * @author ivana
- */
+
 public class Añadir_gastoController implements Initializable {
 
     @FXML
     private TextField nombreGastoTextField;
     @FXML
+    private TextField unidadesTextField;
+    @FXML
     private DatePicker fechaGastoTextField;
     @FXML
-    private ComboBox<?> categoriaCB;
+    private ComboBox<Category> categoriaCB;
     @FXML
     private TextField costeTextField;
     @FXML
     private TextField descripcionTextField;
+    
     @FXML
     private ImageView imagenFactura;
     @FXML
-    private TextField unidades;
+    private Label urlFactura;
+    
+    @FXML
+    private Button aceptarButton;
+    @FXML
+    private Button cancelarButton;
+    
 
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
+    Acount cuenta;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-       Acount cuenta;
-        
-        try {
-            cuenta = Acount.getInstance();
-            Boolean cargo = cuenta.registerCharge(nombreGastoTextField.getText(),
-                    descripcionTextField.getText(), parseDouble(costeTextField.getText()),
-                    parseInt(unidades.getText()), imagenFactura.getImage(),
-                    fechaGastoTextField.getValue(), (Category) categoriaCB.getButtonCell().getItem());
-            
-            if (cargo){
-           nombreGastoTextField.clear();
-           descripcionTextField.clear();
-           costeTextField.clear();
-           unidades.clear();
-           JavaFXMLApplication.setRoot("ventana_gasto");
-
-       }else{
-         Alert alert = new Alert(AlertType.INFORMATION);
-         // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-         alert.setHeaderText("Cabecera");
-         // ó null si no queremos cabecera
-         alert.setContentText("Aquí va el texto del mensaje");
-         alert.showAndWait();
-        }
-            
-        } catch (AcountDAOException ex) {
-            Logger.getLogger(Añadir_gastoController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Añadir_gastoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-       
+        // TODO  
     }    
 
     @FXML
     private void subirFactura(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
-         fileChooser.setTitle("Abrir fichero");
-         fileChooser.getExtensionFilters().addAll(
-         new ExtensionFilter("Ficheros de texto", "*.txt"),
-         new ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.gif"),
-         new ExtensionFilter("Sonidos", "*.wav", "*.mp3", "*.aac"),
-         new ExtensionFilter("Todos", "*.*"));
-         File selectedFile = fileChooser.showOpenDialog(
-         ((Node)event.getSource()).getScene().getWindow());
-       
+        fileChooser.setTitle("Abrir fichero");
+        fileChooser.getExtensionFilters().addAll(
+        new ExtensionFilter("Ficheros de texto", "*.txt"),
+        new ExtensionFilter("Imágenes", "*.png", "*.jpg"));
+        
+        File selectedFile = fileChooser.showOpenDialog(
+        ((Node)event.getSource()).getScene().getWindow()); 
     }
 
     @FXML
-    private void subirfecha(ActionEvent event) {
+    private void aceptar(ActionEvent event) {
+        try {
+            cuenta = Acount.getInstance();
+            Boolean cargo = cuenta.registerCharge(nombreGastoTextField.getText(),
+                  descripcionTextField.getText(), parseDouble(costeTextField.getText()),
+                   parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
+                    fechaGastoTextField.getValue(), (Category) categoriaCB.getButtonCell().getItem());
+            
+            if (cargo){
+                nombreGastoTextField.clear();
+                descripcionTextField.clear();
+                costeTextField.clear();
+                unidadesTextField.clear();
+                // Añadir gasto a la categoría
+                // FCUNCIÓN...
+                JavaFXMLApplication.setRoot("ventana_gasto");
+            }else{
+                Alert alert = new Alert(AlertType.INFORMATION);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                alert.setHeaderText("Cabecera");
+                // ó null si no queremos cabecera
+                alert.setContentText("Aquí va el texto del mensaje");
+                alert.showAndWait();
+            }
+            
+        } catch (AcountDAOException | IOException ex) {
+            Logger.getLogger(Añadir_gastoController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
-    
+
+    @FXML
+    private void cancelar(ActionEvent event) {
+        cancelarButton.getScene().getWindow().hide();
+    }
 }

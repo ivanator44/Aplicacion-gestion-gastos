@@ -22,6 +22,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -164,7 +166,7 @@ public class RegistroController implements Initializable {
             String nombre = nombreTextField.getText();
             String apellido = apellidoTextField.getText();
             String email = emailTextField.getText();
-            String login = emailTextField.getText(); // (Nickname) 
+            String login = nicknameTextField.getText(); // (Nickname) 
             String contraseña = passwordField.getText();
             
             Image avatar;
@@ -174,8 +176,24 @@ public class RegistroController implements Initializable {
                 avatar = new Image(getClass().getResourceAsStream("/avatares/default.png"));
             }
             
-            //cuenta.registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
-            JavaFXMLApplication.setRoot("Autenticacion");
+            // Si no existe ya una cuenta con ese nickname entonces registramos los datos
+            if (!cuenta.existsLogin(login)){
+                cuenta.registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
+                JavaFXMLApplication.setRoot("Autenticacion");
+                nombreTextField.setText("");
+                nicknameTextField.setText("");
+                apellidoTextField.setText("");
+                emailTextField.setText("");
+                passwordField.setText("");
+                passwordRepField.setText("");
+            }else{
+                Alert alert = new Alert(AlertType.ERROR);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                alert.setHeaderText("Cabecera");
+                // ó null si no queremos cabecera
+                alert.setContentText("Aquí va el texto del mensaje");
+                alert.showAndWait();
+            }
         }
     }
 

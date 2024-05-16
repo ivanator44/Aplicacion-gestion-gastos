@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javafxmlapplication;
 
 import java.io.IOException;
@@ -39,13 +34,12 @@ public class AutenticacionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nicknameErrText.setOpacity(0);
-        passwordErrText.setOpacity(0);
     }    
 
     @FXML
     private void entrar(ActionEvent event) throws AcountDAOException, IOException {
         Acount cuenta = Acount.getInstance();
+        // Si se puede iniciar sesión cambiaremos de ventana
         if (cuenta.logInUserByCredentials(nicknameTextField.getText(), passwordField.getText())){
             JavaFXMLApplication.setRoot("Ventana_categorias");
         }
@@ -63,5 +57,4 @@ public class AutenticacionController implements Initializable {
     private void hyperlinkFuncion(MouseEvent event) {
         JavaFXMLApplication.setRoot("Registro");
     } 
-
 }
