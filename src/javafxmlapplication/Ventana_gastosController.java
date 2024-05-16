@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -47,6 +48,18 @@ public class Ventana_gastosController implements Initializable {
     private Button borrarButton;
     @FXML
     private Button atrasButton;
+    @FXML
+    private TableColumn<?, ?> Fecha;
+    @FXML
+    private TableColumn<?, ?> Valor;
+    @FXML
+    private TableColumn<?, ?> NombreGasto;
+    @FXML
+    private TableColumn<?, ?> Categoria;
+    @FXML
+    private TableColumn<?, ?> Unidades;
+    @FXML
+    private TableColumn<?, ?> Recibo;
 
     /**
      * Initializes the controller class.
