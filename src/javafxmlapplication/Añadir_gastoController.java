@@ -26,6 +26,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
+import model.Charge;
 
 
 public class Añadir_gastoController implements Initializable {
@@ -53,13 +54,24 @@ public class Añadir_gastoController implements Initializable {
     @FXML
     private Button cancelarButton;
     
-
+    //=====================================================
+    private boolean pulsadoOK = false;
+    public boolean isOKPressed(){
+        return pulsadoOK;
+    }
+    
+    Charge cargo;
+    public Charge getCargo(){
+        return cargo;
+    }
+    
     Acount cuenta;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO  
     }    
-
+    
     @FXML
     private void subirFactura(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -73,38 +85,35 @@ public class Añadir_gastoController implements Initializable {
     }
 
     @FXML
-    private void aceptar(ActionEvent event) {
-        try {
-            cuenta = Acount.getInstance();
-            Boolean cargo = cuenta.registerCharge(nombreGastoTextField.getText(),
-                  descripcionTextField.getText(), parseDouble(costeTextField.getText()),
-                   parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
-                    fechaGastoTextField.getValue(), (Category) categoriaCB.getButtonCell().getItem());
-            
-            if (cargo){
-                nombreGastoTextField.clear();
-                descripcionTextField.clear();
-                costeTextField.clear();
-                unidadesTextField.clear();
-                // Añadir gasto a la categoría
-                // FCUNCIÓN...
-                JavaFXMLApplication.setRoot("ventana_gasto");
-            }else{
-                Alert alert = new Alert(AlertType.INFORMATION);
-                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-                alert.setHeaderText("Cabecera");
-                // ó null si no queremos cabecera
-                alert.setContentText("Aquí va el texto del mensaje");
-                alert.showAndWait();
-            }
-            
-        } catch (AcountDAOException | IOException ex) {
-            Logger.getLogger(Añadir_gastoController.class.getName()).log(Level.SEVERE, null, ex);
+    private void aceptar(ActionEvent event) throws IOException, AcountDAOException {
+        
+        cuenta = Acount.getInstance();
+        Boolean cargo = cuenta.registerCharge(nombreGastoTextField.getText(),
+              descripcionTextField.getText(), parseDouble(costeTextField.getText()),
+               parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
+                fechaGastoTextField.getValue(), (Category) categoriaCB.getButtonCell().getItem());
+
+        if (cargo){
+            nombreGastoTextField.clear();
+            descripcionTextField.clear();
+            costeTextField.clear();
+            unidadesTextField.clear();
+            // Añadir gasto a la categoría
+            // FCUNCIÓN...
+            pulsadoOK = true;
+            JavaFXMLApplication.setRoot("ventana_gasto");
+        }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+            alert.setHeaderText("Cabecera");
+            // ó null si no queremos cabecera
+            alert.setContentText("¡Faltan campos por completar!");
+            alert.showAndWait();
         } 
     }
 
     @FXML
     private void cancelar(ActionEvent event) {
         cancelarButton.getScene().getWindow().hide();
-    }
+    } 
 }

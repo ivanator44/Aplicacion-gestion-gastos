@@ -1,3 +1,7 @@
 .color_gris{
     -fx-background-color: #d9d9d9;
 }
+
+#imagenFactura{
+    -fx-border-color:grey;
+}
