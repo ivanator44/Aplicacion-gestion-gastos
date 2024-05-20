@@ -50,11 +50,6 @@ public class Añadir_categoriaController implements Initializable {
                 // ó null si no queremos cabecera
                 alert.setContentText("Categoría registrada correctamente.");
                 alert.showAndWait();
-                nombreCategoriaTextField.clear();
-                descripcionTextField.clear();
-                FXMLLoader loader = new  FXMLLoader(getClass().getResource("Ventana_categorias.fxml"));
-                Parent  root = loader.load();
-                JavaFXMLApplication.setRoot(root);
             }
         } else {
             Alert camposVacios = new Alert(AlertType.ERROR);
