@@ -6,18 +6,17 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -99,7 +98,9 @@ public class Añadir_gastoController implements Initializable {
             // Añadir gasto a la categoría
             // FCUNCIÓN...
             pulsadoOK = true;
-            JavaFXMLApplication.setRoot("ventana_gasto");
+            FXMLLoader loader = new  FXMLLoader(getClass().getResource("Ventana_cgasto.fxml"));
+            Parent  root = loader.load();
+            JavaFXMLApplication.setRoot(root);
         }else{
             Alert alert = new Alert(AlertType.INFORMATION);
             // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
