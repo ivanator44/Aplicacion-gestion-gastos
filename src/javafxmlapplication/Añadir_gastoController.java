@@ -31,30 +31,29 @@ import model.Charge;
 
 public class Añadir_gastoController implements Initializable {
 
-    @FXML
     private TextField nombreGastoTextField;
-    @FXML
     private TextField unidadesTextField;
-    @FXML
     private DatePicker fechaGastoTextField;
-    @FXML
     private ComboBox<Category> categoriaCB;
-    @FXML
     private TextField costeTextField;
     @FXML
     private TextField descripcionTextField;
     
-    @FXML
     private ImageView imagenFactura;
-    @FXML
-    private Label urlFactura;
     
     @FXML
     private Button aceptarButton;
     @FXML
     private Button cancelarButton;
     
-    //=====================================================
+    @FXML
+    private TextField nombreCategoriaTextField;
+    @FXML
+    private ImageView imagenCategoria;
+    @FXML
+    private ComboBox<String> imagenCategoriaCB;
+    
+    //--------------------------------------------------------------------------
     private boolean pulsadoOK = false;
     public boolean isOKPressed(){
         return pulsadoOK;
@@ -72,7 +71,6 @@ public class Añadir_gastoController implements Initializable {
         // TODO  
     }    
     
-    @FXML
     private void subirFactura(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir fichero");
@@ -88,12 +86,12 @@ public class Añadir_gastoController implements Initializable {
     private void aceptar(ActionEvent event) throws IOException, AcountDAOException {
         
         cuenta = Acount.getInstance();
-        Boolean cargo = cuenta.registerCharge(nombreGastoTextField.getText(),
+        Boolean cargoAceptado = cuenta.registerCharge(nombreGastoTextField.getText(),
               descripcionTextField.getText(), parseDouble(costeTextField.getText()),
                parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
                 fechaGastoTextField.getValue(), (Category) categoriaCB.getButtonCell().getItem());
 
-        if (cargo){
+        if (cargoAceptado){
             nombreGastoTextField.clear();
             descripcionTextField.clear();
             costeTextField.clear();

@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import model.Charge;
 
 /**
  * FXML Controller class
@@ -31,15 +32,16 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private Label numeroGastos;
     @FXML
-    private Button añadirGastoButton;
-    @FXML
-    private TableView<?> gastosTableV;
+    private TableView<Charge> gastosTableV;
     @FXML
     private ImageView avatar;
     @FXML
     private Label nickname;
     @FXML
     private Label correo;
+    
+    @FXML
+    private Button añadirGastoButton;
     @FXML
     private Button logOutButton;
     @FXML
@@ -48,6 +50,7 @@ public class Ventana_gastosController implements Initializable {
     private Button borrarButton;
     @FXML
     private Button atrasButton;
+    
     @FXML
     private TableColumn<?, ?> Fecha;
     @FXML
@@ -91,6 +94,5 @@ public class Ventana_gastosController implements Initializable {
 
     @FXML
     private void atras(ActionEvent event) {
-    }
-    
+    }   
 }

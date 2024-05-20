@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -26,8 +27,14 @@
                            <children>
                               <Label fx:id="ayudaLabel" onMouseClicked="#ayudaLabelFuncion" text="Ayuda">
                                  <graphic>
-                                    <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imagenes/exclamacion.png" />
+                                       </image></ImageView>
                                  </graphic>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                               </Label>
                            </children>
                            <padding>
@@ -47,7 +54,7 @@
                   </HBox>
                   <HBox prefHeight="259.0" prefWidth="487.0">
                      <children>
-                        <ListView fx:id="categoriasListView" onMouseClicked="#seleccionarCategoria" prefHeight="259.0" prefWidth="459.0" />
+                        <ListView fx:id="categoriasListView" prefHeight="259.0" prefWidth="459.0" />
                      </children>
                   </HBox>
                   <HBox alignment="TOP_RIGHT" prefHeight="38.0" prefWidth="457.0">

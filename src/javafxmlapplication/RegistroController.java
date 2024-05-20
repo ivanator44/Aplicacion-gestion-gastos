@@ -323,6 +323,8 @@ public class RegistroController implements Initializable {
                 imagen = new Image(t, 25, 25, true, true);
                 view.setImage(imagen);
                 setGraphic(view);
+                String fileName = t.substring(t.lastIndexOf("/") + 1, t.lastIndexOf("."));
+                setText(fileName);
             }
         }
     }
@@ -343,6 +345,8 @@ public class RegistroController implements Initializable {
                 imagen = new Image(t, 25, 25, true, true);
                 view.setImage(imagen);
                 setGraphic(view);
+                String fileName = t.substring(t.lastIndexOf("/") + 1, t.lastIndexOf("."));
+                setText(fileName);
             }
         }
     }

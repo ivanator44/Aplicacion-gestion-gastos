@@ -1,4 +1,4 @@
-package javafxmlapplication;
+    package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -62,13 +64,20 @@ public class Ventana_categoriasController implements Initializable {
     private Acount cuenta;
     private User usuario;
 
+    // Métodos para inicilizar la vetana con los datos correctamente
+    public void initUsuario(User u){
+        usuario = u;
+        nickname.setText(u.getNickName());
+        correo.setText(u.getEmail());
+        avatar.setImage(u.getImage());
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            
             // Inicializamos la cuenta y sus datos en algunos campos
             cuenta = Acount.getInstance();
-            usuario = cuenta.getLoggedUser();
-            
+                
             // Añadimos las categorías creadas previamente por nuestro usuario
             datos = categoriasListView.getItems(); // no creo la lista observable, utilizo la que tiene vacia el listview
             
@@ -76,7 +85,9 @@ public class Ventana_categoriasController implements Initializable {
             List<Category> userCategories = cuenta.getUserCategories();
             
             // Agrega cada categoría a la lista observable
-            datos.addAll(userCategories);
+            if (userCategories != null){
+                datos.addAll(userCategories);
+            }
             
             // Hay que modificar CellFactory para mostrar el objeto Persona
             categoriasListView.setCellFactory((c)->{return new CategoryListCell();});
@@ -91,23 +102,29 @@ public class Ventana_categoriasController implements Initializable {
                     borrarButton.setDisable(true);
                 }
             });
-            
         } catch (AcountDAOException | IOException ex) {
             Logger.getLogger(Ventana_categoriasController.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        }      
     }    
     
     // Funciones alternativas :)    
     @FXML
     private void ayudaLabelFuncion(MouseEvent event) {
         // Menú de información/alerta
-        System.out.println("tejodes");
+        Alert alert = new Alert(AlertType.INFORMATION);
+        // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+        alert.setHeaderText("INFORMACIÓN ADICIONAL");
+        // ó null si no queremos cabecera
+        alert.setContentText("Añadir categoría: \nModificar categoría: \nBorrar categoría: \nControles alternativos: Perfil de usuario: \n"
+                + "");
+        alert.showAndWait();
     }
 
     @FXML
     private void logOut(ActionEvent event) {
         // Menú de confirmación/alerta
-        JavaFXMLApplication.setRoot("Autenticacion");
+        
+        //JavaFXMLApplication.setRoot("Autenticacion");
     }
 
     // Funcion de los botones
@@ -124,10 +141,6 @@ public class Ventana_categoriasController implements Initializable {
         stage.setTitle("Añadir nuevo gasto");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
-        
-        /*if (controlador.isOKPressed()){
-            datos.add(controlador.getCategory());
-        }*/
     }
     
     @FXML
@@ -139,14 +152,6 @@ public class Ventana_categoriasController implements Initializable {
         datos.remove(categoriasListView.getSelectionModel().getSelectedIndex());
     }
     
-    // Funcion del ListView para ver los gastos de cada categoría
-    @FXML
-    private void seleccionarCategoria(MouseEvent event) {
-    } 
-    
-    //-----------------------------------------------------------
-    // Método para tomar la información del usuario que acaba de iniciar sesión
-
     @FXML
     private void verGastos(ActionEvent event) {
     }

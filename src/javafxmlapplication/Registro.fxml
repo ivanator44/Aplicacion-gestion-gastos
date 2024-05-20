@@ -52,7 +52,7 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Nickname*" />
+                              <Label text="Nickname* (no se podrá modificar)" />
                               <TextField fx:id="nicknameTextField" promptText="Tu nuevo nickname" />
                               <Label fx:id="nicknameErrText" text="¡Nickname incorrecto!" textFill="RED" visible="false" />
                            </children>
