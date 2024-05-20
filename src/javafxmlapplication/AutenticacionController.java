@@ -72,7 +72,7 @@ public class AutenticacionController implements Initializable {
     @FXML
     private void hyperlinkFuncion(MouseEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                "Ventana_categorias.fxml"));
+                "Registro.fxml"));
         Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     } 
