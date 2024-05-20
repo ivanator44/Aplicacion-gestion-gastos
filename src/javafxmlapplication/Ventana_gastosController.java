@@ -5,17 +5,26 @@
  */
 package javafxmlapplication;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Charge;
 
 /**
@@ -51,18 +60,20 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private Button atrasButton;
     
+
+    
     @FXML
-    private TableColumn<?, ?> Fecha;
+    private TableColumn<Charge, Integer> Fecha;
     @FXML
-    private TableColumn<?, ?> Valor;
+    private TableColumn<Charge, Double> Valor;
     @FXML
-    private TableColumn<?, ?> NombreGasto;
+    private TableColumn<Charge, String> NombreGasto;
     @FXML
-    private TableColumn<?, ?> Categoria;
+    private TableColumn<Charge, String> Categoria;
     @FXML
-    private TableColumn<?, ?> Unidades;
+    private TableColumn<Charge, Integer> Unidades;
     @FXML
-    private TableColumn<?, ?> Recibo;
+    private TableColumn<Charge, Image> Recibo;
 
     /**
      * Initializes the controller class.
@@ -77,7 +88,17 @@ public class Ventana_gastosController implements Initializable {
     }
 
     @FXML
-    private void añadirGasto(ActionEvent event) {
+    private void añadirGasto(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Añadir_gasto.fxml"));
+        Parent root = miCargador.load();
+        
+        Scene scene = new Scene(root,350,350);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Vista datos persona");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        //la ventana se muestra modal
+        stage.showAndWait();
     }
 
     @FXML
