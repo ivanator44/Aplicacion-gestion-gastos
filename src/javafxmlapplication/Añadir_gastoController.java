@@ -17,6 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,14 +31,20 @@ import model.Charge;
 
 public class Añadir_gastoController implements Initializable {
 
+    @FXML
     private TextField nombreGastoTextField;
+    @FXML
     private TextField unidadesTextField;
+    @FXML
     private DatePicker fechaGastoTextField;
+    @FXML
     private ComboBox<Category> categoriaCB;
+    @FXML
     private TextField costeTextField;
     @FXML
     private TextField descripcionTextField;
     
+    @FXML
     private ImageView imagenFactura;
     
     @FXML
@@ -45,15 +52,11 @@ public class Añadir_gastoController implements Initializable {
     @FXML
     private Button cancelarButton;
     
-    @FXML
-    private TextField nombreCategoriaTextField;
-    @FXML
-    private ImageView imagenCategoria;
-    @FXML
-    private ComboBox<String> imagenCategoriaCB;
     
     //--------------------------------------------------------------------------
     private boolean pulsadoOK = false;
+    @FXML
+    private Label urlFactura;
     public boolean isOKPressed(){
         return pulsadoOK;
     }
@@ -70,6 +73,7 @@ public class Añadir_gastoController implements Initializable {
         // TODO  
     }    
     
+    @FXML
     private void subirFactura(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir fichero");
@@ -101,6 +105,8 @@ public class Añadir_gastoController implements Initializable {
             FXMLLoader loader = new  FXMLLoader(getClass().getResource("Ventana_cgasto.fxml"));
             Parent  root = loader.load();
             JavaFXMLApplication.setRoot(root);
+
+            cancelarButton.getScene().getWindow().hide();
         }else{
             Alert alert = new Alert(AlertType.INFORMATION);
             // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");

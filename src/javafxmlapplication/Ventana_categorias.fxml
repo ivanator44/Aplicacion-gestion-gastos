@@ -4,117 +4,127 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Ventana_categorias.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.Ventana_categoriasController">
+<HBox prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Ventana_categorias.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="400.0" prefWidth="600.0">
+      <VBox prefHeight="400.0" prefWidth="487.0" spacing="5.0">
          <children>
-            <VBox prefHeight="400.0" prefWidth="487.0" spacing="5.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="457.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="457.0">
+                  <Label fx:id="nombreCategoria" prefHeight="36.0" prefWidth="236.0" text="Categorías">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="286.0" spacing="10.0">
                      <children>
-                        <Label fx:id="nombreCategoria" prefHeight="36.0" prefWidth="236.0" text="Categorías">
+                        <Label fx:id="ayudaLabel" onMouseClicked="#ayudaLabelFuncion" text="Ayuda">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/exclamacion.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                            <font>
-                              <Font size="25.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="286.0" spacing="10.0">
-                           <children>
-                              <Label fx:id="ayudaLabel" onMouseClicked="#ayudaLabelFuncion" text="Ayuda">
-                                 <graphic>
-                                    <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../imagenes/exclamacion.png" />
-                                       </image></ImageView>
-                                 </graphic>
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets right="5.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="19.0" prefWidth="457.0">
-                     <children>
-                        <Label fx:id="numeroGastos" prefHeight="18.0" prefWidth="248.0" text="Total de categorías: " />
-                        <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="310.0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="259.0" prefWidth="487.0">
-                     <children>
-                        <ListView fx:id="categoriasListView" prefHeight="259.0" prefWidth="459.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_RIGHT" prefHeight="38.0" prefWidth="457.0">
-                     <children>
-                        <Button fx:id="verGastosButton" mnemonicParsing="false" onAction="#verGastos" text="Ver gastos" />
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="15.0" right="10.0" top="15.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="400.0" prefWidth="113.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="108.0" spacing="10.0">
-                     <children>
-                        <ImageView fx:id="avatar" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" />
-                        <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="89.0" spacing="2.0">
-                           <children>
-                              <Label fx:id="nickname" text="Nickname">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="correo" text="Correo">
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" text="Log out">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <VBox prefHeight="313.0" prefWidth="108.0" spacing="5.0">
-                     <children>
-                        <Button fx:id="añadirButton" mnemonicParsing="false" onAction="#añadir" prefHeight="26.0" prefWidth="116.0" text="Añadir categoría" />
-                        <Button fx:id="modificarButton" disable="true" mnemonicParsing="false" onAction="#modificar" prefHeight="26.0" prefWidth="108.0" text="Modificar categoría" wrapText="true">
-                           <font>
-                              <Font size="10.0" />
-                           </font></Button>
-                        <Button fx:id="borrarButton" disable="true" mnemonicParsing="false" onAction="#borrar" prefHeight="26.0" prefWidth="114.0" text="Borrar categoría" />
                      </children>
                      <padding>
-                        <Insets top="15.0" />
+                        <Insets right="5.0" />
                      </padding>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="19.0" prefWidth="457.0">
+               <children>
+                  <Label fx:id="numeroGastos" prefHeight="18.0" prefWidth="248.0" text="Total de categorías: " />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="310.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" text="Añadir categoría" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="288.0" prefWidth="457.0">
+               <children>
+                  <ListView fx:id="categoriasListView" prefHeight="286.0" prefWidth="458.0" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="15.0" right="10.0" top="15.0" />
+         </padding>
+      </VBox>
+      <VBox prefHeight="400.0" prefWidth="113.0" style="-fx-background-color: #3c414d;" stylesheets="@../css/Ventana_categorias.css">
+         <children>
+            <HBox alignment="CENTER" prefHeight="59.0" prefWidth="108.0" spacing="10.0">
+               <children>
+                  <ImageView fx:id="avatar" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="89.0" spacing="2.0">
+                     <children>
+                        <Label fx:id="nickname" text="Nickname" textFill="#cfcfcf">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="correo" text="Correo">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" text="Log out">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                     </children>
                   </VBox>
                </children>
-               <HBox.margin>
-                  <Insets bottom="10.0" right="10.0" top="15.0" />
-               </HBox.margin>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox alignment="TOP_RIGHT" prefHeight="313.0" prefWidth="108.0" spacing="5.0">
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+               <children>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="160.0" prefWidth="108.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#modificar" prefHeight="26.0" prefWidth="92.0" text="Modificar" />
+                        <Button fx:id="borrarButton" mnemonicParsing="false" onAction="#borrar" prefHeight="26.0" prefWidth="92.0" text="Borrar" />
+                     </children>
+                  </VBox>
+                  <Separator prefHeight="1.0" prefWidth="102.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin></Separator>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Ver gráficos" />
+                     </children>
+                     <padding>
+                        <Insets bottom="9.0" />
+                     </padding>
+                  </VBox>
+                  <Button mnemonicParsing="false" text="Atrás" />
+               </children>
             </VBox>
          </children>
-      </HBox>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
    </children>
-</VBox>
+</HBox>

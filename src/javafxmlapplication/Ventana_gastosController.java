@@ -75,9 +75,6 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private TableColumn<Charge, Image> Recibo;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -89,15 +86,16 @@ public class Ventana_gastosController implements Initializable {
 
     @FXML
     private void añadirGasto(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Añadir_gasto.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Añadir_gasto.fxml"));
         Parent root = miCargador.load();
+        //Añadir_categoriaController controlador = miCargador.getController();
         
-        Scene scene = new Scene(root,350,350);
+        Scene scene = new Scene(root, 350, 350);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Vista datos persona");
+        stage.setTitle("Añadir nuevo gasto");
         stage.initModality(Modality.APPLICATION_MODAL);
-        //la ventana se muestra modal
         stage.showAndWait();
     }
 

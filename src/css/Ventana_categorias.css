@@ -16,3 +16,10 @@
     -fx-background-insets:0;
     -fx-text-fill:white;
 }
+
+.linearGradient_blanco_gris{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #cfcfcf);
+}
+
+
+

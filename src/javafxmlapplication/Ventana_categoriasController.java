@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -121,10 +123,19 @@ public class Ventana_categoriasController implements Initializable {
     }
 
     @FXML
-    private void logOut(ActionEvent event) {
+    private void logOut(ActionEvent event) throws IOException {
         // Menú de confirmación/alerta
-        
-        //JavaFXMLApplication.setRoot("Autenticacion");
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Diálogo de confirmación");
+        alert.setHeaderText("Cerrar sesión");
+        alert.setContentText("¿Seguro que quieres continuar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Autenticacion"));
+            Parent root = miCargador.load();
+            cuenta.logOutUser();
+            JavaFXMLApplication.setRoot(root);
+        }
     }
 
     // Funcion de los botones
@@ -153,9 +164,13 @@ public class Ventana_categoriasController implements Initializable {
     }
     
     @FXML
-    private void verGastos(ActionEvent event) {
+    private void verGastos(ActionEvent event) throws IOException {
+        // Pasamos la categoria al otro controlador
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Ventana_gastos.fxml"));
+        Parent root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
-    
     
     //----------------------------------------------------------
     // Clase para mostrar las celdas del ListView de manera personalizada
