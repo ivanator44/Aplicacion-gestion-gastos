@@ -77,13 +77,9 @@ public class RegistroController implements Initializable {
     private Label passwordRepErrText;
     
     @FXML
-    private Hyperlink hyperlink;
-    @FXML
     private ImageView avatarImageView;
     @FXML
     private ComboBox<String> imagenesComboBox;
-    @FXML
-    private Button registrarButton;
     
     
     @Override
@@ -159,10 +155,8 @@ public class RegistroController implements Initializable {
     }    
 
     // Función del botón de registrar
-    @FXML
     private void registrar(ActionEvent event) throws AcountDAOException, IOException {
         if (validName.get() && validSurname.get() && validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
-            Acount cuenta = Acount.getInstance();
             String nombre = nombreTextField.getText();
             String apellido = apellidoTextField.getText();
             String email = emailTextField.getText();
@@ -177,17 +171,13 @@ public class RegistroController implements Initializable {
             }
             
             // Si no existe ya una cuenta con ese nickname entonces registramos los datos
-            if (!cuenta.existsLogin(login)){
-                cuenta.registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
+            if (!Acount.getInstance().existsLogin(login)){
+                Acount.getInstance().registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
                 FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
                 Parent  root = loader.load();
+                // Añadir alerta inidicando que el registro ha tenido éxito
+                //...
                 JavaFXMLApplication.setRoot(root);
-                nombreTextField.setText("");
-                nicknameTextField.setText("");
-                apellidoTextField.setText("");
-                emailTextField.setText("");
-                passwordField.setText("");
-                passwordRepField.setText("");
             }else{
                 Alert alert = new Alert(AlertType.ERROR);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
@@ -199,7 +189,6 @@ public class RegistroController implements Initializable {
         }
     }
 
-    @FXML
     private void hyperlinkFuncion(ActionEvent event) throws IOException {
         FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
         Parent root = loader.load();
@@ -309,6 +298,14 @@ public class RegistroController implements Initializable {
     private void hideErrorMessage(Label errorLabel,TextField textField){
         errorLabel.visibleProperty().set(false);
         textField.styleProperty().setValue("");
+    }
+
+    @FXML
+    private void guardar(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelar(ActionEvent event) {
     }
     
     //--------------------------------------------------------------

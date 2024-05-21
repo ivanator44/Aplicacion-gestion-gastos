@@ -21,7 +21,7 @@ public class JavaFXMLApplication extends Application {
         Parent  root = loader.load();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("CashControl");
+        stage.setTitle("Bienvenido a CashControl");
         stage.show();
     }
 

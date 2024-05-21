@@ -1,5 +1,13 @@
-.color_morado{
+.color_morado_oscuro{
     -fx-background-color: #7c00bf;
+}
+
+.color_morado_claro{
+    -fx-background-color: #a600ff;
+}
+
+.linearGradient_morado_oscuro_morado_claro{
+    -fx-background-color: linear-gradient(to right bottom, #7c00bf, #a600ff);
 }
 
 .linearGradient_blanco_azul{

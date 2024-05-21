@@ -3,6 +3,8 @@ package javafxmlapplication;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.Acount;
 import model.AcountDAOException;
+import model.Category;
 
 public class Añadir_categoriaController implements Initializable {
 
@@ -33,29 +36,42 @@ public class Añadir_categoriaController implements Initializable {
     public boolean isOKPressed(){
         return aceptarPulsado;
     }
-    
+    private Category categoria;
+    private boolean camposInicializados = false;
+    public void initCategoria(Category c){
+        categoria = c;
+        nombreCategoriaTextField.setText(categoria.getName());
+        descripcionTextField.setText(categoria.getDescription());
+        camposInicializados = true;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (camposInicializados){
+            try {
+                Acount.getInstance().removeCategory(categoria);
+            } catch (AcountDAOException | IOException ex) {
+                Logger.getLogger(Añadir_categoriaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }    
 
     @FXML
     private void aceptar(ActionEvent event) throws AcountDAOException, IOException {
-        Acount cuenta = Acount.getInstance();
         if (!nombreCategoriaTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty()) {
-            if (cuenta.registerCategory(nombreCategoriaTextField.getText(), descripcionTextField.getText())){
-                nombreCategoriaTextField.getScene().getWindow().hide();
+            if (Acount.getInstance().registerCategory(nombreCategoriaTextField.getText(), descripcionTextField.getText())){
                 Alert alert = new Alert(AlertType.INFORMATION);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                 alert.setHeaderText(null);
                 // ó null si no queremos cabecera
                 alert.setContentText("Categoría registrada correctamente.");
                 alert.showAndWait();
+                nombreCategoriaTextField.getScene().getWindow().hide();
             }
         } else {
             Alert camposVacios = new Alert(AlertType.ERROR);
             camposVacios.setTitle("ERROR");
-            camposVacios.setHeaderText("¡Alguno de los campos está vacío!");
-            camposVacios.setContentText("Revisa la información de los campos por favor");
+            camposVacios.setHeaderText(null);
+            camposVacios.setContentText("¡Completa los campos si están vacíos!");
             camposVacios.showAndWait();
         }
     }
