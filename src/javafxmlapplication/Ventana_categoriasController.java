@@ -42,23 +42,18 @@ public class Ventana_categoriasController implements Initializable {
     private Label numeroGastos;
     @FXML
     private ListView<Category> categoriasListView;
+    
     @FXML
     private ImageView avatar;
     @FXML
     private Label nickname;
     @FXML
-    private Label correo;
+    private ImageView lapizImageView;
     
-    @FXML
-    private Button logOutButton;
     @FXML
     private Button modificarButton;
     @FXML
     private Button borrarButton;
-    @FXML
-    private Button añadirButton;
-    @FXML
-    private Button verGastosButton;
     
     // DEBEN conincidir los tipo del ListView y de la lista observable
     private ObservableList<Category> datos = null; // Coleccion vinculada a la vista.
@@ -69,44 +64,42 @@ public class Ventana_categoriasController implements Initializable {
     // Métodos para inicilizar la vetana con los datos correctamente
     public void initUsuario(User u){
         usuario = u;
-        nickname.setText(u.getNickName());
-        correo.setText(u.getEmail());
-        avatar.setImage(u.getImage());
+        nickname.setText(usuario.getNickName());
+        avatar.setImage(usuario.getImage());
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /*
+        // Inicializamos la cuenta y sus datos en algunos campos
+        
+        // Añadimos las categorías creadas previamente por nuestro usuario
+        datos = categoriasListView.getItems(); // no creo la lista observable, utilizo la que tiene vacia el listview
+        // Obtén la lista de categorías del usuario
+        List<Category> userCategories;
         try {
-            
-            // Inicializamos la cuenta y sus datos en algunos campos
-            cuenta = Acount.getInstance();
-                
-            // Añadimos las categorías creadas previamente por nuestro usuario
-            datos = categoriasListView.getItems(); // no creo la lista observable, utilizo la que tiene vacia el listview
-            
-            // Obtén la lista de categorías del usuario
-            List<Category> userCategories = cuenta.getUserCategories();
-            
+            userCategories = cuenta.getUserCategories();
             // Agrega cada categoría a la lista observable
             if (userCategories != null){
                 datos.addAll(userCategories);
             }
-            
-            // Hay que modificar CellFactory para mostrar el objeto Persona
-            categoriasListView.setCellFactory((c)->{return new CategoryListCell();});
-            //=======================================================
-            // Deshabilitar los botones modificar y borrar.
-            categoriasListView.focusedProperty().addListener((a, b, c) -> {
-                if (categoriasListView.isFocused()){
-                    modificarButton.setDisable(false);
-                    borrarButton.setDisable(false);
-                }else{
-                    modificarButton.setDisable(true);
-                    borrarButton.setDisable(true);
-                }
-            });
-        } catch (AcountDAOException | IOException ex) {
+        } catch (AcountDAOException ex) {
             Logger.getLogger(Ventana_categoriasController.class.getName()).log(Level.SEVERE, null, ex);
-        }      
+        }
+        
+        // Hay que modificar CellFactory para mostrar el objeto Persona
+        categoriasListView.setCellFactory((c)->{return new CategoryListCell();});
+        //=======================================================
+        // Deshabilitar los botones modificar y borrar.
+        categoriasListView.focusedProperty().addListener((a, b, c) -> {
+            if (categoriasListView.isFocused()){
+                modificarButton.setDisable(false);
+                borrarButton.setDisable(false);
+            }else{
+                modificarButton.setDisable(true);
+                borrarButton.setDisable(true);
+            }
+        });  
+        */
     }    
     
     // Funciones alternativas :)    
@@ -122,7 +115,6 @@ public class Ventana_categoriasController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
     private void logOut(ActionEvent event) throws IOException {
         // Menú de confirmación/alerta
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -139,7 +131,6 @@ public class Ventana_categoriasController implements Initializable {
     }
 
     // Funcion de los botones
-    @FXML
     private void añadir(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Añadir_categoria.fxml"));
@@ -160,10 +151,10 @@ public class Ventana_categoriasController implements Initializable {
 
     @FXML
     private void borrar(ActionEvent event) {
+        
         datos.remove(categoriasListView.getSelectionModel().getSelectedIndex());
     }
     
-    @FXML
     private void verGastos(ActionEvent event) throws IOException {
         // Pasamos la categoria al otro controlador
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(

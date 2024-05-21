@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javafxmlapplication;
 
 import java.io.IOException;
@@ -27,11 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Charge;
 
-/**
- * FXML Controller class
- *
- * @author ivana
- */
+
 public class Ventana_gastosController implements Initializable {
 
     @FXML
@@ -41,27 +32,23 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private Label numeroGastos;
     @FXML
-    private TableView<Charge> gastosTableV;
-    @FXML
     private ImageView avatar;
     @FXML
     private Label nickname;
     @FXML
-    private Label correo;
+    private ImageView lapizImageView;
     
     @FXML
     private Button añadirGastoButton;
-    @FXML
-    private Button logOutButton;
     @FXML
     private Button modificarButton;
     @FXML
     private Button borrarButton;
     @FXML
     private Button atrasButton;
-    
-
-    
+     
+    @FXML
+    private TableView<Charge> gastosTableV;
     @FXML
     private TableColumn<Charge, Integer> Fecha;
     @FXML
@@ -74,6 +61,7 @@ public class Ventana_gastosController implements Initializable {
     private TableColumn<Charge, Integer> Unidades;
     @FXML
     private TableColumn<Charge, Image> Recibo;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,7 +77,7 @@ public class Ventana_gastosController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Añadir_gasto.fxml"));
         Parent root = miCargador.load();
-        //Añadir_categoriaController controlador = miCargador.getController();
+        Añadir_gastoController controlador = miCargador.getController();
         
         Scene scene = new Scene(root, 350, 350);
         Stage stage = new Stage();
@@ -97,11 +85,12 @@ public class Ventana_gastosController implements Initializable {
         stage.setTitle("Añadir nuevo gasto");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        
+        if (controlador.isOKPressed()){
+            
+        }
     }
 
-    @FXML
-    private void logOut(ActionEvent event) {
-    }
 
     @FXML
     private void modificar(ActionEvent event) {

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -73,34 +74,29 @@
                   <Insets bottom="10.0" left="15.0" right="10.0" top="15.0" />
                </padding>
             </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="375.0" prefWidth="102.0" style="-fx-background-color: #3c414d;" stylesheets="@../css/Añadir_gasto.css">
+            <VBox alignment="CENTER_RIGHT" prefHeight="375.0" prefWidth="219.0" stylesheets="@../css/Añadir_gasto.css">
                <children>
-                  <HBox alignment="CENTER" prefHeight="72.0" prefWidth="114.0" spacing="10.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="166.0" spacing="5.0">
                      <children>
-                        <ImageView fx:id="avatar" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                        <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="89.0" spacing="2.0">
-                           <children>
-                              <Label fx:id="nickname" text="Nickname">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="correo" text="Correo">
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" text="Log out">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
+                        <ImageView fx:id="avatar" fitHeight="38.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/usuario.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nickname" text="Nickname">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="lapizImageView" fitHeight="27.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/lapiz.png" />
+                           </image>
+                        </ImageView>
                      </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
                   </HBox>
                   <VBox alignment="TOP_CENTER" prefHeight="276.0" prefWidth="114.0" spacing="10.0">
                      <children>

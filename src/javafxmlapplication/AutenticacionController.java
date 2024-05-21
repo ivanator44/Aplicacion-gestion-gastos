@@ -52,9 +52,10 @@ public class AutenticacionController implements Initializable {
             User user = cuenta.getLoggedUser();
             
             FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                "Ventana_gastos.fxml"));
+                "Ventana_categorias.fxml"));
             Parent root = miCargador.load();
-            
+            Ventana_categoriasController controlador = miCargador.getController();
+            controlador.initUsuario(user);
             JavaFXMLApplication.setRoot(root);
         }
         else {

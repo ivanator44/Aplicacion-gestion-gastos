@@ -19,7 +19,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="500.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="400.0">
+            <HBox id="hboxRegistro" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="406.0" stylesheets="@../css/Registro.css">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
                      <font>
@@ -32,6 +32,9 @@
                      </image>
                   </ImageView>
                </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="210.0" />
+               </VBox.margin>
                <padding>
                   <Insets left="20.0" />
                </padding>
