@@ -28,9 +28,7 @@ import model.AcountDAOException;
 import model.Category;
 import model.Charge;
 
-
 public class Añadir_gastoController implements Initializable {
-
     @FXML
     private TextField nombreGastoTextField;
     @FXML
@@ -43,20 +41,17 @@ public class Añadir_gastoController implements Initializable {
     private TextField costeTextField;
     @FXML
     private TextField descripcionTextField;
-    
     @FXML
     private ImageView imagenFactura;
-    
     @FXML
     private Button aceptarButton;
     @FXML
     private Button cancelarButton;
-    
+    @FXML
+    private Label urlFactura;
     
     //--------------------------------------------------------------------------
     private boolean pulsadoOK = false;
-    @FXML
-    private Label urlFactura;
     public boolean isOKPressed(){
         return pulsadoOK;
     }
@@ -76,6 +71,7 @@ public class Añadir_gastoController implements Initializable {
         descripcionTextField.setText(cargo.getDescription());
         imagenFactura.setImage(cargo.getImageScan());
         camposInicializados = true;
+        urlFactura.setText(imagenFactura.getImage().getUrl());
     }
     Acount cuenta;
     @Override
@@ -92,29 +88,20 @@ public class Añadir_gastoController implements Initializable {
         new ExtensionFilter("Imágenes", "*.png", "*.jpg"));
         
         File selectedFile = fileChooser.showOpenDialog(
-        ((Node)event.getSource()).getScene().getWindow()); 
+        ((Node)event.getSource()).getScene().getWindow());
+        if (selectedFile != null) {
+            urlFactura.setText(selectedFile.getAbsolutePath());
+        } 
     }
 
     @FXML
     private void aceptar(ActionEvent event) throws IOException, AcountDAOException {
-        cuenta = Acount.getInstance();
         Boolean cargoAceptado = cuenta.registerCharge(nombreGastoTextField.getText(),
               descripcionTextField.getText(), parseDouble(costeTextField.getText()),
                parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
                 fechaGastoTextField.getValue(), (Category) categoriaCB.getButtonCell().getItem());
-
         if (cargoAceptado){
-            nombreGastoTextField.clear();
-            descripcionTextField.clear();
-            costeTextField.clear();
-            unidadesTextField.clear();
-            // Añadir gasto a la categoría
-            // FCUNCIÓN...
             pulsadoOK = true;
-            FXMLLoader loader = new  FXMLLoader(getClass().getResource("Ventana_cgasto.fxml"));
-            Parent  root = loader.load();
-            JavaFXMLApplication.setRoot(root);
-
             cancelarButton.getScene().getWindow().hide();
         }else{
             Alert alert = new Alert(AlertType.INFORMATION);

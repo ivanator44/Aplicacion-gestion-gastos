@@ -82,10 +82,16 @@ public class Modificar_perfilController implements Initializable {
     private void atras(ActionEvent event) throws IOException {
         // Dependiendo de la ventana desde la que se accedió a modificar el perfil
         // se retornará a un sitio u a otro...
+        FXMLLoader miCargador;
+        Parent root;
         switch (interfaz){
             case "Ventana_gastos":
-                FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
-                Parent root = miCargador.load();
+                miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
+                root = miCargador.load();
+                JavaFXMLApplication.setRoot(root);
+            case "Ventana_categorias":
+                miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
+                root = miCargador.load();
                 JavaFXMLApplication.setRoot(root);
         }
     }

@@ -168,6 +168,16 @@ public class Ventana_categoriasController implements Initializable {
         alert.showAndWait();
     }
 
+    @FXML
+    private void modificarPerfil(MouseEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Modificar_perfil.fxml"));
+        Parent root = miCargador.load();
+        Modificar_perfilController controlador = miCargador.getController();
+        controlador.initInterfaz("Ventana_categorias");
+        JavaFXMLApplication.setRoot(root);
+    }
+
     //--------------------------------------------------------------------------
     // Clase para mostrar las celdas del ListView de manera personalizada
     class CategoryListCell extends ListCell<Category> {

@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -55,15 +56,15 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private TableColumn<Charge, String> Fecha;
     @FXML
-    private TableColumn<Charge, Double> Valor;
+    private TableColumn<Charge, String> Valor;
     @FXML
     private TableColumn<Charge, String> NombreGasto;
     @FXML
     private TableColumn<Charge, String> Categoria;
     @FXML
-    private TableColumn<Charge, Integer> Unidades;
+    private TableColumn<Charge, String> Unidades;
     @FXML
-    private TableColumn<Charge, Image> Recibo;
+    private TableColumn<Charge, String> Recibo;
     @FXML
     private Button verCategoriasButton;
     @FXML
@@ -97,20 +98,19 @@ public class Ventana_gastosController implements Initializable {
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getDate().toString()));
         
         Valor.setCellValueFactory(
-            chargeFila->new SimpleDoubleProperty(chargeFila.getValue().getCost()));
+            chargeFila->new SimpleStringProperty(Double.toString(chargeFila.getValue().getCost())));
         
         NombreGasto.setCellValueFactory(
-            chargeFila->new SimpleStringProperty(chargeFila.getValue().getName());
+            chargeFila->new SimpleStringProperty(chargeFila.getValue().getName()));
         
         Categoria.setCellValueFactory(
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getCategory().toString()));
         
         Unidades.setCellValueFactory(
-            chargeFila->new SimpleStringProperty(chargeFila.getValue().getUnits()));
+            chargeFila->new SimpleStringProperty(Integer.toString(chargeFila.getValue().getUnits())));
         
         Recibo.setCellValueFactory(
-            personaFila ->new SimpleStringProperty(
-            personaFila.getValue().getImagenPath())); 
+            personaFila ->new SimpleStringProperty(personaFila.getValue().getImageScan().getUrl()));
     
     }    
 
@@ -172,7 +172,7 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private void verCategorias(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                "Añadir_gasto.fxml"));
+                "Ventana_categorias.fxml"));
         Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     }   
@@ -180,8 +180,42 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private void verGraficos(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                "Añadir_gasto.fxml"));
+                "Graficos_gastos.fxml"));
         Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     } 
+
+    @FXML
+    private void modificarPerfil(MouseEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Modificar_perfil.fxml"));
+        Parent root = miCargador.load();
+        Modificar_perfilController controlador = miCargador.getController();
+        controlador.initInterfaz("Ventana_gastos");
+        JavaFXMLApplication.setRoot(root);
+    }
+    
+    // Clase para observar una imagen en la columna de la factura
+    class ImagenTabCell extends TableCell<Charge, String> {
+        private ImageView view = new ImageView();
+        private Image imagen;
+
+        @Override
+        protected void updateItem(String t, boolean bln) {
+            super.updateItem(t, bln);
+            if (t == null || bln) {
+                t = "/imagenes/añadir_recibo.png";
+                imagen = new Image(t,25,25,true,true);
+                view.setImage(imagen);
+                setGraphic(view);
+            } else {
+                t = "/imagenes/cheque-de-pago.png";
+                imagen = new Image(t,25,25,true,true);
+                view.setImage(imagen);
+                setGraphic(view);
+            }
+        }
+
+        
+    }
 }

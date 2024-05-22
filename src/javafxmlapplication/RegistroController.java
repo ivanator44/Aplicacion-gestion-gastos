@@ -62,6 +62,10 @@ public class RegistroController implements Initializable {
     private ComboBox<String> imagenesComboBox;
     
     private boolean nicknameValido, emailValido, passwordValido, passwordRepValido;
+    @FXML
+    private Button registrarButton;
+    @FXML
+    private Hyperlink hyperlink;
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         nicknameValido = false;
@@ -127,6 +131,7 @@ public class RegistroController implements Initializable {
     }    
 
     // Función del botón de registrar
+    @FXML
     private void registrar(ActionEvent event) throws AcountDAOException, IOException {
         if (nicknameValido && emailValido && passwordValido && passwordRepValido) { 
             String nombre = nombreTextField.getText();
@@ -163,9 +168,18 @@ public class RegistroController implements Initializable {
                 alert.setContentText("Asegúrate de completar todos los campos correctamente.");
                 alert.showAndWait();
             }
+        }else{
+            Alert alert = new Alert(AlertType.WARNING);
+            // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+            alert.setHeaderText("¡Campos incompletos!");
+            // ó null si no queremos cabecera
+            alert.setContentText("Asegúrate de completar todos los campos correctamente.");
+            alert.showAndWait();
+
         }
     }
 
+    @FXML
     private void hyperlinkFuncion(ActionEvent event) throws IOException {
         FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
         Parent root = loader.load();

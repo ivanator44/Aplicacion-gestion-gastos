@@ -49,7 +49,7 @@ public class AutenticacionController implements Initializable {
         // Si se puede iniciar sesión cambiaremos de ventana
         if (Acount.getInstance().logInUserByCredentials(nicknameTextField.getText(), passwordField.getText())){
             FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                "Ventana_categorias.fxml"));
+                "Ventana_gastos.fxml"));
             Parent root = miCargador.load();
             JavaFXMLApplication.setRoot(root);
         }

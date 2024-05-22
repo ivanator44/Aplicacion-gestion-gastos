@@ -13,25 +13,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.Ventana_gastosController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.Ventana_gastosController">
    <children>
       <HBox prefHeight="68.0" prefWidth="600.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="466.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="466.0" spacing="6.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="GASTOS">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Text>
-                  <Label fx:id="ayudaLabel" text="Ayuda">
+                  <ImageView fitHeight="51.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/logo0.png" />
+                     </image>
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets top="3.0" />
                      </HBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true" />
-                     </graphic>
-                  </Label>
+                  </ImageView>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="270.0" spacing="5.0">
@@ -46,7 +46,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="lapizImageView" fitHeight="27.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="lapizImageView" fitHeight="17.0" fitWidth="16.0" onMouseClicked="#modificarPerfil" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagenes/lapiz.png" />
                      </image>
@@ -104,7 +104,24 @@
                   <Separator prefWidth="200.0" />
                   <Button fx:id="verCategoriasButton" mnemonicParsing="false" onAction="#verCategorias" prefHeight="28.0" prefWidth="108.0" text="Categorias" />
                   <Button fx:id="verGraficosButton" mnemonicParsing="false" onAction="#verGraficos" prefHeight="26.0" prefWidth="119.0" text="Ver gráficos" />
-                  <HBox prefHeight="132.0" prefWidth="86.0" />
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="132.0" prefWidth="86.0">
+                     <children>
+                        <Label fx:id="ayudaLabel" text="Ayuda">
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="13.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/exclamacion.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children></HBox>
                </children>
                <HBox.margin>
                   <Insets />
