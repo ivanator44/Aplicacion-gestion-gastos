@@ -70,12 +70,7 @@ public class Ventana_categoriasController implements Initializable {
             usuario = Acount.getInstance().getLoggedUser();
             nickname.setText(usuario.getNickName());
             avatar.setImage(usuario.getImage());
-            // Obtén la lista de categorías del usuario
-            userCategories = Acount.getInstance().getUserCategories();
-            // Agrega cada categoría a la lista observable
-            if (userCategories != null){
-            datos.addAll(userCategories);
-            }
+            actualizarLista();
         } catch (AcountDAOException | IOException ex) {
             Logger.getLogger(Ventana_categoriasController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,10 +103,20 @@ public class Ventana_categoriasController implements Initializable {
                 + "\n•Controles alternativos: 'Perfil de usuario' y 'Ver gráficos'");
         alert.showAndWait();
     }
-
+    
+    //Funcion para refrescar la lista una vez se hayan hecho cambios
+    private void actualizarLista() throws AcountDAOException, IOException {
+        // Obtén la lista de categorías del usuario
+        userCategories = Acount.getInstance().getUserCategories();
+        // Agrega cada categoría a la lista observable
+        if (userCategories != null){
+        datos.addAll(userCategories);
+        }
+    }
+    
     // Funcion de los botones
     @FXML
-    private void añadir(ActionEvent event) throws IOException {
+    private void añadir(ActionEvent event) throws IOException, AcountDAOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Añadir_categoria.fxml"));
         Parent root = miCargador.load();
@@ -122,6 +127,7 @@ public class Ventana_categoriasController implements Initializable {
         stage.setTitle("Añadir nuevo gasto");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        actualizarLista();
     }
     
     @FXML
