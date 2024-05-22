@@ -19,7 +19,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="500.0">
          <children>
-            <HBox id="hboxRegistro" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="406.0" stylesheets="@../css/Registro.css">
+            <HBox id="hboxRegistro" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="406.0" spacing="10.0" stylesheets="@../css/Registro.css">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registro">
                      <font>
@@ -28,7 +28,7 @@
                   </Text>
                   <ImageView fitHeight="63.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imagenes/logo0.png" />
+                        <Image url="@../imagenes/cash_control.png" />
                      </image>
                   </ImageView>
                </children>
@@ -45,7 +45,7 @@
                      <children>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Nombre:*">
+                              <Label text="Nombre">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
@@ -58,7 +58,7 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Nickname (no modificable):*">
+                              <Label text="Nickname* (no modificable)">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
@@ -68,7 +68,7 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Correo electrónico:*">
+                              <Label text="Correo electrónico*">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
@@ -82,7 +82,7 @@
                      <children>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Apellido:">
+                              <Label text="Apellido">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
@@ -92,7 +92,7 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Contraseña:*">
+                              <Label text="Contraseña*">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
@@ -102,7 +102,7 @@
                         </VBox>
                         <VBox spacing="2.0">
                            <children>
-                              <Label text="Repetir contraseña:*">
+                              <Label text="Repetir contraseña*">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
@@ -155,13 +155,16 @@
             </Label>
             <ImageView fx:id="avatarImageView" fitHeight="131.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../imagenes/usuario.png" />
+                  <Image url="@../imagenes/usuario%20(1).png" />
                </image>
                <effect>
                   <DropShadow height="2.28" radius="0.6399999999999999" width="2.28" />
                </effect>
             </ImageView>
-            <ComboBox fx:id="imagenesComboBox" prefHeight="26.0" prefWidth="37.0" />
+            <ComboBox fx:id="imagenesComboBox" prefHeight="26.0" prefWidth="37.0">
+               <VBox.margin>
+                  <Insets top="7.0" />
+               </VBox.margin></ComboBox>
          </children>
          <HBox.margin>
             <Insets />

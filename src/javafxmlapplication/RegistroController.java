@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javafxmlapplication;
 
 import static extras.Utils.checkEmail;
@@ -36,20 +31,7 @@ import javafx.scene.image.ImageView;
 import model.Acount;
 import model.AcountDAOException;
 
-/**
- * FXML Controller class
- *
- * @author ivana
- */
 public class RegistroController implements Initializable {
-    private BooleanProperty validNickname;
-    private BooleanProperty validSurname;
-    private BooleanProperty validPassword;
-    private BooleanProperty validEmail;
-    private BooleanProperty equalPasswords;  
-    private BooleanProperty validName;  
-    private Acount nueva;
-
     @FXML
     private TextField nombreTextField;
     @FXML
@@ -61,8 +43,7 @@ public class RegistroController implements Initializable {
     @FXML
     private PasswordField passwordRepField;
     @FXML
-    private TextField emailTextField;
-    
+    private TextField emailTextField;   
     @FXML
     private Label nombreErrText;
     @FXML
@@ -74,66 +55,57 @@ public class RegistroController implements Initializable {
     @FXML
     private Label passwordErrText;
     @FXML
-    private Label passwordRepErrText;
-    
+    private Label passwordRepErrText;   
     @FXML
     private ImageView avatarImageView;
     @FXML
     private ComboBox<String> imagenesComboBox;
     
-    
+    private boolean nicknameValido, emailValido, passwordValido, passwordRepValido;
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        validName = new SimpleBooleanProperty();
-        validSurname = new SimpleBooleanProperty();
-        validNickname = new SimpleBooleanProperty();
-        validEmail = new SimpleBooleanProperty();
-        validPassword = new SimpleBooleanProperty();   
-        equalPasswords = new SimpleBooleanProperty();
-        
-        validName.setValue(Boolean.FALSE);
-        validSurname.setValue(Boolean.FALSE);
-        validNickname.setValue(Boolean.FALSE);
-        validPassword.setValue(Boolean.FALSE);
-        validEmail.setValue(Boolean.FALSE);
-        equalPasswords.setValue(Boolean.FALSE);
-                        
-        /*BooleanBinding validFields = Bindings.and(validEmail, validPassword)
-                 .and(equalPasswords);*/
-        nombreTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                checkEditName();
-            }
-        });
-        
-        apellidoTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                checkEditSurname();
-            }
-        });
+    public void initialize(URL url, ResourceBundle rb) { 
+        nicknameValido = false;
+        emailValido = false;
+        passwordValido = false;
+        passwordRepValido = false;
         
         nicknameTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if(!newValue){ //focus lost
-                checkEditNickname();
+                if (!checkNickname(nicknameTextField.getText())){
+                    showErrorMessage(nicknameErrText, nicknameTextField, nicknameValido);
+                }else{
+                    hideErrorMessage(nicknameErrText, nicknameTextField, nicknameValido);
+                }
             }
         });
         
         emailTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                checkEditEmail();
+            if(!newValue){
+                if (!checkEmail(emailTextField.getText())){
+                    showErrorMessage(emailErrText, emailTextField, emailValido);
+                }else{
+                    hideErrorMessage(emailErrText, emailTextField, emailValido);
+                }
             }
         });
         
         passwordField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                checkEditPassword();
+            if(!newValue){
+                if (!checkPassword(passwordField.getText())){
+                    showErrorMessage(passwordErrText, passwordField, passwordValido);
+                }else{
+                    hideErrorMessage(passwordErrText, passwordField, passwordValido);
+                }
             }
         });
         
         passwordRepField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if(!newValue){ //focus lost
-                checkEditPasswordRep();
+                if (passwordRepField.getText().equals(passwordField.getText())){
+                    showErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
+                }else{
+                    hideErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
+                }
             }
         });
         
@@ -156,7 +128,7 @@ public class RegistroController implements Initializable {
 
     // Función del botón de registrar
     private void registrar(ActionEvent event) throws AcountDAOException, IOException {
-        if (validName.get() && validSurname.get() && validNickname.get() && validEmail.get() && validPassword.get() && equalPasswords.get()) {
+        if (nicknameValido && emailValido && passwordValido && passwordRepValido) { 
             String nombre = nombreTextField.getText();
             String apellido = apellidoTextField.getText();
             String email = emailTextField.getText();
@@ -175,15 +147,20 @@ public class RegistroController implements Initializable {
                 Acount.getInstance().registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
                 FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
                 Parent  root = loader.load();
-                // Añadir alerta inidicando que el registro ha tenido éxito
-                //...
+                // Alerta indicando que el registro se ha completado correctamente...
+                Alert alert = new Alert(AlertType.INFORMATION);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                alert.setHeaderText("REGISTRADO");
+                // ó null si no queremos cabecera
+                alert.setContentText("Has sido registrado correctamente.");
+                alert.showAndWait();
                 JavaFXMLApplication.setRoot(root);
             }else{
                 Alert alert = new Alert(AlertType.ERROR);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-                alert.setHeaderText("Cabecera");
+                alert.setHeaderText("¡Campos incorrectos!");
                 // ó null si no queremos cabecera
-                alert.setContentText("Aquí va el texto del mensaje");
+                alert.setContentText("Asegúrate de completar todos los campos correctamente.");
                 alert.showAndWait();
             }
         }
@@ -194,122 +171,21 @@ public class RegistroController implements Initializable {
         Parent root = loader.load();
         JavaFXMLApplication.setRoot(root);
         
-    }
-    
-    //-----------------------------------------------
-    // Métodos para comprobar que los campos son correctos
-    private void checkEditName(){
-        if (!checkName(nombreTextField.textProperty().getValueSafe())){
-            manageError(nombreErrText, nombreTextField, validName);
-        }else{
-            manageCorrect(nombreErrText, nombreTextField, validName);
-        }
-    }
-    
-    private void checkEditSurname(){
-        if (!checkSurname(apellidoTextField.textProperty().getValueSafe())){
-            manageError(apellidoErrText, apellidoTextField, validSurname);
-        }else{
-            manageCorrect(apellidoErrText, apellidoTextField, validSurname);
-        }
-    }
-    
-    private void checkEditNickname(){
-        if (!checkNickname(nicknameTextField.textProperty().getValueSafe())){
-            manageError(nicknameErrText, nicknameTextField, validNickname);
-        }else{
-            manageCorrect(nicknameErrText, nicknameTextField, validNickname);
-        }
-    }
-    
-    private void checkEditEmail(){
-        if (!checkEmail(emailTextField.textProperty().getValueSafe())){
-            manageError(emailErrText, emailTextField, validEmail);
-        }else{
-            manageCorrect(emailErrText, emailTextField, validEmail);
-        }
-    }
-    
-    private void checkEditPassword(){
-        if (!checkPassword(passwordField.textProperty().getValueSafe())){
-            manageError(passwordErrText, passwordField, validPassword);
-        }else{
-            manageCorrect(passwordErrText, passwordField, validPassword);
-        }
-    }
-    
-    private void checkEditPasswordRep(){
-        if (!checkPasswordRep(passwordRepField.textProperty().getValueSafe(), 
-                passwordField.textProperty().getValueSafe())){
-            manageError(passwordRepErrText, passwordRepField, equalPasswords);
-        }else{
-            manageCorrect(passwordRepErrText, passwordRepField, equalPasswords);
-        }
-    }
-    
-    //------------------------------------------
-    
-    /**
-     * Updates the boolProp to false.Changes to red the background of the edit. 
-     * Makes the error label visible and sends the focus to the edit. 
-     * @param errorLabel label added to alert the user
-     * @param textField edit text added to allow user to introduce the value
-     * @param boolProp property which stores if the value is correct or not
-     */
-    private void manageError(Label errorLabel,TextField textField, BooleanProperty boolProp ){
-        if (!textField.textProperty().getValueSafe().equals("")) {
-            boolProp.setValue(Boolean.FALSE);
-            showErrorMessage(errorLabel,textField);
-            //textField.requestFocus();
-        }
-    }
-    
-    /**
-     * Updates the boolProp to true. Changes the background 
-     * of the edit to the default value. Makes the error label invisible. 
-     * @param errorLabel label added to alert the user
-     * @param textField edit text added to allow user to introduce the value
-     * @param boolProp property which stores if the value is correct or not
-     */
-    private void manageCorrect(Label errorLabel,TextField textField, BooleanProperty boolProp ){
-        boolProp.setValue(Boolean.TRUE);
-        hideErrorMessage(errorLabel,textField);  
-    }
-    
-    //----------------------------------------------------
-    
-    /**
-     * Changes to red the background of the edit and
-     * makes the error label visible
-     * @param errorLabel
-     * @param textField 
-     */
-    private void showErrorMessage(Label errorLabel,TextField textField){
+    }    
+    //--------------------------------------------------------------------------   
+    // Mostrar u ocultar los textos de error
+    private void showErrorMessage(Label errorLabel,TextField textField, boolean valido){
         errorLabel.visibleProperty().set(true); 
-        textField.styleProperty().setValue("-fx-background-color: #FCE5E0");    
-    }
-    
-    /**
-     * Changes the background of the edit to the default value
-     * and makes the error label invisible.
-     * @param errorLabel
-     * @param textField 
-     */
-    private void hideErrorMessage(Label errorLabel,TextField textField){
+        textField.styleProperty().setValue("-fx-background-color: #FCE5E0");  
+        valido = false;
+
+    } 
+    private void hideErrorMessage(Label errorLabel,TextField textField, boolean valido){
         errorLabel.visibleProperty().set(false);
         textField.styleProperty().setValue("");
-    }
-
-    @FXML
-    private void guardar(ActionEvent event) {
-    }
-
-    @FXML
-    private void cancelar(ActionEvent event) {
-    }
-    
-    //--------------------------------------------------------------
-    
+        valido = true;
+    } 
+    //--------------------------------------------------------------------------
     // Clase para mostrar las imágenes correctamente
     class ImagenComboCell extends ComboBoxListCell<String> {
         private ImageView view = new ImageView();
@@ -331,7 +207,7 @@ public class RegistroController implements Initializable {
         }
     }
     
-    // Clase para mostrar en la celda del comboBox cuando se seleccione alguna imagen
+    // Clase para mostrar en la celda del comboBox un 'tick' cuando se seleccione alguna imagen
     class ImagenTickComboCell extends ComboBoxListCell<String> {
         private ImageView view = new ImageView();
         private Image imagen;
@@ -351,5 +227,5 @@ public class RegistroController implements Initializable {
                 setText(fileName);
             }
         }
-    }
+    }  
 }

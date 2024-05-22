@@ -61,7 +61,6 @@ public class Ventana_categoriasController implements Initializable {
     private ObservableList<Category> datos = null;
     List<Category> userCategories;
     private User usuario;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         datos = categoriasListView.getItems();
@@ -89,28 +88,13 @@ public class Ventana_categoriasController implements Initializable {
         });  
     }    
     
-    // Funciones alternativas :)    
-    @FXML
-    private void ayudaLabelFuncion(MouseEvent event) {
-        // Menú de información/alerta
-        Alert alert = new Alert(AlertType.INFORMATION);
-        // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-        alert.setHeaderText("INFORMACIÓN ADICIONAL");
-        // ó null si no queremos cabecera
-        alert.setContentText("•Añadir categoría: Permite agregar una nueva categoría"
-                + "\n•Modificar categoría: Permite modificar la categoría seleccionada"
-                + "\n•Borrar categoría: Elimina la categoría seleccionada"
-                + "\n•Controles alternativos: 'Perfil de usuario' y 'Ver gráficos'");
-        alert.showAndWait();
-    }
-    
     //Funcion para refrescar la lista una vez se hayan hecho cambios
     private void actualizarLista() throws AcountDAOException, IOException {
         // Obtén la lista de categorías del usuario
         userCategories = Acount.getInstance().getUserCategories();
         // Agrega cada categoría a la lista observable
         if (userCategories != null){
-        datos.addAll(userCategories);
+        datos.setAll(userCategories);
         }
     }
     
@@ -141,7 +125,7 @@ public class Ventana_categoriasController implements Initializable {
         Scene scene = new Scene(root, 291, 278);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Añadir nuevo gasto");
+        stage.setTitle("Gestionar gasto");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
     }
@@ -154,23 +138,36 @@ public class Ventana_categoriasController implements Initializable {
         Acount.getInstance().removeCategory(seleccion);
         datos.remove(indice);
     }
-    
-    private void verGastos(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                "Ventana_gastos.fxml"));
+   
+    @FXML
+    private void verGraficos(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Graficos_categorias.fxml"));
         Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
-    private void verGraficos(ActionEvent event) {
+    private void atras(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
+        Parent root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
-
+        
     @FXML
-    private void atras(ActionEvent event) {
+    private void ayudaLabelFuncion(MouseEvent event) {
+        // Menú de información/alerta
+        Alert alert = new Alert(AlertType.INFORMATION);
+        // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+        alert.setHeaderText("INFORMACIÓN ADICIONAL");
+        // ó null si no queremos cabecera
+        alert.setContentText("•Añadir categoría: Permite agregar una nueva categoría"
+                + "\n•Modificar categoría: Permite modificar la categoría seleccionada"
+                + "\n•Borrar categoría: Elimina la categoría seleccionada"
+                + "\n•Controles alternativos: 'Perfil de usuario' y 'Ver gráficos'");
+        alert.showAndWait();
     }
     
-    //----------------------------------------------------------
+    //--------------------------------------------------------------------------
     // Clase para mostrar las celdas del ListView de manera personalizada
     class CategoryListCell extends ListCell<Category> {
         @Override
