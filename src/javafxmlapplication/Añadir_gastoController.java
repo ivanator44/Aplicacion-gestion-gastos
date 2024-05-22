@@ -65,9 +65,19 @@ public class Añadir_gastoController implements Initializable {
     public Charge getCargo(){
         return cargo;
     }
-    
+    private boolean camposInicializados = false;
+    public void initCharge(Charge c){
+        cargo = c;
+        nombreGastoTextField.setText(cargo.getName());
+        unidadesTextField.setText(Integer.toString(cargo.getUnits()));
+        costeTextField.setText(Integer.toString(cargo.getUnits()));
+        fechaGastoTextField.setValue(cargo.getDate());
+        categoriaCB.setValue(cargo.getCategory());
+        descripcionTextField.setText(cargo.getDescription());
+        imagenFactura.setImage(cargo.getImageScan());
+        camposInicializados = true;
+    }
     Acount cuenta;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO  
@@ -87,7 +97,6 @@ public class Añadir_gastoController implements Initializable {
 
     @FXML
     private void aceptar(ActionEvent event) throws IOException, AcountDAOException {
-        
         cuenta = Acount.getInstance();
         Boolean cargoAceptado = cuenta.registerCharge(nombreGastoTextField.getText(),
               descripcionTextField.getText(), parseDouble(costeTextField.getText()),

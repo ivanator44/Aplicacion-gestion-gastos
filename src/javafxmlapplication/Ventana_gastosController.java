@@ -73,6 +73,8 @@ public class Ventana_gastosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         datos = gastosTableV.getItems(); // no creo la lista observable, utilizo la que tiene vacia el listview
+        
+        
     }    
 
     //Funcion para refrescar la lista una vez se hayan hecho cambios
@@ -105,22 +107,44 @@ public class Ventana_gastosController implements Initializable {
         }
     }
 
-
     @FXML
-    private void modificar(ActionEvent event) {
+    private void modificar(ActionEvent event) throws IOException, AcountDAOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Añadir_gasto.fxml"));
+        Parent root = miCargador.load();
+        Añadir_gastoController controlador = miCargador.getController();
+        
+        Scene scene = new Scene(root, 350, 350);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Añadir nuevo gasto");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        
+        if (controlador.isOKPressed()){
+            actualizarLista();
+        }
     }
 
     @FXML
-    private void borrar(ActionEvent event) {
+    private void borrar(ActionEvent event) throws AcountDAOException, IOException {
+        Acount.getInstance().removeCharge(gastosTableV.getSelectionModel().getSelectedItem());
+        actualizarLista();
     }
 
     @FXML
-    private void verCategorias(ActionEvent event) {
+    private void verCategorias(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Añadir_gasto.fxml"));
+        Parent root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }   
 
     @FXML
-    private void verGraficos(ActionEvent event) {
-    }
-    
-   
+    private void verGraficos(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Añadir_gasto.fxml"));
+        Parent root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
+    } 
 }

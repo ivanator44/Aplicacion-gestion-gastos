@@ -49,8 +49,16 @@ public class Añadir_categoriaController implements Initializable {
     @FXML
     private void aceptar(ActionEvent event) throws AcountDAOException, IOException {
         if (camposInicializados){
-            categoria.setName(nombreCategoriaTextField.getText());
-            categoria.setDescription(descripcionTextField.getText());
+            if (!nombreCategoriaTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty()) {
+                categoria.setName(nombreCategoriaTextField.getText());
+                categoria.setDescription(descripcionTextField.getText());
+            }else{
+                Alert camposVacios = new Alert(AlertType.ERROR);
+                camposVacios.setTitle("ERROR");
+                camposVacios.setHeaderText(null);
+                camposVacios.setContentText("¡Completa los campos si están vacíos!");
+                camposVacios.showAndWait();
+            }
         }else{
             if (!nombreCategoriaTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty()) {
                 if (Acount.getInstance().registerCategory(nombreCategoriaTextField.getText(), descripcionTextField.getText())){

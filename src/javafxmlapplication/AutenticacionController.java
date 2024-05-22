@@ -48,13 +48,9 @@ public class AutenticacionController implements Initializable {
     private void entrar(ActionEvent event) throws AcountDAOException, IOException {
         // Si se puede iniciar sesión cambiaremos de ventana
         if (Acount.getInstance().logInUserByCredentials(nicknameTextField.getText(), passwordField.getText())){
-            User user = Acount.getInstance().getLoggedUser();
-            
             FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Ventana_categorias.fxml"));
             Parent root = miCargador.load();
-            Ventana_categoriasController controlador = miCargador.getController();
-            //controlador.initUsuario(user);
             JavaFXMLApplication.setRoot(root);
         }
         else {
