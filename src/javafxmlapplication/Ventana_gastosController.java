@@ -2,9 +2,11 @@ package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -51,7 +53,7 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private TableView<Charge> gastosTableV;
     @FXML
-    private TableColumn<Charge, Integer> Fecha;
+    private TableColumn<Charge, String> Fecha;
     @FXML
     private TableColumn<Charge, Double> Valor;
     @FXML
@@ -88,10 +90,28 @@ public class Ventana_gastosController implements Initializable {
             verCategoriasButton.setDisable(true);
             verGraficosButton.setDisable(true);
             borrarButton.setDisable(false);
-
         }
         });
-
+        
+        Fecha.setCellValueFactory(
+            chargeFila->new SimpleStringProperty(chargeFila.getValue().getDate().toString()));
+        
+        Valor.setCellValueFactory(
+            chargeFila->new SimpleDoubleProperty(chargeFila.getValue().getCost()));
+        
+        NombreGasto.setCellValueFactory(
+            chargeFila->new SimpleStringProperty(chargeFila.getValue().getName());
+        
+        Categoria.setCellValueFactory(
+            chargeFila->new SimpleStringProperty(chargeFila.getValue().getCategory().toString()));
+        
+        Unidades.setCellValueFactory(
+            chargeFila->new SimpleStringProperty(chargeFila.getValue().getUnits()));
+        
+        Recibo.setCellValueFactory(
+            personaFila ->new SimpleStringProperty(
+            personaFila.getValue().getImagenPath())); 
+    
     }    
 
     //Funcion para refrescar la lista una vez se hayan hecho cambios
