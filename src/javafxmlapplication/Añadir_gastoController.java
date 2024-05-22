@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -90,6 +91,9 @@ public class Añadir_gastoController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(
         ((Node)event.getSource()).getScene().getWindow());
         if (selectedFile != null) {
+            String t = "/imagenes/cheque-de-pago.png";
+            Image imagen = new Image(t,25,25,true,true);
+            imagenFactura.setImage(imagen);
             urlFactura.setText(selectedFile.getAbsolutePath());
         } 
     }
