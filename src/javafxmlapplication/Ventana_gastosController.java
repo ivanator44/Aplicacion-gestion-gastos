@@ -2,12 +2,9 @@ package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -24,14 +20,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Acount;
-import model.AcountDAOException;
-import model.Category;
 import model.Charge;
 
 
 public class Ventana_gastosController implements Initializable {
 
+    @FXML
+    private Label nombreCategoria;
     @FXML
     private Label ayudaLabel;
     @FXML
@@ -41,13 +36,17 @@ public class Ventana_gastosController implements Initializable {
     @FXML
     private Label nickname;
     @FXML
-    private ImageView lapizImageView;   
+    private ImageView lapizImageView;
+    
     @FXML
     private Button añadirGastoButton;
     @FXML
     private Button modificarButton;
     @FXML
-    private Button borrarButton;     
+    private Button borrarButton;
+    @FXML
+    private Button atrasButton;
+     
     @FXML
     private TableView<Charge> gastosTableV;
     @FXML
@@ -62,32 +61,19 @@ public class Ventana_gastosController implements Initializable {
     private TableColumn<Charge, Integer> Unidades;
     @FXML
     private TableColumn<Charge, Image> Recibo;
-    @FXML
-    private Button verCategoriasButton;
-    @FXML
-    private Button verGraficosButton;
+    
 
-    private ObservableList<Charge> datos = null; // Colecci�n vinculada a la vista.
-    List<Charge> userCharges;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        datos = gastosTableV.getItems(); // no creo la lista observable, utilizo la que tiene vacia el listview
     }    
 
-    //Funcion para refrescar la lista una vez se hayan hecho cambios
-    private void actualizarLista() throws AcountDAOException, IOException {
-        // Obtén la lista de categorías del usuario
-        userCharges = Acount.getInstance().getUserCharges();
-        // Agrega cada categoría a la lista observable
-        if (userCharges != null){
-            datos.setAll(userCharges);
-            numeroGastos.setText("Total de categorías: " + datos.size());
-        }
-    }
-    
     @FXML
-    private void añadirGasto(ActionEvent event) throws IOException, AcountDAOException {
+    private void ayudaLabelFuncion(MouseEvent event) {
+    }
+
+    @FXML
+    private void añadirGasto(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Añadir_gasto.fxml"));
         Parent root = miCargador.load();
@@ -101,7 +87,7 @@ public class Ventana_gastosController implements Initializable {
         stage.showAndWait();
         
         if (controlador.isOKPressed()){
-            actualizarLista();
+            
         }
     }
 
@@ -115,12 +101,6 @@ public class Ventana_gastosController implements Initializable {
     }
 
     @FXML
-    private void verCategorias(ActionEvent event) {
+    private void atras(ActionEvent event) {
     }   
-
-    @FXML
-    private void verGraficos(ActionEvent event) {
-    }
-    
-   
 }
