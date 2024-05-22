@@ -38,7 +38,7 @@ public class Ventana_categoriasController implements Initializable {
     @FXML
     private Label ayudaLabel;
     @FXML
-    private Label numeroGastos;
+    private Label numeroCategorias;
     @FXML
     private ListView<Category> categoriasListView;
     @FXML
@@ -95,6 +95,7 @@ public class Ventana_categoriasController implements Initializable {
         // Agrega cada categoría a la lista observable
         if (userCategories != null){
         datos.setAll(userCategories);
+        numeroCategorias.setText("Total de categorías: " + datos.size());
         }
     }
     
@@ -166,7 +167,7 @@ public class Ventana_categoriasController implements Initializable {
                 + "\n•Controles alternativos: 'Perfil de usuario' y 'Ver gráficos'");
         alert.showAndWait();
     }
-    
+
     //--------------------------------------------------------------------------
     // Clase para mostrar las celdas del ListView de manera personalizada
     class CategoryListCell extends ListCell<Category> {
@@ -176,7 +177,7 @@ public class Ventana_categoriasController implements Initializable {
             if (bln){ // Está vacía
                setText(""); 
             }else{
-                setText("Objeto");
+                setText(c.getName() + ": " + c.getDescription());
             }
         }   
     }
