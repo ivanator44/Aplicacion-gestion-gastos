@@ -78,8 +78,8 @@ public class Ventana_categoriasController implements Initializable {
         categoriasListView.setCellFactory((c)->{return new CategoryListCell();});
         
         // Listeners
-        categoriasListView.focusedProperty().addListener((a, b, c) -> {
-            if (categoriasListView.isFocused()){
+        categoriasListView.getSelectionModel().selectedIndexProperty().addListener((a, b, c) -> {
+            if (categoriasListView.getSelectionModel().getSelectedIndex() != -1){
                 modificarButton.setDisable(false);
                 borrarButton.setDisable(false);
             }else{
