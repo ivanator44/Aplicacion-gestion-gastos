@@ -74,7 +74,24 @@ public class Ventana_gastosController implements Initializable {
         // TODO
         datos = gastosTableV.getItems(); // no creo la lista observable, utilizo la que tiene vacia el listview
         
-        
+        gastosTableV.focusedProperty().addListener( (o, oldVal, newVal) -> {
+        if (!gastosTableV.isFocused()){
+            añadirGastoButton.setDisable(false);
+            modificarButton.setDisable(true);
+            verCategoriasButton.setDisable(false);
+            verGraficosButton.setDisable(false);
+            borrarButton.setDisable(true);
+
+        }else{      
+            añadirGastoButton.setDisable(true);
+            modificarButton.setDisable(false);
+            verCategoriasButton.setDisable(true);
+            verGraficosButton.setDisable(true);
+            borrarButton.setDisable(false);
+
+        }
+        });
+
     }    
 
     //Funcion para refrescar la lista una vez se hayan hecho cambios
