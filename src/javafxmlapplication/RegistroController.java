@@ -80,12 +80,13 @@ public class RegistroController implements Initializable {
             if(!newValue){ //focus lost
                 if (!nicknameTextField.getText().equals("")){
                     if (!checkNickname(nicknameTextField.getText())){
-                        showErrorMessage(nicknameErrText, nicknameTextField, nicknameValido);
+                        nicknameValido = showErrorMessage(nicknameErrText, nicknameTextField);
                     }else{
-                        hideErrorMessage(nicknameErrText, nicknameTextField, nicknameValido);
+                        nicknameValido = hideErrorMessage(nicknameErrText, nicknameTextField);
                     }
                 }else{
-                    hideErrorMessage(nicknameErrText, nicknameTextField, nicknameValido);
+                    hideErrorMessage(nicknameErrText, nicknameTextField);
+                    nicknameValido = false;
                 }
             }
         });
@@ -94,12 +95,13 @@ public class RegistroController implements Initializable {
             if(!newValue){ //focus lost
                 if (!emailTextField.getText().equals("")){
                     if (!checkEmail(emailTextField.getText())){
-                        showErrorMessage(emailErrText, emailTextField, emailValido);
+                        emailValido = showErrorMessage(emailErrText, emailTextField);
                     }else{
-                        hideErrorMessage(emailErrText, emailTextField, emailValido);
+                        emailValido = hideErrorMessage(emailErrText, emailTextField);
                     }
                 }else{
-                    hideErrorMessage(emailErrText, emailTextField, emailValido);
+                    hideErrorMessage(emailErrText, emailTextField);
+                    emailValido = false;
                 }
             }
         });
@@ -108,12 +110,13 @@ public class RegistroController implements Initializable {
             if(!newValue){ //focus lost
                 if (!passwordField.getText().equals("")){
                     if (!checkPassword(passwordField.getText())){
-                        showErrorMessage(passwordErrText, passwordField, passwordValido);
+                        passwordValido = showErrorMessage(passwordErrText, passwordField);
                     }else{
-                        hideErrorMessage(passwordErrText, passwordField, passwordValido);
+                        passwordValido = hideErrorMessage(passwordErrText, passwordField);
                     }
                 }else{
-                    hideErrorMessage(passwordErrText, passwordField, passwordValido);
+                    hideErrorMessage(passwordErrText, passwordField);
+                    passwordValido = false;
                 }
             }
         });
@@ -122,12 +125,13 @@ public class RegistroController implements Initializable {
             if(!newValue){ //focus lost
                 if (!passwordRepField.getText().equals("")){
                     if (!passwordField.getText().equals(passwordRepField.getText())){
-                        showErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
+                        passwordRepValido = showErrorMessage(passwordRepErrText, passwordRepField);
                     }else{
-                        hideErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
+                        passwordRepValido = hideErrorMessage(passwordRepErrText, passwordRepField);
                     }
                 }else{
-                    hideErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
+                    hideErrorMessage(passwordRepErrText, passwordRepField);
+                    passwordRepValido = false;
                 }
             }
         });
@@ -152,49 +156,63 @@ public class RegistroController implements Initializable {
     // Función del botón de registrar
     @FXML
     private void registrar(ActionEvent event) throws AcountDAOException, IOException {
-        if (nicknameValido && emailValido && passwordValido && passwordRepValido) { 
-            String nombre = nombreTextField.getText();
-            String apellido = apellidoTextField.getText();
-            String email = emailTextField.getText();
-            String login = nicknameTextField.getText(); // (Nickname) 
-            String contraseña = passwordField.getText();
-            
-            Image avatar;
-            if (avatarImageView.getImage() != null){
-                avatar = avatarImageView.getImage();
-            }else{ // Si no se ha seleccionado ninguna imagen...
-                avatar = new Image(getClass().getResourceAsStream("/avatares/default.png"));
-            }
-            
-            // Si no existe ya una cuenta con ese nickname entonces registramos los datos
-            if (!Acount.getInstance().existsLogin(login)){
-                Acount.getInstance().registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
-                FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
-                Parent  root = loader.load();
-                // Alerta indicando que el registro se ha completado correctamente...
-                Alert alert = new Alert(AlertType.INFORMATION);
-                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-                alert.setHeaderText("REGISTRADO");
-                // ó null si no queremos cabecera
-                alert.setContentText("Has sido registrado correctamente.");
-                alert.showAndWait();
-                JavaFXMLApplication.setRoot(root);
+        if (!nicknameTextField.getText().isEmpty() || !emailTextField.getText().isEmpty() 
+            || !passwordField.getText().isEmpty() || !passwordRepField.getText().isEmpty()){
+            if (nicknameValido && emailValido && passwordValido && passwordRepValido) { 
+                String nombre = nombreTextField.getText();
+                String apellido = apellidoTextField.getText();
+                String email = emailTextField.getText();
+                String login = nicknameTextField.getText(); // (Nickname) 
+                String contraseña = passwordField.getText();
+
+                Image avatar;
+                if (avatarImageView.getImage() != null){
+                    avatar = avatarImageView.getImage();
+                }else{ // Si no se ha seleccionado ninguna imagen...
+                    avatar = new Image(getClass().getResourceAsStream("/avatares/default.png"));
+                }
+
+                // Si no existe ya una cuenta con ese nickname entonces registramos los datos
+                if (!Acount.getInstance().existsLogin(login)){
+                    Acount.getInstance().registerUser(nombre, apellido, email, login, contraseña, avatar, LocalDate.MAX);
+                    FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
+                    Parent  root = loader.load();
+                    // Alerta indicando que el registro se ha completado correctamente...
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                    alert.setHeaderText("REGISTRADO");
+                    // ó null si no queremos cabecera
+                    alert.setContentText("Has sido registrado correctamente.");
+                    alert.showAndWait();
+                    JavaFXMLApplication.setRoot(root);
+                }else{
+                    Alert alert = new Alert(AlertType.ERROR);
+                    // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                    alert.setHeaderText("¡El nickname ya está en uso!");
+                    // ó null si no queremos cabecera
+                    alert.setContentText("Modifica el valor del nickname para que no coincida\n"
+                            + "con el de otro usuario.");
+                    alert.showAndWait();
+                }
             }else{
-                Alert alert = new Alert(AlertType.ERROR);
+                Alert alert = new Alert(AlertType.WARNING);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-                alert.setHeaderText("¡El nickname ya está en uso!");
+                alert.setHeaderText("¡Campos incorrectos!");
                 // ó null si no queremos cabecera
-                alert.setContentText("Modifica el valor del nickname para que no coincida con el de otro usuario.");
+                alert.setContentText("Asegúrate de completar todos los campos correctamente."
+                        + "\nPuedes consultar los requerimientos de los campos pulsando\n"
+                        + "en 'Ayuda'");
                 alert.showAndWait();
             }
         }else{
             Alert alert = new Alert(AlertType.WARNING);
             // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-            alert.setHeaderText("¡Campos incompletos!");
+            alert.setHeaderText("¡Faltan campos por completar!");
             // ó null si no queremos cabecera
-            alert.setContentText("Asegúrate de completar todos los campos correctamente.");
+            alert.setContentText("Asegúrate de completar todos los campos correctamente."
+                    + "\nPuedes consultar los requerimientos de los campos pulsando\n"
+                    + "en 'Ayuda'");
             alert.showAndWait();
-
         }
     }
 
@@ -207,16 +225,16 @@ public class RegistroController implements Initializable {
     }    
     //--------------------------------------------------------------------------   
     // Mostrar u ocultar los textos de error
-    private void showErrorMessage(Label errorLabel, TextField textField, boolean val){
+    private boolean showErrorMessage(Label errorLabel, TextField textField){
         errorLabel.visibleProperty().set(true); 
         textField.styleProperty().setValue("-fx-background-color: #FCE5E0");  
-        val = false;
+        return false;
 
     } 
-    private void hideErrorMessage(Label errorLabel, TextField textField, boolean valido){
+    private boolean hideErrorMessage(Label errorLabel, TextField textField){
         errorLabel.visibleProperty().set(false);
         textField.styleProperty().setValue("");
-        valido = true;
+        return true;
     } 
     //--------------------------------------------------------------------------
     // Clase para mostrar las imágenes correctamente
