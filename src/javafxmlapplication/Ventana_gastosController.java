@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -16,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -69,30 +72,33 @@ public class Ventana_gastosController implements Initializable {
     private Button verCategoriasButton;
     @FXML
     private Button verGraficosButton;
+    boolean hayCategorias;
 
     private ObservableList<Charge> datos = null; // Colecci�n vinculada a la vista.
     List<Charge> userCharges;
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb){
         // TODO
         datos = gastosTableV.getItems(); // no creo la lista observable, utilizo la que tiene vacia el listview
         
+        try {
+            nickname.setText(Acount.getInstance().getLoggedUser().getNickName());
+            avatar.setImage(Acount.getInstance().getLoggedUser().getImage());
+            actualizarLista();
+        } catch (AcountDAOException | IOException ex) {
+            Logger.getLogger(Ventana_gastosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         gastosTableV.focusedProperty().addListener( (o, oldVal, newVal) -> {
-        if (!gastosTableV.isFocused()){
-            añadirGastoButton.setDisable(false);
-            modificarButton.setDisable(true);
-            verCategoriasButton.setDisable(false);
-            verGraficosButton.setDisable(false);
-            borrarButton.setDisable(true);
+        if (gastosTableV.getSelectionModel().getSelectedIndex() != -1){
+            modificarButton.setDisable(false);
+            borrarButton.setDisable(false);
 
         }else{      
-            añadirGastoButton.setDisable(true);
-            modificarButton.setDisable(false);
-            verCategoriasButton.setDisable(true);
-            verGraficosButton.setDisable(true);
-            borrarButton.setDisable(false);
+            modificarButton.setDisable(true);
+            borrarButton.setDisable(true);
         }
         });
+        
         
         Fecha.setCellValueFactory(
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getDate().toString()));
@@ -127,21 +133,34 @@ public class Ventana_gastosController implements Initializable {
     
     @FXML
     private void añadirGasto(ActionEvent event) throws IOException, AcountDAOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                "Añadir_gasto.fxml"));
-        Parent root = miCargador.load();
-        Añadir_gastoController controlador = miCargador.getController();
         
-        Scene scene = new Scene(root, 350, 350);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Añadir nuevo gasto");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
+        List<Category> categorias = Acount.getInstance().getUserCategories();
+        hayCategorias = !categorias.isEmpty();
         
-        if (controlador.isOKPressed()){
-            actualizarLista();
-        }
+            if(hayCategorias){
+                FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                        "Añadir_gasto.fxml"));
+                Parent root = miCargador.load();
+                Añadir_gastoController controlador = miCargador.getController();
+
+                Scene scene = new Scene(root, 350, 350);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Añadir nuevo gasto");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+                if (controlador.isOKPressed()){
+                    actualizarLista();
+                }
+            }else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                  // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                  alert.setHeaderText(null);
+                  // ó null si no queremos cabecera
+                  alert.setContentText("¡Hay que crear categorias antes!");
+                  alert.showAndWait();
+            }
     }
 
     @FXML
@@ -150,7 +169,7 @@ public class Ventana_gastosController implements Initializable {
                 "Añadir_gasto.fxml"));
         Parent root = miCargador.load();
         Añadir_gastoController controlador = miCargador.getController();
-        
+        controlador.initCharge(gastosTableV.getSelectionModel().getSelectedItem());
         Scene scene = new Scene(root, 350, 350);
         Stage stage = new Stage();
         stage.setScene(scene);
