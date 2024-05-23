@@ -61,7 +61,10 @@ public class RegistroController implements Initializable {
     @FXML
     private ComboBox<String> imagenesComboBox;
     
-    private boolean nicknameValido, emailValido, passwordValido, passwordRepValido;
+    private boolean nicknameValido;
+    private boolean emailValido;
+    private boolean passwordValido;
+    private boolean passwordRepValido;
     @FXML
     private Button registrarButton;
     @FXML
@@ -81,6 +84,8 @@ public class RegistroController implements Initializable {
                     }else{
                         hideErrorMessage(nicknameErrText, nicknameTextField, nicknameValido);
                     }
+                }else{
+                    hideErrorMessage(nicknameErrText, nicknameTextField, nicknameValido);
                 }
             }
         });
@@ -88,11 +93,13 @@ public class RegistroController implements Initializable {
         emailTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if(!newValue){ //focus lost
                 if (!emailTextField.getText().equals("")){
-                    if (!checkNickname(emailTextField.getText())){
+                    if (!checkEmail(emailTextField.getText())){
                         showErrorMessage(emailErrText, emailTextField, emailValido);
                     }else{
                         hideErrorMessage(emailErrText, emailTextField, emailValido);
                     }
+                }else{
+                    hideErrorMessage(emailErrText, emailTextField, emailValido);
                 }
             }
         });
@@ -100,11 +107,13 @@ public class RegistroController implements Initializable {
         passwordField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if(!newValue){ //focus lost
                 if (!passwordField.getText().equals("")){
-                    if (!checkNickname(passwordField.getText())){
+                    if (!checkPassword(passwordField.getText())){
                         showErrorMessage(passwordErrText, passwordField, passwordValido);
                     }else{
                         hideErrorMessage(passwordErrText, passwordField, passwordValido);
                     }
+                }else{
+                    hideErrorMessage(passwordErrText, passwordField, passwordValido);
                 }
             }
         });
@@ -112,11 +121,13 @@ public class RegistroController implements Initializable {
         passwordRepField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if(!newValue){ //focus lost
                 if (!passwordRepField.getText().equals("")){
-                    if (!checkNickname(passwordRepField.getText())){
+                    if (!passwordField.getText().equals(passwordRepField.getText())){
                         showErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
                     }else{
                         hideErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
                     }
+                }else{
+                    hideErrorMessage(passwordRepErrText, passwordRepField, passwordRepValido);
                 }
             }
         });
@@ -171,9 +182,9 @@ public class RegistroController implements Initializable {
             }else{
                 Alert alert = new Alert(AlertType.ERROR);
                 // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-                alert.setHeaderText("¡Campos incorrectos!");
+                alert.setHeaderText("¡El nickname ya está en uso!");
                 // ó null si no queremos cabecera
-                alert.setContentText("Asegúrate de completar todos los campos correctamente.");
+                alert.setContentText("Modifica el valor del nickname para que no coincida con el de otro usuario.");
                 alert.showAndWait();
             }
         }else{
@@ -196,13 +207,13 @@ public class RegistroController implements Initializable {
     }    
     //--------------------------------------------------------------------------   
     // Mostrar u ocultar los textos de error
-    private void showErrorMessage(Label errorLabel,TextField textField, boolean valido){
+    private void showErrorMessage(Label errorLabel, TextField textField, boolean val){
         errorLabel.visibleProperty().set(true); 
         textField.styleProperty().setValue("-fx-background-color: #FCE5E0");  
-        valido = false;
+        val = false;
 
     } 
-    private void hideErrorMessage(Label errorLabel,TextField textField, boolean valido){
+    private void hideErrorMessage(Label errorLabel, TextField textField, boolean valido){
         errorLabel.visibleProperty().set(false);
         textField.styleProperty().setValue("");
         valido = true;
