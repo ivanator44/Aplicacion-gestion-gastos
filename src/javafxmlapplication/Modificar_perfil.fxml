@@ -112,14 +112,14 @@
             </HBox>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #cfcfcf;" stylesheets="@../css/Registro.css">
+      <VBox id="vBox_avatar" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="14.0" stylesheets="@../css/modificar_perfil.css">
          <children>
             <Label text="Avatar">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <ImageView fx:id="avatarImageView" fitHeight="131.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="avatarImageView" fitHeight="110.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../imagenes/usuario.png" />
                </image>
@@ -127,13 +127,16 @@
                   <DropShadow height="2.28" radius="0.6399999999999999" width="2.28" />
                </effect>
             </ImageView>
-            <ComboBox fx:id="imagenesComboBox" prefHeight="26.0" prefWidth="37.0" />
+            <ComboBox fx:id="imagenesComboBox" prefHeight="26.0" prefWidth="37.0">
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin></ComboBox>
          </children>
          <HBox.margin>
-            <Insets />
+            <Insets bottom="15.0" right="15.0" top="15.0" />
          </HBox.margin>
          <padding>
-            <Insets top="90.0" />
+            <Insets top="80.0" />
          </padding>
       </VBox>
    </children>

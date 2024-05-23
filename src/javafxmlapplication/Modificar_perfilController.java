@@ -3,6 +3,8 @@ package javafxmlapplication;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +60,18 @@ public class Modificar_perfilController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            // TODO
+            nombreTextField.setText(Acount.getInstance().getLoggedUser().getName());
+            apellidoTextField.setText(Acount.getInstance().getLoggedUser().getSurname());
+            nicknameTextField.setText(Acount.getInstance().getLoggedUser().getSurname());
+            emailTextField.setText(Acount.getInstance().getLoggedUser().getEmail());
+            passwordField.setText(Acount.getInstance().getLoggedUser().getPassword());
+            passwordRepField.setText(Acount.getInstance().getLoggedUser().getPassword());
+            avatarImageView.setImage(Acount.getInstance().getLoggedUser().getImage());
+        } catch (AcountDAOException | IOException ex) {
+            Logger.getLogger(Modificar_perfilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }     
 
     @FXML
@@ -70,10 +83,16 @@ public class Modificar_perfilController implements Initializable {
         Acount.getInstance().getLoggedUser().setImage(avatarImageView.getImage());
         // Dependiendo de la ventana desde la que se accedió a modificar el perfil
         // se retornará a un sitio u a otro...
+        FXMLLoader miCargador;
+        Parent root;
         switch (interfaz){
             case "Ventana_gastos":
-                FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
-                Parent root = miCargador.load();
+                miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
+                root = miCargador.load();
+                JavaFXMLApplication.setRoot(root);
+            case "Ventana_categorias":
+                miCargador = new FXMLLoader(getClass().getResource("Ventana_categorias.fxml"));
+                root = miCargador.load();
                 JavaFXMLApplication.setRoot(root);
         }
     }

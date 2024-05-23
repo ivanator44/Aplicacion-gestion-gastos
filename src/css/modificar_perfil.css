@@ -1,7 +1,33 @@
-/*
- * Empty Stylesheet file.
- */
+.color_morado_oscuro{
+    -fx-background-color: #7c00bf;
+}
 
-.mainFxmlClass {
+.color_morado_claro{
+    -fx-background-color: #a600ff;
+}
 
+.linearGradient_morado_oscuro_morado_claro{
+    -fx-background-color: linear-gradient(to right bottom, #7c00bf, #a600ff);
+}
+
+.linearGradient_blanco_azul{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #5b9ff6);
+}
+
+.linearGradient_blanco_verde{
+    -fx-background-color: linear-gradient(to right bottom, #FFFFFF, #8ff39b);
+}
+
+.linearGradient_verde_azul{
+    -fx-background-color: linear-gradient(to right bottom, #8ff39b, #5b9ff6);
+}
+
+#vBox_avatar{
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+    -fx-border-color: gray;
+
+    -fx-background-color:linear-gradient(to right bottom, #FFFFFF, #8ff39b);
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
 }
