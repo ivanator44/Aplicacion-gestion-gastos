@@ -5,19 +5,23 @@ import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -77,7 +81,13 @@ public class Añadir_gastoController implements Initializable {
     Acount cuenta;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO  
+        try {
+            // TODO
+            categoriaCB.setCellFactory(c -> new CategoryListCell());
+            actualizarCategorias();
+        } catch (AcountDAOException | IOException ex) {
+            Logger.getLogger(Añadir_gastoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
     @FXML
@@ -103,7 +113,7 @@ public class Añadir_gastoController implements Initializable {
         Boolean cargoAceptado = cuenta.registerCharge(nombreGastoTextField.getText(),
               descripcionTextField.getText(), parseDouble(costeTextField.getText()),
                parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
-                fechaGastoTextField.getValue(), (Category) categoriaCB.getButtonCell().getItem());
+                fechaGastoTextField.getValue(),categoriaCB.getValue());
         if (cargoAceptado){
             pulsadoOK = true;
             cancelarButton.getScene().getWindow().hide();
@@ -121,4 +131,19 @@ public class Añadir_gastoController implements Initializable {
     private void cancelar(ActionEvent event) {
         cancelarButton.getScene().getWindow().hide();
     } 
+
+    private void actualizarCategorias() throws AcountDAOException, IOException {
+        cuenta = Acount.getInstance();
+        List<Category> categorias = cuenta.getUserCategories();
+        ObservableList<Category> categoriasObservable = FXCollections.observableList(categorias);
+        categoriaCB.setItems(categoriasObservable);
+    }
+    class CategoryListCell extends ListCell<Category> {
+        @Override
+        protected void updateItem(Category t, boolean bln) {
+            super.updateItem(t, bln);
+            if (t==null || bln) setText(null);
+            else setText(t.getName());
+        }
+    }
 }
