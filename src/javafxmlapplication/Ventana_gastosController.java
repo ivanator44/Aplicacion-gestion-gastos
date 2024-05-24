@@ -110,7 +110,7 @@ public class Ventana_gastosController implements Initializable {
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getName()));
         
         Categoria.setCellValueFactory(
-            chargeFila->new SimpleStringProperty(chargeFila.getValue().getCategory().toString()));
+            chargeFila->new SimpleStringProperty(chargeFila.getValue().getCategory().getName()));
         
         Unidades.setCellValueFactory(
             chargeFila->new SimpleStringProperty(Integer.toString(chargeFila.getValue().getUnits())));
