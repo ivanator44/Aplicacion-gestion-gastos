@@ -77,7 +77,7 @@
                            <children>
                               <Label text="Contraseña*" />
                               <PasswordField fx:id="passwordField" promptText="NumerosLetrasSimbolos" />
-                              <Label fx:id="passwordErrText" text="¡La contraseña no es correcta!" textFill="RED" visible="false" />
+                              <Label fx:id="passwordErrText" text="¡La contraseña es muy débil!" textFill="RED" visible="false" />
                            </children>
                         </VBox>
                         <VBox spacing="2.0">
