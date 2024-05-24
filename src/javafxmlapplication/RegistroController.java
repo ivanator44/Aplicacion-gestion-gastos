@@ -76,63 +76,65 @@ public class RegistroController implements Initializable {
         passwordValido = false;
         passwordRepValido = false;
         
-        nicknameTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                if (!nicknameTextField.getText().equals("")){
-                    if (!checkNickname(nicknameTextField.getText())){
-                        nicknameValido = showErrorMessage(nicknameErrText, nicknameTextField);
-                    }else{
-                        nicknameValido = hideErrorMessage(nicknameErrText, nicknameTextField);
-                    }
+        nicknameTextField.textProperty().addListener((observable, oldValue, newValue)->{
+            if (!nicknameTextField.getText().equals("")){
+                if (!checkNickname(nicknameTextField.getText())){
+                    nicknameValido = showErrorMessage(nicknameErrText, nicknameTextField);
                 }else{
-                    hideErrorMessage(nicknameErrText, nicknameTextField);
-                    nicknameValido = false;
+                    nicknameValido = hideErrorMessage(nicknameErrText, nicknameTextField);
                 }
+            }else{
+                hideErrorMessage(nicknameErrText, nicknameTextField);
+                nicknameValido = false;
             }
         });
         
-        emailTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                if (!emailTextField.getText().equals("")){
-                    if (!checkEmail(emailTextField.getText())){
-                        emailValido = showErrorMessage(emailErrText, emailTextField);
-                    }else{
-                        emailValido = hideErrorMessage(emailErrText, emailTextField);
-                    }
+        emailTextField.textProperty().addListener((observable, oldValue, newValue)->{
+            if (!emailTextField.getText().equals("")){
+                if (!checkEmail(emailTextField.getText())){
+                    emailValido = showErrorMessage(emailErrText, emailTextField);
                 }else{
-                    hideErrorMessage(emailErrText, emailTextField);
-                    emailValido = false;
+                    emailValido = hideErrorMessage(emailErrText, emailTextField);
                 }
+            }else{
+                hideErrorMessage(emailErrText, emailTextField);
+                emailValido = false;
             }
         });
         
-        passwordField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                if (!passwordField.getText().equals("")){
-                    if (!checkPassword(passwordField.getText())){
-                        passwordValido = showErrorMessage(passwordErrText, passwordField);
-                    }else{
-                        passwordValido = hideErrorMessage(passwordErrText, passwordField);
-                    }
+        passwordField.textProperty().addListener((observable, oldValue, newValue)->{
+            if (!passwordField.getText().equals("")){
+                if (!checkPassword(passwordField.getText())){
+                    passwordValido = showErrorMessage(passwordErrText, passwordField);
                 }else{
-                    hideErrorMessage(passwordErrText, passwordField);
-                    passwordValido = false;
+                    passwordValido = hideErrorMessage(passwordErrText, passwordField);
                 }
+            }else{
+                hideErrorMessage(passwordErrText, passwordField);
+                passwordValido = false;
+            }
+            if (!passwordRepField.getText().equals("")){
+                if (!passwordField.getText().equals(passwordRepField.getText())){
+                    passwordRepValido = showErrorMessage(passwordRepErrText, passwordRepField);
+                }else{
+                    passwordRepValido = hideErrorMessage(passwordRepErrText, passwordRepField);
+                }
+            }else{
+                hideErrorMessage(passwordRepErrText, passwordRepField);
+                passwordRepValido = false;
             }
         });
         
-        passwordRepField.focusedProperty().addListener((observable, oldValue, newValue)->{
-            if(!newValue){ //focus lost
-                if (!passwordRepField.getText().equals("")){
-                    if (!passwordField.getText().equals(passwordRepField.getText())){
-                        passwordRepValido = showErrorMessage(passwordRepErrText, passwordRepField);
-                    }else{
-                        passwordRepValido = hideErrorMessage(passwordRepErrText, passwordRepField);
-                    }
+        passwordRepField.textProperty().addListener((observable, oldValue, newValue)->{
+            if (!passwordRepField.getText().equals("")){
+                if (!passwordField.getText().equals(passwordRepField.getText())){
+                    passwordRepValido = showErrorMessage(passwordRepErrText, passwordRepField);
                 }else{
-                    hideErrorMessage(passwordRepErrText, passwordRepField);
-                    passwordRepValido = false;
+                    passwordRepValido = hideErrorMessage(passwordRepErrText, passwordRepField);
                 }
+            }else{
+                hideErrorMessage(passwordRepErrText, passwordRepField);
+                passwordRepValido = false;
             }
         });
         
