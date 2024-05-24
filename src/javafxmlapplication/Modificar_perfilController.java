@@ -2,6 +2,7 @@ package javafxmlapplication;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -55,6 +60,8 @@ public class Modificar_perfilController implements Initializable {
     private Button atrasButton;
     
     String interfaz;
+    @FXML
+    private Button logOutButton;
     public void initInterfaz(String i){
         interfaz = i;
     }
@@ -112,6 +119,23 @@ public class Modificar_perfilController implements Initializable {
                 miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
                 root = miCargador.load();
                 JavaFXMLApplication.setRoot(root);
+        }
+    }
+
+    @FXML
+    private void logOut(ActionEvent event) throws IOException, AcountDAOException {
+        Alert seguro = new Alert(AlertType.CONFIRMATION);
+        seguro.setTitle("Cerrar sesión");
+        seguro.setHeaderText("¿Estás seguro de que quieres salir?");
+        seguro.setContentText(null);
+        Optional<ButtonType> respuesta = seguro.showAndWait();
+        if (respuesta.isPresent()) {
+            if (respuesta.get() == ButtonType.OK) {
+                Acount.getInstance().logOutUser();
+                FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
+                Parent root = loader.load();
+                JavaFXMLApplication.setRoot(root);
+            }
         }
     }
 }

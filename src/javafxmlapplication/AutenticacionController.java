@@ -51,6 +51,10 @@ public class AutenticacionController implements Initializable {
             FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Ventana_gastos.fxml"));
             Parent root = miCargador.load();
+            Alert exito = new Alert(AlertType.INFORMATION);
+            exito.setHeaderText(null);
+            exito.setContentText("¡Autenticación realizada con éxito!");
+            exito.showAndWait();
             JavaFXMLApplication.setRoot(root);
         }
         else {
