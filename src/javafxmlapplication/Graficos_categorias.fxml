@@ -57,15 +57,24 @@
             <Insets left="20.0" />
          </padding>
       </HBox>
+      <HBox prefHeight="26.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="totalLabel" text="Label">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER" prefHeight="234.0" prefWidth="600.0">
          <children>
             <PieChart fx:id="pieChart" prefHeight="214.0" prefWidth="262.0" />
             <BarChart fx:id="barChart" prefHeight="214.0" prefWidth="263.0">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis side="BOTTOM" fx:id="xAxis1" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yAxis1" side="LEFT" />
               </yAxis>
             </BarChart>
          </children>
