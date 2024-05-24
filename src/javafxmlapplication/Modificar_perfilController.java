@@ -1,5 +1,8 @@
 package javafxmlapplication;
 
+import static extras.Utils.checkEmail;
+import static extras.Utils.checkNickname;
+import static extras.Utils.checkPassword;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -14,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -59,6 +61,11 @@ public class Modificar_perfilController implements Initializable {
     @FXML
     private Button atrasButton;
     
+    private boolean nicknameValido;
+    private boolean emailValido;
+    private boolean passwordValido;
+    private boolean passwordRepValido;
+    
     String interfaz;
     @FXML
     private Button logOutButton;
@@ -69,6 +76,70 @@ public class Modificar_perfilController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             // TODO
+            nicknameValido = false;
+            emailValido = false;
+            passwordValido = false;
+            passwordRepValido = false;
+
+            nicknameTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
+                if(!newValue){ //focus lost
+                    if (!nicknameTextField.getText().equals("")){
+                        if (!checkNickname(nicknameTextField.getText())){
+                            nicknameValido = showErrorMessage(nicknameErrText, nicknameTextField);
+                        }else{
+                            nicknameValido = hideErrorMessage(nicknameErrText, nicknameTextField);
+                        }
+                    }else{
+                        hideErrorMessage(nicknameErrText, nicknameTextField);
+                        nicknameValido = false;
+                    }
+                }
+            });
+
+            emailTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
+                if(!newValue){ //focus lost
+                    if (!emailTextField.getText().equals("")){
+                        if (!checkEmail(emailTextField.getText())){
+                            emailValido = showErrorMessage(emailErrText, emailTextField);
+                        }else{
+                            emailValido = hideErrorMessage(emailErrText, emailTextField);
+                        }
+                    }else{
+                        hideErrorMessage(emailErrText, emailTextField);
+                        emailValido = false;
+                    }
+                }
+            });
+
+            passwordField.focusedProperty().addListener((observable, oldValue, newValue)->{
+                if(!newValue){ //focus lost
+                    if (!passwordField.getText().equals("")){
+                        if (!checkPassword(passwordField.getText())){
+                            passwordValido = showErrorMessage(passwordErrText, passwordField);
+                        }else{
+                            passwordValido = hideErrorMessage(passwordErrText, passwordField);
+                        }
+                    }else{
+                        hideErrorMessage(passwordErrText, passwordField);
+                        passwordValido = false;
+                    }
+                }
+            });
+
+            passwordRepField.focusedProperty().addListener((observable, oldValue, newValue)->{
+                if(!newValue){ //focus lost
+                    if (!passwordRepField.getText().equals("")){
+                        if (!passwordField.getText().equals(passwordRepField.getText())){
+                            passwordRepValido = showErrorMessage(passwordRepErrText, passwordRepField);
+                        }else{
+                            passwordRepValido = hideErrorMessage(passwordRepErrText, passwordRepField);
+                        }
+                    }else{
+                        hideErrorMessage(passwordRepErrText, passwordRepField);
+                        passwordRepValido = false;
+                    }
+                }
+            });
             nombreTextField.setText(Acount.getInstance().getLoggedUser().getName());
             apellidoTextField.setText(Acount.getInstance().getLoggedUser().getSurname());
             nicknameTextField.setText(Acount.getInstance().getLoggedUser().getSurname());
@@ -137,5 +208,17 @@ public class Modificar_perfilController implements Initializable {
                 JavaFXMLApplication.setRoot(root);
             }
         }
+    }
+    
+    private boolean showErrorMessage(Label errorLabel, TextField textField){
+        errorLabel.visibleProperty().set(true); 
+        textField.styleProperty().setValue("-fx-background-color: #FCE5E0");  
+        return false;
+
+    } 
+    private boolean hideErrorMessage(Label errorLabel, TextField textField){
+        errorLabel.visibleProperty().set(false);
+        textField.styleProperty().setValue("");
+        return true;
     }
 }
