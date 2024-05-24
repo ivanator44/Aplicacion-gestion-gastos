@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -31,6 +32,8 @@ public class Añadir_categoriaController implements Initializable {
       
     //--------------------------------------------------------------------------
     private boolean aceptarPulsado = false;
+    @FXML
+    private Text labelTipoVentana;
     public boolean isOKPressed(){
         return aceptarPulsado;
     }
@@ -40,6 +43,7 @@ public class Añadir_categoriaController implements Initializable {
         categoria = c;
         nombreCategoriaTextField.setText(categoria.getName());
         descripcionTextField.setText(categoria.getDescription());
+        labelTipoVentana.setText("Modificar categoría");
         camposInicializados = true;
     }
     @Override
@@ -52,6 +56,7 @@ public class Añadir_categoriaController implements Initializable {
             if (!nombreCategoriaTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty()) {
                 categoria.setName(nombreCategoriaTextField.getText());
                 categoria.setDescription(descripcionTextField.getText());
+                nombreCategoriaTextField.getScene().getWindow().hide();
             }else{
                 Alert camposVacios = new Alert(AlertType.ERROR);
                 camposVacios.setTitle("ERROR");

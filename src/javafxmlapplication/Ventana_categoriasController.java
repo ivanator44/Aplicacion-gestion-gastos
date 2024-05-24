@@ -85,7 +85,7 @@ public class Ventana_categoriasController implements Initializable {
                 modificarButton.setDisable(true);
                 borrarButton.setDisable(true);
             }
-        });  
+        });
     }    
     
     //Funcion para refrescar la lista una vez se hayan hecho cambios
@@ -116,7 +116,7 @@ public class Ventana_categoriasController implements Initializable {
     }
     
     @FXML
-    private void modificar(ActionEvent event) throws IOException {
+    private void modificar(ActionEvent event) throws IOException, AcountDAOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Añadir_categoria.fxml"));
         Parent root = miCargador.load();
@@ -126,9 +126,10 @@ public class Ventana_categoriasController implements Initializable {
         Scene scene = new Scene(root, 291, 278);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Gestionar gasto");
+        stage.setTitle("Modificar categorias");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        actualizarLista();
     }
 
     @FXML
