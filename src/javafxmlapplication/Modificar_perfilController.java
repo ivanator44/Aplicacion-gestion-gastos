@@ -101,7 +101,7 @@ public class Modificar_perfilController implements Initializable {
 
             passwordField.textProperty().addListener((observable, oldValue, newValue)->{
                 if (!passwordField.getText().equals("")){
-                    if (!User.checkPassword(passwordField.getText())){
+                    if (!checkPassword(passwordField.getText())){
                         passwordValido = showErrorMessage(passwordErrText, passwordField);
                     }else{
                         passwordValido = hideErrorMessage(passwordErrText, passwordField);

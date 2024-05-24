@@ -1,17 +1,11 @@
 package javafxmlapplication;
 
-import static extras.Utils.checkEmail;
-import static extras.Utils.checkName;
 import static extras.Utils.checkNickname;
 import static extras.Utils.checkPassword;
-import static extras.Utils.checkPasswordRep;
-import static extras.Utils.checkSurname;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Acount;
 import model.AcountDAOException;
+import model.User;
 
 public class RegistroController implements Initializable {
     @FXML
@@ -93,7 +88,7 @@ public class RegistroController implements Initializable {
         
         emailTextField.textProperty().addListener((observable, oldValue, newValue)->{
             if (!emailTextField.getText().equals("")){
-                if (!checkEmail(emailTextField.getText())){
+                if (!User.checkEmail(emailTextField.getText())){
                     emailValido = showErrorMessage(emailErrText, emailTextField);
                 }else{
                     emailValido = hideErrorMessage(emailErrText, emailTextField);
