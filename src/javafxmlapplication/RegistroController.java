@@ -69,6 +69,8 @@ public class RegistroController implements Initializable {
     private Button registrarButton;
     @FXML
     private Hyperlink hyperlink;
+    @FXML
+    private Hyperlink ayudaLink;
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         nicknameValido = false;
@@ -238,6 +240,14 @@ public class RegistroController implements Initializable {
         textField.styleProperty().setValue("");
         return true;
     } 
+
+    @FXML
+    private void sacarAyuda(ActionEvent event) {
+        Alert ayuda = new Alert(AlertType.INFORMATION);
+        ayuda.setHeaderText("Información");
+        ayuda.setContentText("Formato correo: nombre@dominio.terminación\nRequisitos contraseña: 8 carácteres min. y al menos un carácter especial.");
+        ayuda.showAndWait();
+    }
     //--------------------------------------------------------------------------
     // Clase para mostrar las imágenes correctamente
     class ImagenComboCell extends ComboBoxListCell<String> {

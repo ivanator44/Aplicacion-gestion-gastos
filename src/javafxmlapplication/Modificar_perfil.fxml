@@ -98,7 +98,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="78.0" prefWidth="450.0" spacing="15.0">
+            <HBox alignment="TOP_RIGHT" prefWidth="450.0" spacing="15.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="245.0">
                      <HBox.margin>
@@ -119,7 +119,7 @@
                   <Insets right="20.0" top="20.0" />
                </padding>
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="-50.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_RIGHT">
