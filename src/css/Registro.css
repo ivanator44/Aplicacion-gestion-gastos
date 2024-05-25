@@ -33,3 +33,7 @@
 
 
 }*/
+
+#ayudaLabel:hover{
+    -fx-underline:true;
+}

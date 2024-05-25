@@ -99,14 +99,15 @@
             </VBox>
             <VBox prefHeight="317.0" prefWidth="89.0" spacing="5.0">
                <children>
-                  <Button fx:id="modificarButton" mnemonicParsing="false" onAction="#modificar" prefHeight="26.0" prefWidth="109.0" text="Modificar" />
-                  <Button fx:id="borrarButton" mnemonicParsing="false" onAction="#borrar" prefHeight="26.0" prefWidth="114.0" text="Borrar" />
+                  <Button fx:id="modificarButton" disable="true" mnemonicParsing="false" onAction="#modificar" prefHeight="26.0" prefWidth="109.0" text="Modificar" />
+                  <Button fx:id="borrarButton" disable="true" mnemonicParsing="false" onAction="#borrar" prefHeight="26.0" prefWidth="114.0" text="Borrar" />
+                  <Separator prefWidth="200.0" />
+                  <Button fx:id="verGraficosButton" mnemonicParsing="false" onAction="#verGraficos" prefHeight="26.0" prefWidth="119.0" text="Ver gráficos" />
                   <Separator prefWidth="200.0" />
                   <Button fx:id="verCategoriasButton" mnemonicParsing="false" onAction="#verCategorias" prefHeight="28.0" prefWidth="108.0" text="Categorias" />
-                  <Button fx:id="verGraficosButton" mnemonicParsing="false" onAction="#verGraficos" prefHeight="26.0" prefWidth="119.0" text="Ver gráficos" />
                   <HBox alignment="BOTTOM_CENTER" prefHeight="132.0" prefWidth="86.0">
                      <children>
-                        <Label fx:id="ayudaLabel" text="Ayuda">
+                        <Label id="ayudaLabel" fx:id="ayudaLabel" onMouseClicked="#ayudaLabelFuncion" stylesheets="@../css/Ventana_gastos.css" text="Ayuda">
                            <HBox.margin>
                               <Insets top="5.0" />
                            </HBox.margin>
@@ -117,9 +118,6 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
                         </Label>
                      </children></HBox>
                </children>

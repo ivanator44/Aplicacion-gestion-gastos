@@ -2,24 +2,9 @@ package extras;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.beans.property.BooleanProperty;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
-/**
- *
- * @author ivana
- */
 public class Utils {
     // Métodos para comprobar que los campos son correctos
-    
-    /**
-     *  A password is considered valid if follows an accepted email syntax:
-     *  name@domain.com
-     * @param email String which contains the email to check  
-     * @return  True if the email is valid. False otherwise.  
-     */
-    
     public static Boolean checkName (String name){
         if (name == null){
           return false; 
@@ -64,7 +49,7 @@ public class Utils {
           return false; 
         }
         // Regex to check valid email. 
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+(?:com|es|org|net|edu|gov|mil|info|biz)$";
+        String regex = "^[\\w!#$%&'*+/=?{|}~^-]+(?:\\.[\\w!#$%&'*+/=?{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+(?:com|es|org|net|edu|gov|mil|info|biz)$";
         // Compile the ReGex 
         Pattern pattern = Pattern.compile(regex);
         // Match ReGex with value to check

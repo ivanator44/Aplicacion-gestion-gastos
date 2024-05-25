@@ -1,6 +1,6 @@
 package javafxmlapplication;
 
-import static extras.Utils.checkNickname;
+import extras.Utils;
 import static extras.Utils.checkPassword;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import model.Acount;
 import model.AcountDAOException;
 import model.User;
@@ -55,17 +56,17 @@ public class RegistroController implements Initializable {
     private ImageView avatarImageView;
     @FXML
     private ComboBox<String> imagenesComboBox;
-    
-    private boolean nicknameValido;
-    private boolean emailValido;
-    private boolean passwordValido;
-    private boolean passwordRepValido;
     @FXML
     private Button registrarButton;
     @FXML
     private Hyperlink hyperlink;
     @FXML
-    private Hyperlink ayudaLink;
+    private Label ayudaLink;
+    
+    private boolean nicknameValido;
+    private boolean emailValido;
+    private boolean passwordValido;
+    private boolean passwordRepValido;
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         nicknameValido = false;
@@ -73,9 +74,9 @@ public class RegistroController implements Initializable {
         passwordValido = false;
         passwordRepValido = false;
         
-        nicknameTextField.textProperty().addListener((observable, oldValue, newValue)->{
+        nicknameTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if (!nicknameTextField.getText().equals("")){
-                if (!checkNickname(nicknameTextField.getText())){
+                if (!User.checkNickName(nicknameTextField.getText())){
                     nicknameValido = showErrorMessage(nicknameErrText, nicknameTextField);
                 }else{
                     nicknameValido = hideErrorMessage(nicknameErrText, nicknameTextField);
@@ -86,7 +87,7 @@ public class RegistroController implements Initializable {
             }
         });
         
-        emailTextField.textProperty().addListener((observable, oldValue, newValue)->{
+        emailTextField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if (!emailTextField.getText().equals("")){
                 if (!User.checkEmail(emailTextField.getText())){
                     emailValido = showErrorMessage(emailErrText, emailTextField);
@@ -94,31 +95,19 @@ public class RegistroController implements Initializable {
                     emailValido = hideErrorMessage(emailErrText, emailTextField);
                 }
             }else{
-                hideErrorMessage(emailErrText, emailTextField);
-                emailValido = false;
+                emailValido = hideErrorMessage(emailErrText, emailTextField);
             }
         });
         
-        passwordField.textProperty().addListener((observable, oldValue, newValue)->{
+        passwordField.focusedProperty().addListener((observable, oldValue, newValue)->{
             if (!passwordField.getText().equals("")){
-                if (!checkPassword(passwordField.getText())){
+                if (!Utils.checkPassword(passwordField.getText())){
                     passwordValido = showErrorMessage(passwordErrText, passwordField);
                 }else{
                     passwordValido = hideErrorMessage(passwordErrText, passwordField);
                 }
             }else{
-                hideErrorMessage(passwordErrText, passwordField);
-                passwordValido = false;
-            }
-            if (!passwordRepField.getText().equals("")){
-                if (!passwordField.getText().equals(passwordRepField.getText())){
-                    passwordRepValido = showErrorMessage(passwordRepErrText, passwordRepField);
-                }else{
-                    passwordRepValido = hideErrorMessage(passwordRepErrText, passwordRepField);
-                }
-            }else{
-                hideErrorMessage(passwordRepErrText, passwordRepField);
-                passwordRepValido = false;
+                passwordValido = hideErrorMessage(passwordErrText, passwordField);
             }
         });
         
@@ -216,6 +205,14 @@ public class RegistroController implements Initializable {
     }
 
     @FXML
+    private void sacarAyuda(MouseEvent event) {
+        Alert ayuda = new Alert(AlertType.INFORMATION);
+        ayuda.setHeaderText("Información");
+        ayuda.setContentText("Formato correo: nombre@dominio.terminación\nRequisitos contraseña: 8 carácteres min. y al menos un carácter especial.");
+        ayuda.showAndWait();
+    }
+    
+    @FXML
     private void hyperlinkFuncion(ActionEvent event) throws IOException {
         FXMLLoader loader = new  FXMLLoader(getClass().getResource("Autenticacion.fxml"));
         Parent root = loader.load();
@@ -235,14 +232,7 @@ public class RegistroController implements Initializable {
         textField.styleProperty().setValue("");
         return true;
     } 
-
-    @FXML
-    private void sacarAyuda(ActionEvent event) {
-        Alert ayuda = new Alert(AlertType.INFORMATION);
-        ayuda.setHeaderText("Información");
-        ayuda.setContentText("Formato correo: nombre@dominio.terminación\nRequisitos contraseña: 8 carácteres min. y al menos un carácter especial.");
-        ayuda.showAndWait();
-    }
+    
     //--------------------------------------------------------------------------
     // Clase para mostrar las imágenes correctamente
     class ImagenComboCell extends ComboBoxListCell<String> {

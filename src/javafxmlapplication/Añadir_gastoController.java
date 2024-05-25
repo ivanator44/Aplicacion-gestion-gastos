@@ -81,8 +81,7 @@ public class Añadir_gastoController implements Initializable {
     
     Acount cuenta;
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
+    public void initialize(URL url, ResourceBundle rb) {      
         try {
             // TODO
             categoriaCB.setCellFactory(c -> new CategoryListCell());
@@ -142,28 +141,26 @@ public class Añadir_gastoController implements Initializable {
             }
         }else{
             if(!nombreGastoTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty() 
-                    && !costeTextField.getText().isEmpty() && !unidadesTextField.getText().isEmpty()
-                    && (fechaGastoTextField.getValue()!= null) && categoriaCB.getValue()!=null ){
-                        cargo.setName(nombreGastoTextField.getText());
-                    cargo.setDescription(descripcionTextField.getText());
-                    cargo.setCost(parseDouble(costeTextField.getText()));
-                    cargo.setUnits(parseInt(unidadesTextField.getText()));
-                    cargo.setImageScan(imagenFactura.getImage());
-                    cargo.setDate(fechaGastoTextField.getValue());
-                    cargo.setCategory(categoriaCB.getValue());
-                    pulsadoOK=true;
-                    cancelarButton.getScene().getWindow().hide();
+                && !costeTextField.getText().isEmpty() && !unidadesTextField.getText().isEmpty()
+                && (fechaGastoTextField.getValue()!= null) && categoriaCB.getValue()!=null ){
+                cargo.setName(nombreGastoTextField.getText());
+                cargo.setDescription(descripcionTextField.getText());
+                cargo.setCost(parseDouble(costeTextField.getText()));
+                cargo.setUnits(parseInt(unidadesTextField.getText()));
+                cargo.setImageScan(imagenFactura.getImage());
+                cargo.setDate(fechaGastoTextField.getValue());
+                cargo.setCategory(categoriaCB.getValue());
+                pulsadoOK=true;
+                cancelarButton.getScene().getWindow().hide();
             }else{
-                  Alert alert = new Alert(AlertType.INFORMATION);
-                    // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-                    alert.setHeaderText("¡Campos incompletos!");
-                    // ó null si no queremos cabecera
-                    alert.setContentText("¡Faltan campos por completar!");
-                    alert.showAndWait();
+                Alert alert = new Alert(AlertType.INFORMATION);
+                // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                alert.setHeaderText("¡Campos incompletos!");
+                // ó null si no queremos cabecera
+                alert.setContentText("¡Faltan campos por completar!");
+                alert.showAndWait();
             }
-
-        }
-        
+        }  
     }
 
     @FXML
@@ -177,6 +174,8 @@ public class Añadir_gastoController implements Initializable {
         ObservableList<Category> categoriasObservable = FXCollections.observableList(categorias);
         categoriaCB.setItems(categoriasObservable);
     }
+    
+    // Clase para observar las categorías correctamente
     class CategoryListCell extends ListCell<Category> {
         @Override
         protected void updateItem(Category t, boolean bln) {

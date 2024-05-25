@@ -24,9 +24,7 @@ import model.Acount;
 import model.AcountDAOException;
 import model.User;
 
-
 public class AutenticacionController implements Initializable {
-
     @FXML
     private TextField nicknameTextField;
     @FXML
@@ -38,8 +36,7 @@ public class AutenticacionController implements Initializable {
     @FXML
     private Button entrarButton;
     @FXML
-    private Hyperlink registrarseHL;
-    
+    private Hyperlink registrarseHL; 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,16 +49,12 @@ public class AutenticacionController implements Initializable {
             FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Ventana_gastos.fxml"));
             Parent root = miCargador.load();
-            Alert exito = new Alert(AlertType.INFORMATION);
-            exito.setHeaderText(null);
-            exito.setContentText("¡Autenticación realizada con éxito!");
-            exito.showAndWait();
             JavaFXMLApplication.setRoot(root);
         }
         else {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setHeaderText("Datos incorrectos");
-            alert.setContentText("Por favor, revise que ha introducido la información correcta antes de proseguir");
+            alert.setContentText("Por favor, revise que ha introducido la información correcta antes de continuar");
             nicknameTextField.setText("");
             passwordField.setText("");
             alert.showAndWait();
@@ -78,15 +71,16 @@ public class AutenticacionController implements Initializable {
 
     @FXML
     private void entrarEnter(KeyEvent event) throws IOException, AcountDAOException {
-         if (event.getCode() == KeyCode.ENTER) { 
+        if (event.getCode() == KeyCode.ENTER && nicknameTextField.getText().isEmpty()){
+            nicknameTextField.requestFocus();
+        }else if (event.getCode() == KeyCode.ENTER && passwordField.getText().isEmpty()){
+            passwordField.requestFocus();
+        }else{
+            if (event.getCode() == KeyCode.ENTER) { 
                 if (Acount.getInstance().logInUserByCredentials(nicknameTextField.getText(), passwordField.getText())){
                     FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Ventana_gastos.fxml"));
                     Parent root = miCargador.load();
-                    Alert exito = new Alert(AlertType.INFORMATION);
-                    exito.setHeaderText(null);
-                    exito.setContentText("¡Autenticación realizada con éxito!");
-                    exito.showAndWait();
                     JavaFXMLApplication.setRoot(root);
                 }else {
                     Alert alert = new Alert(AlertType.WARNING);
@@ -97,5 +91,6 @@ public class AutenticacionController implements Initializable {
                     alert.showAndWait();
                 }
             }
+        }
     }
 }

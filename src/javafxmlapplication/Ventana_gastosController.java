@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -35,9 +36,7 @@ import model.AcountDAOException;
 import model.Category;
 import model.Charge;
 
-
 public class Ventana_gastosController implements Initializable {
-
     @FXML
     private Label ayudaLabel;
     @FXML
@@ -88,36 +87,41 @@ public class Ventana_gastosController implements Initializable {
         } catch (AcountDAOException | IOException ex) {
             Logger.getLogger(Ventana_gastosController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         gastosTableV.focusedProperty().addListener( (o, oldVal, newVal) -> {
-        if (gastosTableV.getSelectionModel().getSelectedIndex() != -1){
-            modificarButton.setDisable(false);
-            borrarButton.setDisable(false);
+            if (gastosTableV.getSelectionModel().getSelectedIndex() != -1){
+                modificarButton.setDisable(false);
+                borrarButton.setDisable(false);
 
-        }else{      
-            modificarButton.setDisable(true);
-            borrarButton.setDisable(true);
-        }
+            }else{      
+                modificarButton.setDisable(true);
+                borrarButton.setDisable(true);
+            }
         });
-        
-        
+         
         Fecha.setCellValueFactory(
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getDate().toString()));
+        Fecha.setCellFactory(c -> new TabCell());
         
         Valor.setCellValueFactory(
             chargeFila->new SimpleStringProperty(Double.toString(chargeFila.getValue().getCost())));
+        Valor.setCellFactory(c -> new TabCell());
         
         NombreGasto.setCellValueFactory(
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getName()));
+        NombreGasto.setCellFactory(c -> new TabCell());
         
         Categoria.setCellValueFactory(
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getCategory().getName()));
+        Categoria.setCellFactory(c -> new TabCell());
         
         Unidades.setCellValueFactory(
             chargeFila->new SimpleStringProperty(Integer.toString(chargeFila.getValue().getUnits())));
+        Unidades.setCellFactory(c -> new TabCell());
         
         Recibo.setCellValueFactory(
             personaFila ->new SimpleStringProperty(personaFila.getValue().getImageScan().getUrl()));
-    
+        Recibo.setCellFactory(c -> new ImagenTabCell());
     }    
 
     //Funcion para refrescar la lista una vez se hayan hecho cambios
@@ -133,34 +137,34 @@ public class Ventana_gastosController implements Initializable {
     
     @FXML
     private void añadirGasto(ActionEvent event) throws IOException, AcountDAOException {
-        
         List<Category> categorias = Acount.getInstance().getUserCategories();
         hayCategorias = !categorias.isEmpty();
         
-            if(hayCategorias){
-                FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
-                        "Añadir_gasto.fxml"));
-                Parent root = miCargador.load();
-                Añadir_gastoController controlador = miCargador.getController();
+        if(hayCategorias){
+            FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                    "Añadir_gasto.fxml"));
+            Parent root = miCargador.load();
+            Añadir_gastoController controlador = miCargador.getController();
 
-                Scene scene = new Scene(root, 350, 350);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Añadir nuevo gasto");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
+            Scene scene = new Scene(root, 350, 350);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Añadir nuevo gasto");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
 
-                if (controlador.isOKPressed()){
-                    actualizarLista();
-                }
-            }else{
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                  // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-                  alert.setHeaderText(null);
-                  // ó null si no queremos cabecera
-                  alert.setContentText("¡Hay que crear categorias antes!");
-                  alert.showAndWait();
+            if (controlador.isOKPressed()){
+                actualizarLista();
             }
+        }else{
+            verCategoriasButton.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+            alert.setHeaderText(null);
+            // ó null si no queremos cabecera
+            alert.setContentText("¡Hay que crear categorias antes!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -213,7 +217,40 @@ public class Ventana_gastosController implements Initializable {
         controlador.initInterfaz("Ventana_gastos");
         JavaFXMLApplication.setRoot(root);
     }
+
+    @FXML
+    private void ayudaLabelFuncion(MouseEvent event) {
+        // Menú de información/alerta
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+        alert.setHeaderText("INFORMACIÓN ADICIONAL");
+        // ó null si no queremos cabecera
+        alert.setContentText("•Añadir gasto: Permite agregar un nuevo gasto"
+                + "\n•Modificar gasto: Permite modificar el gasto seleccionado"
+                + "\n•Borrar gasto: Elimina el gasto seleccionada"
+                + "\n•Controles alternativos: 'Perfil de usuario', 'Ver gráficos'"
+                + "\ny acceder a categorías");
+        alert.showAndWait();
+    }
     
+    // Clase para ver los elementos de cada columna centrados
+    class TabCell extends TableCell<Charge, String> {
+        private ImageView view = new ImageView();
+        private Image imagen;
+
+        @Override
+        protected void updateItem(String t, boolean bln) {
+            super.updateItem(t, bln);
+            if (t == null || bln) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                setText(t); // Texto de error si la imagen no se puede cargar
+                setGraphic(null);
+                setAlignment(Pos.CENTER);
+            }
+        }  
+    }
     // Clase para observar una imagen en la columna de la factura
     class ImagenTabCell extends TableCell<Charge, String> {
         private ImageView view = new ImageView();
@@ -223,18 +260,20 @@ public class Ventana_gastosController implements Initializable {
         protected void updateItem(String t, boolean bln) {
             super.updateItem(t, bln);
             if (t == null || bln) {
-                t = "/imagenes/añadir_recibo.png";
-                imagen = new Image(t,25,25,true,true);
-                view.setImage(imagen);
-                setGraphic(view);
+                setText(null);
+                setGraphic(null);
             } else {
-                t = "/imagenes/cheque-de-pago.png";
-                imagen = new Image(t,25,25,true,true);
-                view.setImage(imagen);
-                setGraphic(view);
+                 // Carga la imagen correctamente desde los recursos
+                try{
+                    String imagePath = "/imagenes/factura.png"; // Ruta relativa dentro del proyecto
+                    Image imagen = new Image(getClass().getResourceAsStream(imagePath), 25, 25, true, true);
+                    view.setImage(imagen);
+                    setGraphic(view);
+                }catch(Exception e) {
+                    setText("Sin imagen"); // Texto de error si la imagen no se puede cargar
+                    setGraphic(null);
+                }
             }
-        }
-
-        
+        }  
     }
 }

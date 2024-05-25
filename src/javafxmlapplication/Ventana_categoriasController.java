@@ -23,6 +23,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -33,8 +34,6 @@ import model.Category;
 import model.User;
 
 public class Ventana_categoriasController implements Initializable {
-    @FXML
-    private Label nombreCategoria;
     @FXML
     private Label ayudaLabel;
     @FXML
@@ -56,7 +55,7 @@ public class Ventana_categoriasController implements Initializable {
     @FXML
     private Button verGraficosButton;
     @FXML
-    private Button atrasButton;
+    private Button verGastosButton;
     
     private ObservableList<Category> datos = null;
     List<Category> userCategories;
@@ -147,13 +146,6 @@ public class Ventana_categoriasController implements Initializable {
         Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     }
-
-    @FXML
-    private void atras(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
-        Parent root = miCargador.load();
-        JavaFXMLApplication.setRoot(root);
-    }
         
     @FXML
     private void ayudaLabelFuncion(MouseEvent event) {
@@ -176,6 +168,13 @@ public class Ventana_categoriasController implements Initializable {
         Parent root = miCargador.load();
         Modificar_perfilController controlador = miCargador.getController();
         controlador.initInterfaz("Ventana_categorias");
+        JavaFXMLApplication.setRoot(root);
+    }
+
+    @FXML
+    private void verGastos(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
+        Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     }
 

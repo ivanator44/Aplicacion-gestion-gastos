@@ -1,5 +1,6 @@
 package javafxmlapplication;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -10,11 +11,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -23,6 +27,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javax.imageio.ImageIO;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -91,9 +97,39 @@ public class Graficos_categoriasController implements Initializable {
     }    
     
     @FXML
-    private void generarReporte(ActionEvent event) {
+    private void generarReporte(ActionEvent event) throws IOException {
+        /*saveAsImage(pieChart, "pieChart.png");
+        saveAsImage(barChart, "barChart.png");
+        createPdfWithCharts("charts_report.pdf");*/
     }
 
+    public void saveAsImage(Node node, String filePath) throws IOException {
+        WritableImage image = node.snapshot(new SnapshotParameters(), null);
+        File file = new File(filePath);
+        ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+    }
+    
+    /*public void createPdfWithCharts(String dest) {
+        try {
+            PdfWriter writer = new PdfWriter(dest);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            // Añadir las imágenes al PDF
+            ImageData imageData1 = ImageDataFactory.create("chart1.png");
+            Image chart1 = new Image(imageData1);
+            document.add(chart1);
+
+            ImageData imageData2 = ImageDataFactory.create("chart2.png");
+            Image chart2 = new Image(imageData2);
+            document.add(chart2);
+
+            document.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }*/
+    
     @FXML
     private void atras(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("Ventana_categorias.fxml"));
