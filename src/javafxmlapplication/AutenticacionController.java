@@ -16,6 +16,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -74,4 +75,27 @@ public class AutenticacionController implements Initializable {
         Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     } 
+
+    @FXML
+    private void entrarEnter(KeyEvent event) throws IOException, AcountDAOException {
+         if (event.getCode() == KeyCode.ENTER) { 
+                if (Acount.getInstance().logInUserByCredentials(nicknameTextField.getText(), passwordField.getText())){
+                    FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Ventana_gastos.fxml"));
+                    Parent root = miCargador.load();
+                    Alert exito = new Alert(AlertType.INFORMATION);
+                    exito.setHeaderText(null);
+                    exito.setContentText("¡Autenticación realizada con éxito!");
+                    exito.showAndWait();
+                    JavaFXMLApplication.setRoot(root);
+                }else {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setHeaderText("Datos incorrectos");
+                    alert.setContentText("Por favor, revise que ha introducido la información correcta antes de proseguir");
+                    nicknameTextField.setText("");
+                    passwordField.setText("");
+                    alert.showAndWait();
+                }
+            }
+    }
 }
