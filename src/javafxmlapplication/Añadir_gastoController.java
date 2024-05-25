@@ -78,12 +78,15 @@ public class Añadir_gastoController implements Initializable {
         camposInicializados = true;
         urlFactura.setText(imagenFactura.getImage().getUrl());
     }
+    
     Acount cuenta;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         try {
             // TODO
             categoriaCB.setCellFactory(c -> new CategoryListCell());
+            categoriaCB.setButtonCell(new CategoryListCell());
             actualizarCategorias();
         } catch (AcountDAOException | IOException ex) {
             Logger.getLogger(Añadir_gastoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,24 +110,60 @@ public class Añadir_gastoController implements Initializable {
             urlFactura.setText(selectedFile.getAbsolutePath());
         } 
     }
-
+    
     @FXML
     private void aceptar(ActionEvent event) throws IOException, AcountDAOException {
-        Boolean cargoAceptado = cuenta.registerCharge(nombreGastoTextField.getText(),
-              descripcionTextField.getText(), parseDouble(costeTextField.getText()),
-               parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
-                fechaGastoTextField.getValue(),categoriaCB.getValue());
-        if (cargoAceptado){
-            pulsadoOK = true;
-            cancelarButton.getScene().getWindow().hide();
+        if(!camposInicializados){
+            if(!nombreGastoTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty() 
+                    && !costeTextField.getText().isEmpty() && !unidadesTextField.getText().isEmpty()
+                    && (fechaGastoTextField.getValue()!= null) && categoriaCB.getValue()!=null ) {
+                boolean cargoAceptado = Acount.getInstance().registerCharge(nombreGastoTextField.getText(),
+                  descripcionTextField.getText(), parseDouble(costeTextField.getText()),
+                   parseInt(unidadesTextField.getText()), imagenFactura.getImage(),
+                    fechaGastoTextField.getValue(),categoriaCB.getValue());
+                if (cargoAceptado ){
+                    pulsadoOK = true;
+                    cancelarButton.getScene().getWindow().hide();
+                }else{
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                    alert.setHeaderText("¡Campos incompletos!");
+                    // ó null si no queremos cabecera
+                    alert.setContentText("¡Faltan campos por completar!");
+                    alert.showAndWait();
+                } 
+            }else{
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                    alert.setHeaderText(null);
+                    // ó null si no queremos cabecera
+                    alert.setContentText("¡Faltan campos por completar!");
+                    alert.showAndWait();
+            }
         }else{
-            Alert alert = new Alert(AlertType.INFORMATION);
-            // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
-            alert.setHeaderText("Cabecera");
-            // ó null si no queremos cabecera
-            alert.setContentText("¡Faltan campos por completar!");
-            alert.showAndWait();
-        } 
+            if(!nombreGastoTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty() 
+                    && !costeTextField.getText().isEmpty() && !unidadesTextField.getText().isEmpty()
+                    && (fechaGastoTextField.getValue()!= null) && categoriaCB.getValue()!=null ){
+                        cargo.setName(nombreGastoTextField.getText());
+                    cargo.setDescription(descripcionTextField.getText());
+                    cargo.setCost(parseDouble(costeTextField.getText()));
+                    cargo.setUnits(parseInt(unidadesTextField.getText()));
+                    cargo.setImageScan(imagenFactura.getImage());
+                    cargo.setDate(fechaGastoTextField.getValue());
+                    cargo.setCategory(categoriaCB.getValue());
+                    pulsadoOK=true;
+                    cancelarButton.getScene().getWindow().hide();
+            }else{
+                  Alert alert = new Alert(AlertType.INFORMATION);
+                    // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
+                    alert.setHeaderText("¡Campos incompletos!");
+                    // ó null si no queremos cabecera
+                    alert.setContentText("¡Faltan campos por completar!");
+                    alert.showAndWait();
+            }
+
+        }
+        
     }
 
     @FXML
