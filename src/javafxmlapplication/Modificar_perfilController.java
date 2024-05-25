@@ -64,16 +64,15 @@ public class Modificar_perfilController implements Initializable {
     private ComboBox<String> imagenesComboBox;
     @FXML
     private Button atrasButton;
-    
-    private boolean emailValido;
-    private boolean passwordValido;
-    private boolean passwordRepValido;
-    
-    String interfaz;
     @FXML
     private Button logOutButton;
     @FXML
     private Hyperlink ayudaLink;
+    
+    private boolean emailValido;
+    private boolean passwordValido;
+    private boolean passwordRepValido;
+    private String interfaz;
     public void initInterfaz(String i){
         interfaz = i;
     }
@@ -192,6 +191,14 @@ public class Modificar_perfilController implements Initializable {
                         miCargador = new FXMLLoader(getClass().getResource("Ventana_categorias.fxml"));
                         root = miCargador.load();
                         JavaFXMLApplication.setRoot(root);
+                    case "Graficos_categorias":
+                        miCargador = new FXMLLoader(getClass().getResource("Graficos_categorias.fxml"));
+                        root = miCargador.load();
+                        JavaFXMLApplication.setRoot(root);
+                    case "Graficos_gastos":
+                        miCargador = new FXMLLoader(getClass().getResource("Graficos_gastos.fxml"));
+                        root = miCargador.load();
+                        JavaFXMLApplication.setRoot(root);
                 }
             } else {
                 Alert alert = new Alert(AlertType.WARNING);
@@ -226,10 +233,22 @@ public class Modificar_perfilController implements Initializable {
                 miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
                 root = miCargador.load();
                 JavaFXMLApplication.setRoot(root);
+                break;
             case "Ventana_categorias":
-                miCargador = new FXMLLoader(getClass().getResource("Ventana_gastos.fxml"));
+                miCargador = new FXMLLoader(getClass().getResource("Ventana_categorias.fxml"));
                 root = miCargador.load();
                 JavaFXMLApplication.setRoot(root);
+                break;
+            case "Graficos_categorias":
+                miCargador = new FXMLLoader(getClass().getResource("Graficos_categorias.fxml"));
+                root = miCargador.load();
+                JavaFXMLApplication.setRoot(root);
+                break;
+            case "Graficos_gastos":
+                miCargador = new FXMLLoader(getClass().getResource("Graficos_gastos.fxml"));
+                root = miCargador.load();
+                JavaFXMLApplication.setRoot(root);
+                break;
         }
     }
 

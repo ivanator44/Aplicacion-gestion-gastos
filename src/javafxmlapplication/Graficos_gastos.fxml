@@ -40,7 +40,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="lapizImageView" fitHeight="27.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="lapizImageView" fitHeight="27.0" fitWidth="21.0" onMouseClicked="#modificarPerfil" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/lapiz.png" />
                            </image>

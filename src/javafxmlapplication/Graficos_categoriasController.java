@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javax.imageio.ImageIO;
 import model.Acount;
 import model.AcountDAOException;
@@ -136,4 +137,14 @@ public class Graficos_categoriasController implements Initializable {
         Parent root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
     }   
+
+    @FXML
+    private void modificarPerfil(MouseEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Modificar_perfil.fxml"));
+        Parent root = miCargador.load();
+        Modificar_perfilController controlador = miCargador.getController();
+        controlador.initInterfaz("Graficos_categorias");
+        JavaFXMLApplication.setRoot(root);
+    }
 }

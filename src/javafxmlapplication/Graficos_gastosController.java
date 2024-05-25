@@ -27,6 +27,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import model.Acount;
 import model.AcountDAOException;
 
@@ -149,6 +150,16 @@ public class Graficos_gastosController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
                 "Ventana_gastos.fxml"));
         Parent root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
+    }
+
+    @FXML
+    private void modificarPerfil(MouseEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource(
+                "Modificar_perfil.fxml"));
+        Parent root = miCargador.load();
+        Modificar_perfilController controlador = miCargador.getController();
+        controlador.initInterfaz("Graficos_gastos");
         JavaFXMLApplication.setRoot(root);
     }
 }

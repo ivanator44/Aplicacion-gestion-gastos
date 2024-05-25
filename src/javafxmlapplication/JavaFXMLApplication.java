@@ -6,8 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class JavaFXMLApplication extends Application {
-    
+public class JavaFXMLApplication extends Application {    
     private static Scene scene;
 
     static void setRoot(Parent root) {
