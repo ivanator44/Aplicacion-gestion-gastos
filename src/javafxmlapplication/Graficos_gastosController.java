@@ -71,6 +71,10 @@ public class Graficos_gastosController implements Initializable {
             
             // Configurar el PieChart
             configurarPieChart();
+            
+            //Actualizar la foto de perfil y el nickname para que lo muestre la ventana
+            avatar.setImage(Acount.getInstance().getLoggedUser().getImage());
+            nickname.setText(Acount.getInstance().getLoggedUser().getNickName());
         } catch (AcountDAOException | IOException ex) {
             Logger.getLogger(Graficos_gastosController.class.getName()).log(Level.SEVERE, null, ex);
         }
