@@ -80,7 +80,6 @@ public class Modificar_perfilController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             // TODO
-            
             emailValido = true;
             passwordValido = true;
             passwordRepValido = true;

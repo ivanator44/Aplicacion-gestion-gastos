@@ -70,7 +70,7 @@ public class Añadir_gastoController implements Initializable {
         cargo = c;
         nombreGastoTextField.setText(cargo.getName());
         unidadesTextField.setText(Integer.toString(cargo.getUnits()));
-        costeTextField.setText(Integer.toString(cargo.getUnits()));
+        costeTextField.setText(Double.toString(cargo.getCost()));
         fechaGastoTextField.setValue(cargo.getDate());
         categoriaCB.setValue(cargo.getCategory());
         descripcionTextField.setText(cargo.getDescription());

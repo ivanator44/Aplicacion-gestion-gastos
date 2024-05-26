@@ -1,6 +1,18 @@
 package javafxmlapplication;
 
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -102,10 +114,10 @@ public class Graficos_categoriasController implements Initializable {
     }    
     
     @FXML
-    private void generarReporte(ActionEvent event) throws IOException {
-        /*saveAsImage(pieChart, "pieChart.png");
+    private void generarReporte(ActionEvent event) throws IOException, DocumentException {
+        saveAsImage(pieChart, "pieChart.png");
         saveAsImage(barChart, "barChart.png");
-        createPdfWithCharts("charts_report.pdf");*/
+        createPdfWithCharts("charts_report.pdf");
     }
 
     public void saveAsImage(Node node, String filePath) throws IOException {
@@ -114,26 +126,82 @@ public class Graficos_categoriasController implements Initializable {
         ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
     }
     
-    /*public void createPdfWithCharts(String dest) {
-        try {
-            PdfWriter writer = new PdfWriter(dest);
-            PdfDocument pdf = new PdfDocument(writer);
-            Document document = new Document(pdf);
+    public void createPdfWithCharts(String dest) throws DocumentException, BadElementException, IOException {
+        // Exportar gráficos como imágenes
+        exportarGraficoComoImagen(barChart, "barChart.png");
+        exportarGraficoComoImagen(pieChart, "pieChart.png");
 
-            // Añadir las imágenes al PDF
-            ImageData imageData1 = ImageDataFactory.create("chart1.png");
-            Image chart1 = new Image(imageData1);
-            document.add(chart1);
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("Reporte.pdf"));
 
-            ImageData imageData2 = ImageDataFactory.create("chart2.png");
-            Image chart2 = new Image(imageData2);
-            document.add(chart2);
+        document.open();
 
-            document.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        com.lowagie.text.Font boldFont = new com.lowagie.text.Font(com.lowagie.text.Font.HELVETICA, 12, com.lowagie.text.Font.BOLD);
+
+        // Título del documento
+        Paragraph title = new Paragraph("Reporte de Gastos", boldFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
+
+        document.add(new Paragraph(" ")); // Espacio en blanco
+
+        // Agregar gráfico de barras
+        document.add(new Paragraph("Gráfico de Barras:"));
+        Image barChartImage = Image.getInstance("barChart.png");
+        barChartImage.scaleToFit(500, 300);
+        document.add(barChartImage);
+
+        document.add(new Paragraph(" ")); // Espacio en blanco
+
+        // Agregar gráfico de pastel
+        document.add(new Paragraph("Gráfico de Pastel:"));
+        Image pieChartImage = Image.getInstance("pieChart.png");
+        pieChartImage.scaleToFit(500, 300);
+        document.add(pieChartImage);
+
+        document.add(new Paragraph(" ")); // Espacio en blanco
+
+        // Agregar tabla de gastos
+        PdfPTable table = new PdfPTable(3);
+        table.setWidthPercentage(100);
+        table.setSpacingBefore(10f);
+        table.setSpacingAfter(10f);
+
+        // Encabezados de la tabla
+        PdfPCell cell1 = new PdfPCell(new Phrase("Nombre", boldFont));
+        PdfPCell cell2 = new PdfPCell(new Phrase("Costo", boldFont));
+        PdfPCell cell3 = new PdfPCell(new Phrase("Fecha", boldFont));
+        table.addCell(cell1);
+        table.addCell(cell2);
+        table.addCell(cell3);
+
+        // Agregar filas con datos de gastos
+        for (Charge gasto : charges) {
+            table.addCell(gasto.getName());
+            table.addCell(String.valueOf(gasto.getCost()));
+            table.addCell(gasto.getDate().toString());
         }
-    }*/
+
+        document.add(table);
+
+        // Total de gastos
+        document.add(new Paragraph("Total de gastos: " + totalGastos, boldFont));
+
+        document.close();
+        System.out.println("Impreso");
+    }
+    
+    private void exportarGraficoComoImagen(BarChart<String, Number> chart, String path) throws IOException {
+        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+        ImageIO.write(bufferedImage, "png", new File(path));
+    }
+
+    private void exportarGraficoComoImagen(PieChart chart, String path) throws IOException {
+        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+        ImageIO.write(bufferedImage, "png", new File(path));
+    }
     
     @FXML
     private void atras(ActionEvent event) throws IOException {
