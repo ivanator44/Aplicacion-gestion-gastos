@@ -70,6 +70,7 @@ public class Graficos_categoriasController implements Initializable {
     @FXML
     private Label totalLabel;
     
+    
     List<Charge> charges;
     List<Category> categories;
     double totalGastos;
@@ -110,7 +111,7 @@ public class Graficos_categoriasController implements Initializable {
             nickname.setText(Acount.getInstance().getLoggedUser().getNickName());
         } catch (AcountDAOException | IOException ex) {
             Logger.getLogger(Graficos_categoriasController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }    
     
     @FXML
