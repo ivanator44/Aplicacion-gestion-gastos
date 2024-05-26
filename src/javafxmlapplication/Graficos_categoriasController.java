@@ -92,6 +92,10 @@ public class Graficos_categoriasController implements Initializable {
                 pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
             }
             pieChart.setData(pieChartData);
+            
+            //Actualizar la foto de perfil y el nickname para que lo muestre la ventana
+            avatar.setImage(Acount.getInstance().getLoggedUser().getImage());
+            nickname.setText(Acount.getInstance().getLoggedUser().getNickName());
         } catch (AcountDAOException | IOException ex) {
             Logger.getLogger(Graficos_categoriasController.class.getName()).log(Level.SEVERE, null, ex);
         }
