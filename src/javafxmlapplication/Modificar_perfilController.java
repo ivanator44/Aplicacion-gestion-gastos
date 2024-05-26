@@ -284,7 +284,8 @@ public class Modificar_perfilController implements Initializable {
     private void sacarAyuda(ActionEvent event) {
         Alert ayuda = new Alert(AlertType.INFORMATION);
         ayuda.setHeaderText("Información");
-        ayuda.setContentText("Formato correo: nombre@dominio.terminación\nRequisitos contraseña: 8 carácteres min. y al menos un carácter especial.");
+        ayuda.setContentText("Formato correo: nombre@dominio.terminación"
+                + "\nRequisitos contraseña: 8 carácteres min. y al menos un carácter especial.");
         ayuda.showAndWait();
     }
     //--------------------------------------------------------------------------

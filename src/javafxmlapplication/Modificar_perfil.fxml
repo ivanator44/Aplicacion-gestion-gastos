@@ -19,13 +19,18 @@
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="500.0">
          <children>
-            <HBox id="hboxRegistro" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="406.0" stylesheets="@../css/Registro.css">
+            <HBox id="hboxRegistro" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="406.0" spacing="5.0" stylesheets="@../css/Registro.css">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Modificar perfil">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
                   </Text>
+                  <ImageView fitHeight="51.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/logo0.png" />
+                     </image>
+                  </ImageView>
                </children>
                <VBox.margin>
                   <Insets />
@@ -98,25 +103,43 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox alignment="TOP_RIGHT" prefWidth="450.0" spacing="15.0">
+            <HBox prefHeight="118.0" prefWidth="450.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefWidth="245.0">
-                     <HBox.margin>
-                        <Insets bottom="80.0" />
-                     </HBox.margin>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="30.0" prefWidth="75.0" text="Log Out" />
+                        <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="216.0" spacing="5.0">
+                           <children>
+                              <Label text="¿Quieres cerrar sesión?" />
+                              <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="30.0" prefWidth="75.0" text="Log Out" />
+                           </children>
+                           <padding>
+                              <Insets top="8.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets bottom="25.0" />
+                           </HBox.margin>
+                        </VBox>
                      </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
                   </HBox>
-                  <Button fx:id="guardarButton" mnemonicParsing="false" onAction="#guardar" prefHeight="30.0" prefWidth="75.0" text="Guardar">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="atrasButton" mnemonicParsing="false" onAction="#atras" prefHeight="30.0" prefWidth="62.0" text="Atrás" />
+                  <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="249.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="guardarButton" mnemonicParsing="false" onAction="#guardar" prefHeight="30.0" prefWidth="75.0" text="Guardar">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="atrasButton" mnemonicParsing="false" onAction="#atras" prefHeight="30.0" prefWidth="62.0" text="Atrás" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
                </children>
                <padding>
-                  <Insets right="20.0" top="20.0" />
+                  <Insets right="20.0" />
                </padding>
                <VBox.margin>
                   <Insets bottom="-50.0" />

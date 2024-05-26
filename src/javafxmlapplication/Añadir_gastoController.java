@@ -1,6 +1,8 @@
 package javafxmlapplication;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -74,9 +76,12 @@ public class Añadir_gastoController implements Initializable {
         fechaGastoTextField.setValue(cargo.getDate());
         categoriaCB.setValue(cargo.getCategory());
         descripcionTextField.setText(cargo.getDescription());
-        imagenFactura.setImage(cargo.getImageScan());
+        Image imagen = cargo.getImageScan();
+        if (imagen != null) {
+            imagenFactura.setImage(imagen);
+            urlFactura.setText("-Imagen subida-");
+        }else{urlFactura.setText("-No hay imagen-");}
         camposInicializados = true;
-        urlFactura.setText(imagenFactura.getImage().getUrl());
     }
     
     Acount cuenta;
@@ -97,16 +102,20 @@ public class Añadir_gastoController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir fichero");
         fileChooser.getExtensionFilters().addAll(
-        new ExtensionFilter("Ficheros de texto", "*.txt"),
-        new ExtensionFilter("Imágenes", "*.png", "*.jpg"));
+            new ExtensionFilter("Imágenes", "*.png", "*.jpg"));
         
         File selectedFile = fileChooser.showOpenDialog(
         ((Node)event.getSource()).getScene().getWindow());
+        
         if (selectedFile != null) {
-            String t = "/imagenes/cheque-de-pago.png";
-            Image imagen = new Image(t,25,25,true,true);
-            imagenFactura.setImage(imagen);
-            urlFactura.setText(selectedFile.getAbsolutePath());
+            try {
+                FileInputStream inputStream = new FileInputStream(selectedFile);
+                Image imagen = new Image(inputStream, 100, 100, true, true);
+                imagenFactura.setImage(imagen);
+                urlFactura.setText(selectedFile.getAbsolutePath());
+            } catch (FileNotFoundException e) {
+                System.err.println("Error al cargar la imagen");
+            }
         } 
     }
     

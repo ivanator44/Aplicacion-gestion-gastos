@@ -94,14 +94,14 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox id="imagenFactura" alignment="CENTER" prefHeight="190.0" prefWidth="178.0" stylesheets="@../css/Añadir_gasto.css">
+            <VBox id="imagenFactura" alignment="CENTER" prefHeight="190.0" prefWidth="178.0" spacing="5.0" stylesheets="@../css/Añadir_gasto.css">
                <children>
                   <ImageView fx:id="imagenFactura" fitHeight="114.0" fitWidth="128.0" onMouseClicked="#subirFactura" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../imagenes/añadir_recibo.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="urlFactura" onMouseClicked="#subirFactura" prefHeight="34.0" prefWidth="111.0" text="Pulse aquí para subir factura" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="urlFactura" alignment="CENTER" onMouseClicked="#subirFactura" prefHeight="34.0" prefWidth="111.0" text="Pulse aquí para subir factura" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="11.0" />
                      </font></Label>

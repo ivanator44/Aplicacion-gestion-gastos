@@ -65,8 +65,6 @@ public class Graficos_gastosController implements Initializable {
     @FXML
     private Label nickname;
     @FXML
-    private ImageView lapizImageView;
-    @FXML
     private Button reporteButton;
     @FXML
     private Button atrasButton;
@@ -77,6 +75,8 @@ public class Graficos_gastosController implements Initializable {
     
     private List<Charge> gastos;
     double totalGastos;
+    @FXML
+    private ImageView lapizImageView;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {

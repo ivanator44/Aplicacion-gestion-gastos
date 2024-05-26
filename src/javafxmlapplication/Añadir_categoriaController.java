@@ -67,13 +67,13 @@ public class Añadir_categoriaController implements Initializable {
         }else{
             if (!nombreCategoriaTextField.getText().isEmpty() && !descripcionTextField.getText().isEmpty()) {
                 if (Acount.getInstance().registerCategory(nombreCategoriaTextField.getText(), descripcionTextField.getText())){
+                    nombreCategoriaTextField.getScene().getWindow().hide();
                     Alert alert = new Alert(AlertType.INFORMATION);
                     // ó AlertType.WARNING ó AlertType.ERROR ó AlertType.CONFIRMATIONalert.setTitle("Diálogo de información");
                     alert.setHeaderText(null);
                     // ó null si no queremos cabecera
                     alert.setContentText("Categoría registrada correctamente.");
                     alert.showAndWait();
-                    nombreCategoriaTextField.getScene().getWindow().hide();
                 }
             } else {
                 Alert camposVacios = new Alert(AlertType.ERROR);

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -88,16 +89,13 @@ public class Ventana_gastosController implements Initializable {
             Logger.getLogger(Ventana_gastosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        gastosTableV.focusedProperty().addListener( (o, oldVal, newVal) -> {
-            if (gastosTableV.getSelectionModel().getSelectedIndex() != -1){
-                modificarButton.setDisable(false);
-                borrarButton.setDisable(false);
+        modificarButton.disableProperty().bind(
+            Bindings.equal(-1,
+            gastosTableV.getSelectionModel().selectedIndexProperty()));
 
-            }else{      
-                modificarButton.setDisable(true);
-                borrarButton.setDisable(true);
-            }
-        });
+        borrarButton.disableProperty().bind(
+            Bindings.equal(-1,
+            gastosTableV.getSelectionModel().selectedIndexProperty()));
          
         Fecha.setCellValueFactory(
             chargeFila->new SimpleStringProperty(chargeFila.getValue().getDate().toString()));
@@ -120,12 +118,23 @@ public class Ventana_gastosController implements Initializable {
         Unidades.setCellFactory(c -> new TabCell());
         
         Recibo.setCellValueFactory(
-            personaFila ->new SimpleStringProperty(personaFila.getValue().getImageScan().getUrl()));
+            chargeFila->new SimpleStringProperty(chargeFila.getValue().getImageScan().getUrl()));
         Recibo.setCellFactory(c -> new ImagenTabCell());
     }    
 
     //Funcion para refrescar la lista una vez se hayan hecho cambios
     private void actualizarLista() throws AcountDAOException, IOException {
+        // Obtén la lista de categorías del usuario
+        userCharges = Acount.getInstance().getUserCharges();
+        // Agrega cada categoría a la lista observable
+        if (userCharges != null){
+            datos.setAll(userCharges);
+            numeroGastos.setText("Total de categorías: " + datos.size());
+        }
+    }
+    
+    //Funcion para refrescar la lista una vez se hayan hecho cambios
+    private void actualizarLista(Category categoria) throws AcountDAOException, IOException {
         // Obtén la lista de categorías del usuario
         userCharges = Acount.getInstance().getUserCharges();
         // Agrega cada categoría a la lista observable
@@ -255,25 +264,22 @@ public class Ventana_gastosController implements Initializable {
     class ImagenTabCell extends TableCell<Charge, String> {
         private ImageView view = new ImageView();
         private Image imagen;
-
         @Override
         protected void updateItem(String t, boolean bln) {
             super.updateItem(t, bln);
             if (t == null || bln) {
+                t = "/imagenes/cruzado.png";
+                imagen = new Image(t, 20, 20, true, true);
                 setText(null);
                 setGraphic(null);
             } else {
-                 // Carga la imagen correctamente desde los recursos
-                try{
-                    String imagePath = "/imagenes/factura.png"; // Ruta relativa dentro del proyecto
-                    Image imagen = new Image(getClass().getResourceAsStream(imagePath), 25, 25, true, true);
-                    view.setImage(imagen);
-                    setGraphic(view);
-                }catch(Exception e) {
-                    setText("Sin imagen"); // Texto de error si la imagen no se puede cargar
-                    setGraphic(null);
-                }
+                t = "/imagenes/factura.png";
+                imagen = new Image(t, 20, 20, true, true);
+                view.setImage(imagen);
+                setGraphic(view);
+                setAlignment(Pos.CENTER);
             }
-        }  
+        }
+ 
     }
 }

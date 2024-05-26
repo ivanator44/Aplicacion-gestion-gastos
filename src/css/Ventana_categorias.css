@@ -24,3 +24,17 @@
 #ayudaLabel:hover{
     -fx-underline:true;
 }
+
+.vbox{
+    -fx-background-color: linear-gradient(to right bottom, #d9ffdd, #e4e9ff);
+}
+
+.perfilBox{
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-border-color: #FFFFFF;
+
+    -fx-background-color:linear-gradient(to right bottom, #8ff39b, #5b9ff6);
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
+}
