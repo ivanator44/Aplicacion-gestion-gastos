@@ -6,8 +6,8 @@ Este proyecto fue desarrollado como parte de una asignatura sobre diseño de int
 
 - Registro manual de gastos con descripción y cantidad
 - Clasificación básica por categorías
-- Interfaz gráfica sencilla e intuitiva (JavaFX + SceneBuilder)
-- Estilizado con CSS para una mejor experiencia visual
+- Interfaz gráfica sencilla (JavaFX + SceneBuilder)
+- Estilizado con CSS
 
 ## Tecnologías utilizadas
 
